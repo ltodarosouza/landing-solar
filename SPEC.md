@@ -1,155 +1,91 @@
 # SPEC — Landing Ravena Solar
 
-Escrita antes da página. Se a página divergir daqui, um dos dois está errado.
+Esta é a spec da página **como ela está hoje**. Foi escrita antes da primeira versão e reescrita no fim, depois de várias rodadas de ajuste; as mudanças de ideia que importam estão em "O que mudou de ideia". Se a página divergir daqui, um dos dois está errado.
 
 ## A única coisa que a página precisa fazer acontecer
 
-Uma pessoa com conta de luz a partir de R$ 450 por mês, em Sorocaba, Votorantim, Itu ou Salto, **pede uma simulação**. Meta do cliente: de ~12 para 25 pedidos por mês, com menos pedidos de quem tem conta de R$ 200.
+Uma pessoa com conta de luz a partir de R$ 450 por mês, em Sorocaba, Votorantim, Itu ou Salto, **pede uma simulação**. Meta do cliente: de cerca de 12 para 25 pedidos por mês, com menos pedidos de quem tem conta de R$ 200.
 
 ## Para quem
 
-Dono da casa, 35 a 60 anos, família, compara três orçamentos e leva de duas a oito semanas para decidir. Desconfia do setor. O medo número um é a empresa sumir com a obra pela metade.
+Dono da casa, 35 a 60 anos, família, compara três orçamentos e leva de duas a oito semanas para decidir. Desconfia do setor. O medo número um é a empresa sumir com a obra pela metade; depois vêm o telhado infiltrar e a dúvida se, depois da taxação do sol, ainda vale a pena.
 
 ## A promessa
 
-> Uma conta de R$ 780 que virou R$ 118, numa casa de Sorocaba, instalada por equipe própria.
+> Seu telhado produz energia. Sua conta de luz fica bem menor.
 
-Por quê: é o único caso com número conferido que o cliente tem, e responde ao medo número um e à pergunta "vale a pena?" com a mesma frase. Não prometemos percentual (a faixa real é 75% a 90%, e a conta não zera).
+Prova logo abaixo, no mesmo lugar: uma casa em Sorocaba que pagava R$ 780 e hoje paga R$ 118 (queda de 85%, a conta desse caso). É o único caso com número conferido que o cliente tem. Não prometemos percentual para todo mundo: a média dos clientes é de 75% a 90% de queda, e a conta nunca zera.
+
+O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação ou Lei. O termo técnico aparece depois, já explicado.
+
+## O que a página tem, na ordem
+
+1. **Navbar:** barra reta e fixa no topo; vira pílula flutuante ao rolar. Links "O sistema", "Etapas", "Perguntas" e o botão.
+2. **Hero:** título, uma frase, botão, a casa e, colado nela, o cartão da economia (R$ 780 riscado, R$ 118, selo de 85%). Quase nada de texto.
+3. **Prova social:** 412 sistemas, 4,8 no Google (137 avaliações), 6 anos, 11 pessoas de equipe própria com carteira assinada. Os números contam quando o bloco chega ao meio da tela.
+4. **Do sol à conta de luz:** cena guiada pelo scroll, em duas colunas (texto de um lado, imagem do outro), seis capítulos: o sol bate no telhado, a luz vira energia, o inversor deixa a energia pronta para usar (10 anos de garantia), a casa usa a energia do telhado, o que sobra vira crédito, à noite o crédito paga (e a conta não zera).
+5. **Quanto a conta cai:** duas barras, antes e hoje, com a faixa média dos clientes (75% a 90%) desenhada em volta da barra de hoje. Texto único: a média e "ela não zera". Botão.
+6. **Quanto custa e quando se paga:** R$ 14 mil a R$ 19 mil para 5 a 8 kWp (12 a 20 painéis); entrada zero é possível, com dois bancos, e a parcela costuma ficar perto da conta de luz de hoje. Uma linha do tempo de 25 anos mostra o retorno (3 a 4 anos) e as garantias (5 anos da instalação, 10 do inversor, 25 do painel).
+7. **Quem instala é a nossa equipe:** mapa das quatro cidades num raio de 80 km, equipe própria e assistência autorizada da marca do inversor.
+8. **E se chover?:** a pergunta do cliente, a garantia de 5 anos contra infiltração causada pela obra, "5 anos" em destaque e uma animação pequena e sutil (a casa, chuva leve, um selo de certo).
+9. **Etapas:** trilha vertical com uma bolinha que desce com o scroll e acende seis etapas (simulação, visita, proposta, homologação na CPFL, instalação, acompanhamento). Prazo: de 45 a 60 dias entre a assinatura e o sistema ligado.
+10. **Perguntas:** Lei 14.300, mudar de casa, bateria.
+11. **Formulário** em seção escura: nome, WhatsApp, cidade e valor médio da conta; antes dele, uma linha de quem a Ravena não atende. O botão repete a mesma ação.
+12. **Rodapé:** descrição da empresa, cidades e a CPFL como distribuidora.
 
 ## Decisões
 
 | Decisão | Escolha | Motivo |
 |---|---|---|
-| Ação única | "Pedir simulação", mesma frase no menu, na primeira dobra e no fim | Uma coisa só para clicar |
-| Filtro de conta baixa | Antes do formulário, uma linha diz que abaixo de R$ 450 a conta não fecha. No campo, valor abaixo de 450 bloqueia o envio e explica | O vendedor perde o dia com conta de R$ 200; o cliente mesmo desaconselha |
-| Filtro de região | Cidade em lista com as quatro atendidas, mais "Outra cidade", que bloqueia e explica o raio de 80 km | Sem atendimento fora do raio |
+| Ação única | "Pedir simulação", com a mesma frase no menu, no hero, depois das barras e no formulário | Uma coisa só para clicar |
+| Filtro de conta baixa | No campo, valor abaixo de R$ 450 bloqueia o envio e explica | O vendedor perde o dia com conta de R$ 200; o cliente mesmo desaconselha |
+| Filtro de região | Cidade em lista com as quatro atendidas e "Outra cidade", que bloqueia e explica o raio de 80 km | Sem atendimento fora do raio |
 | Foto da conta | Não há campo de arquivo. Depois do envio, a página pede para mandar a foto ou o PDF na conversa de WhatsApp | A página é estática, sem servidor para receber arquivo; o WhatsApp recebe |
-| Envio | O formulário abre o WhatsApp da Ravena com a mensagem pronta | Resposta é por WhatsApp no mesmo dia útil; sem back-end, sem dado guardado por nós |
-| Ordem das seções | Pela ordem das objeções que o cliente ouve | Cada seção responde ao medo que a pessoa tem naquele ponto |
-| Stack | HTML, CSS e JavaScript puros, sem build, deploy na Vercel | Página de uma tela de rolagem; nada justifica framework |
-| Site de 2021 | Recomeço do zero. Aproveitado: só a logo e as cores dela | O antigo é "quem somos" + formulário no rodapé, que é o problema |
+| Envio | O formulário abre o WhatsApp da Ravena com a mensagem pronta | Resposta é por WhatsApp no mesmo dia útil; sem back-end e sem dado guardado por nós |
+| Ordem das seções | Primeiro entender o produto (hero e cena), depois o que muda na conta, o que custa, em quem confiar, o que acontece até ligar | Cada seção responde ao que a pessoa pergunta naquele ponto |
+| Site de 2021 | Recomeço do zero. Aproveitado: só a logo e as cores dela | O antigo é "quem somos" mais um formulário no rodapé, que é o problema |
 | Cor | Tokens tirados de `assets/logo.svg`, conferidos por script | O cliente pede que as cores venham do arquivo |
-
-## Revisão 2 (21/10/2026): menos texto, mais demonstração
-
-Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
-
-## Revisão 9 (21/10/2026): "E se chover?" pequeno e sutil
-
-Pedido do aluno: a cena da tempestade "parece um arco-íris em cima da casa", não dá para saber o que é cada parte e o usuário fica esperando; simplificar, uma animação pequena e sutil, não só texto, e sem precisar de uma cena.
-
-Decisão: sai a cena (cúpula, nuvens pesadas, relâmpago, três camadas de chuva, scroll preso, 231 peças). Entra um bloco de duas colunas: o texto com "5 anos" em destaque e uma animação pequena (a casa, chuva leve, o selo de garantia). A página continua sem descrever técnica de obra; só diz o que o brief diz.
-
-## Revisão 8 (21/10/2026): "E se chover?" refeito por outro caminho
-
-Pedido do aluno: a animação da infiltração, mesmo simplificada, continuava feia, com estética e intuito errados; pensar em outra forma completamente diferente.
-
-Diagnóstico: o corte técnico do telhado (fixação, vedação, estrutura) era uma ideia de engenheiro e, pior, descrevia uma técnica de vedação que o brief não traz. O que o brief dá é só isto: o medo do cliente ("isso não vai estragar meu telhado?") e a garantia de 5 anos da instalação, que inclui qualquer infiltração causada pela obra.
-
-Decisão: mostrar a sensação, não o mecanismo. Cena da casa sob uma tempestade que piora com o scroll, com a garantia como uma cúpula âmbar que a chuva não atravessa e o selo "5 anos" no fim. A página não descreve técnica de vedação, fixação, manta ou estrutura em lugar nenhum (o check proíbe).
-
-## Revisão 7 (21/10/2026): infiltração mais simples
-
-Pedido do aluno: "muita informação nessa animação, não dá para perceber o que é". A versão da revisão 6 tinha 163 peças, 6 rótulos e 15 gotas (corte com caibro, ripas, trilho, chapa, escoamento em linhas). Agora: 60 peças, 2 rótulos e 6 gotas, três passos. O que a pessoa precisa entender cabe em uma frase: a água corre até onde o painel é fixado, a vedação segura e o teto fica seco. Saíram o caibro, as ripas, a chapa, o caminho pontilhado, o ✕, as linhas de escoamento e os rótulos de painel, telha, estrutura e forro.
-
-## Revisão 6 (21/10/2026): infiltração em uma animação só, números do início e fluidez
-
-Pedido do aluno, em resumo: os números do início demoram a aparecer e não dá para ver o efeito; melhorar a fluidez de "Quanto a conta cai" e de "Quanto custa"; as duas animações de infiltração não estão intuitivas, melhor deixar só uma que mostre como funciona, e fazê-la bem melhor.
-
-Decisões:
-- **Infiltração:** saem os dois painéis lado a lado. Fica uma animação só, um corte do telhado com as partes nomeadas e quatro passos legendados que se repetem e podem ser escolhidos. A afirmação continua sendo só a do brief: garantia de 5 anos contra infiltração causada pela obra; a imagem não diz que outra empresa faz mal, mostra o caminho que a água tentaria e onde a vedação o fecha.
-- **Números do início:** contam quando o bloco chega ao meio da tela e de novo ao voltar. Antes contavam no carregamento, enquanto a pessoa ainda lia o hero.
-- **Conta e linha de 25 anos:** uma linha do tempo só por bloco, com a barra e o número na mesma variável, em vez de transições separadas.
-
-## Revisão 5 (21/10/2026): menos informação por tela, animações que o visitante realmente vê
-
-Pedido do aluno, em resumo:
-- Hero com menos informação, casa mais acima junto da economia, sem notas pequenas; o efeito do "bem menor" tem de voltar quando o visitante sobe de novo.
-- Trocar o controle de arrastar da conta por uma animação rápida e fluida.
-- Reapresentar "o que você precisa saber para confiar": onde a empresa atua e como protege o telhado, com uma animação de chuva tentando infiltrar (no estilo do "treine sua voz" do Entoa).
-- Tornar didático o custo (entrada zero, quanto custa, quando se paga) e as garantias.
-- Etapas em trilha vertical, com uma bolinha que desce com o scroll.
-- As animações precisam acontecer quando a pessoa está olhando, devagar o bastante para ser vista, e repetir.
-
-Decisões:
-- **Hero:** só título, uma frase, botão, casa e o cartão da economia (R$ 780 riscado em laranja, R$ 118 em marinho, selo de 85%). Saíram a legenda do caso, a nota "a partir de R$ 450", os três passos e o texto de apoio. O caso completo (6,4 kWp, março de 2025, média de doze meses) foi para a legenda das barras em "Quanto a conta cai". 85% é a conta do caso real, não uma promessa.
-- **"Quanto a conta cai":** sem controle. Duas barras (antes e hoje) e a faixa média dos clientes (75% a 90%) desenhada em volta da barra de hoje. Texto único: a média e a conta não zera.
-- **Custo e garantias juntos:** uma linha do tempo de 25 anos com quatro barras (o sistema se paga em 3 a 4 anos; garantias de 5, 10 e 25 anos), eixo de 0 a 25 e legenda de cor. Acima, duas informações grandes: o investimento (R$ 14 mil a R$ 19 mil, 5 a 8 kWp, 12 a 20 painéis) e a entrada zero com dois bancos.
-- **Onde atuamos:** mapa com ondas saindo de Sorocaba e três pontos curtos (80 km, equipe própria, assistência autorizada).
-- **Telhado protegido:** duas chuvas lado a lado, "o medo" e "com a Ravena". O lado do medo não aponta empresa nenhuma; mostra uma obra mal vedada em geral. A afirmação é só a do brief: garantia de 5 anos contra infiltração causada pela obra.
-- **Etapas:** trilha vertical com bolinha e uma mini-animação por etapa. O prazo (45 a 60 dias entre a assinatura e a ligação) fica no topo e na etapa 3.
-- **Gatilhos:** `.replay` com margem de 12% e 30% de visibilidade, recomeçando ao voltar. Números mais lentos (2,2 s).
-- Saiu o controle deslizante, a lista de abas das etapas, os quatro cartões de texto e o gráfico de barras separado do custo.
-
-## Revisão 4 (21/10/2026): produto claro, cena sem texto sobre a imagem, módulos no lugar de blocos de texto
-
-Pedido do aluno, em resumo:
-- Tirar tudo que acompanha o mouse (cursor, ímã, inclinação). Depois, liberou uma interação com o cursor só no estilo do hero do Entoa.
-- Casa mais realista (o painel no teto estava feio) e cena mais fluida, com o texto fora da imagem e hierarquia clara.
-- Hero mais claro sobre o produto, sem termo técnico.
-- Depois da cena havia "um monte de blocos iguais, só de texto": trocar por módulos que tragam informação e interação, com animações espalhadas e não lotadas.
-- Navbar reta e fixa no topo, que vira pílula curvada ao rolar. FAQ com movimento ao abrir e fechar.
-
-Decisões:
-- **Hero:** o título fala o que é e o que muda ("Seu telhado produz energia. Sua conta de luz fica bem menor."), com um marca-texto animado em "bem menor". Embaixo, três passos em linguagem simples e o cartão com a conta descendo de R$ 780 para R$ 118. kWp só na legenda pequena do cartão.
-- **Cena:** duas colunas, texto de um lado, imagem do outro. Casa nova em perspectiva e um anel de destaque que mostra de que parte do sistema o capítulo fala.
-- **Os quatro blocos de texto viraram quatro módulos com visual:** mapa animado com as quatro cidades, telhado com selo de 5 anos, barras de conta e parcela, e linha do tempo proporcional das garantias (25, 10 e 5 anos). O custo ganhou um gráfico de barras com o caso de Sorocaba (R$ 780 e R$ 118, proporcional).
-- **Cursor:** uma só interação, no hero (luz quente que acompanha o cursor, marca-texto que brilha, reflexo nos painéis). Nada mais segue o mouse.
-- **Navbar e perguntas:** como pedido.
-- **Texto:** o termo técnico fica fora do hero e volta explicado ("inversor: deixa a energia pronta para usar").
-
-## Revisão 3 (21/10/2026): o produto em ação
-
-Pedido do aluno: mostrar o uso das placas ao rolar, no espírito do Vale do Silício (cena que muda com o scroll), com mais interações e uma prova social legível (no print dele, o número ficou minúsculo ao lado de rótulos grandes: bug de CSS, corrigido).
-
-- **Nova seção "Do sol à conta de luz"**, logo depois da prova social: cena de casa com painéis guiada pelo scroll, seis capítulos. Os textos só descrevem o mecanismo (sol, painel, inversor, uso, crédito, noite) e reaproveitam o que o brief diz: 10 anos de garantia do inversor, crédito acumulado ao longo do mês, a conta não zera. Nenhum número novo.
-- **Interações:** cursor com rótulos, barra de leitura, navbar que marca a seção, hero que segue o mouse, botões com ímã, cartões que inclinam.
-- **Acessibilidade:** tudo isso desliga com `prefers-reduced-motion`; a cena vira lista de textos com imagem parada; o cursor só existe com mouse.
-
-## O que entra, na ordem
-
-1. **Navbar** em pílula flutuante: logo, âncoras "Como funciona" e "Perguntas", botão "Pedir simulação".
-2. **Hero:** título com o caso R$ 780 para R$ 118, subtítulo de uma frase, botão, ilustração de casa com painéis. Para quem é, numa linha.
-3. **Prova social:** 412 sistemas, 4,8 no Google (137 avaliações), 6 anos, 11 pessoas de equipe própria. Números grandes que contam ao rolar.
-3b. **Cena do telhado guiada pelo scroll (revisão 3):** o sistema funcionando, do sol à conta, em seis capítulos.
-4. **Interação "Veja a faixa da sua conta":** o visitante move um controle de R$ 450 a R$ 1.500 e vê a faixa em que a conta tende a ficar (queda de 75% a 90%, a média dos clientes). Diz que não é promessa e que a conta não zera. Leva o valor para o formulário. É a demonstração do produto e também o filtro de conta baixa.
-5. **Quatro blocos de objeção, cada um com título curto, duas frases e ilustração:** quem instala (mapa das quatro cidades, equipe própria, seis anos), telhado (garantia de infiltração), nublado e noite (crédito do mês), financiamento (entrada zero, parcela perto da conta).
-6. **Números do investimento numa faixa só:** R$ 14 mil a R$ 19 mil, 5 a 8 kWp, retorno de 3 a 4 anos.
-7. **Etapas interativas:** seis passos clicáveis, do pedido à ligação, com o prazo de 45 a 60 dias e a parte que não depende de nós.
-8. **Garantias:** 25, 10 e 5 anos.
-9. **Perguntas curtas:** Lei 14.300, mudar de casa, bateria.
-10. **Formulário em seção escura**, com o botão repetido. Antes dele, uma linha de quem não atendemos.
-11. **Rodapé.**
-
-## Mudanças de decisão
-
-- A **calculadora**, que eu tinha deixado de fora, volta numa forma limitada: ela só aplica a faixa de 75% a 90% que o brief dá, sem tarifa nem irradiação, e diz que é média. Motivo: o aluno pediu interação, e esta é verdadeira com os dados que temos.
-- **Imagens:** ilustrações vetoriais próprias, nas cores da marca, nítidas em qualquer tela. Não há foto de obra no material; foto de banco de imagens seria fingir obra que não é da Ravena. As 40 fotos próprias do cliente entram assim que ele enviar, no lugar das ilustrações dos blocos.
-- **Menos texto:** o custo em cartões, a lista longa de etapas e a seção "quando não somos a empresa certa" viraram uma faixa, seis passos clicáveis e uma linha.
+| Stack | HTML, CSS e JavaScript puros, sem build, deploy estático na Vercel | Nada justifica framework |
+| Movimento | Cada bloco anima só quando está bem dentro da tela e recomeça quando a pessoa volta. Tudo desliga com `prefers-reduced-motion` e a página funciona sem JavaScript | Animação que acaba antes de alguém ver não serve |
+| Interação com o cursor | Uma só, no hero: uma luz quente que acompanha o cursor | Cursor customizado, ímã e inclinação foram tirados a pedido do aluno |
 
 ## O que fica de fora, e por quê
 
-- **"Quem somos", "missão, visão e valores":** não vendem; o que importa de "quem somos" (seis anos, 11 pessoas, equipe própria) vira prova.
-- **Depoimentos em vídeo e fotos das 40 obras:** o cliente tem, mas não estão no material entregue. Não invento depoimento nem uso foto de banco. Pendência para o cliente enviar; a seção entra quando houver arquivo.
+- **"Quem somos", "missão, visão e valores":** não vendem. O que importa de "quem somos" (seis anos, onze pessoas, equipe própria) virou prova.
+- **Depoimentos em vídeo e fotos das 40 obras:** o cliente tem, mas não vieram no material. Não invento depoimento nem uso foto de banco de imagens. As imagens da página são ilustrações próprias, nas cores da marca.
 - **Texto das avaliações do Google:** só a nota e a contagem, que são o que o brief dá.
-- **Calculadora de economia com tarifa e irradiação:** o brief não dá as premissas. A interação da página só aplica a faixa média de 75% a 90%.
-- **Bateria, indústria, comércio:** só aparecem na seção "para quem não é".
+- **Calculadora de economia com tarifa e irradiação:** o brief não dá as premissas. A página só mostra o caso real e a faixa média de 75% a 90%.
+- **Técnica de obra** (vedação, fixação, manta, estrutura): o brief só traz a garantia de 5 anos contra infiltração causada pela obra. A página não descreve como a obra é feita.
+- **Bateria, indústria, comércio acima de 75 kWp, manutenção de sistema alheio:** aparecem só na linha de quem a Ravena não atende.
 - **Slogans do setor:** "energia do futuro", "sustentabilidade", "revolução solar".
 - **Blog, redes sociais, chat flutuante, pop-up:** concorrem com a ação.
 
 ## Linhas que a copy não cruza
 
 - Nada de "grátis", "economia de 95%", "energia do futuro", "revolução solar", "sustentabilidade".
-- Nenhum prazo além de 45 a 60 dias da assinatura até a ligação.
-- A conta não zera. Sempre diz.
-- Número sem fonte no brief não entra.
-- O caso de R$ 780 para R$ 118 é sempre apresentado como um caso, nunca como média.
+- Nenhum prazo além de 45 a 60 dias entre a assinatura e a ligação.
+- A conta não zera. A página diz isso mais de uma vez.
+- Número sem fonte no brief não entra. O 85% do selo é a conta do caso real (780 para 118), nunca uma média.
+- O caso de R$ 780 para R$ 118 é sempre apresentado como um caso, nunca como média. A média (75% a 90%) vem rotulada como média dos clientes.
+- Sem texto por cima de imagem, e sem jargão no hero.
+
+## O que mudou de ideia
+
+- **Controle deslizante da conta → duas barras.** Arrastar um valor para ver uma faixa não era intuitivo. Mostrar o caso real, com a faixa média em volta, diz a mesma coisa em dois segundos.
+- **Quatro cartões de texto → módulos visuais.** Depois da cena, a página era "um monte de blocos iguais, só de texto". Viraram o mapa, a linha do tempo de 25 anos e a pergunta da chuva.
+- **Hero com muita informação → hero enxuto.** Tinha 441 caracteres de texto, mais legenda e passos. Agora tem título, uma frase, botão, casa e o cartão da economia.
+- **Infiltração em corte técnico → bloco pequeno.** O corte do telhado era feio e, pior, inventava uma vedação que o brief não traz. Uma tempestade com uma cúpula âmbar sobre a casa foi tentada em seguida e descartada porque parecia um arco-íris. Ficou um bloco simples com a garantia em texto e uma animação sutil.
+- **Cursor customizado, ímã nos botões, cartões que inclinam → só a luz do hero.**
+- **Abas das etapas → trilha vertical com a bolinha que acompanha o scroll.**
 
 ## Pendências assumidas
 
 - O número de WhatsApp da Ravena não consta no brief. O código usa um **número fictício marcado como pendente** em um único lugar (`WHATSAPP` em `app.js`). Trocar antes de qualquer uso real.
-- Depoimentos em vídeo e fotos de obras (ver acima).
+- Depoimentos em vídeo e fotos de obras: entram assim que o cliente enviar os arquivos.
 
 ## Como saberemos que está pronto
 
-`node scripts/check.cjs` passa; a página foi aberta a 390 px e a 1280 px sem rolagem horizontal; o formulário foi testado com conta de R$ 200 (bloqueia), cidade fora do raio (bloqueia) e dados válidos (monta a mensagem). Evidência em `evidencia/`.
+- `node scripts/check.cjs` passa (cores contra a logo, contraste, fontes, fatos do brief, palavras proibidas, regras do formulário, animações, hero enxuto).
+- A página abre a 360, 390, 600, 768, 864, 899, 1024, 1280 e 1440 px sem rolagem horizontal.
+- O formulário foi testado com conta de R$ 200 (bloqueia), cidade fora do raio (bloqueia) e dados válidos (monta a mensagem).
+- A evidência, com o que foi verificado e o que não foi, está em `evidencia/EVIDENCIA.md`.
