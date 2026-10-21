@@ -222,8 +222,28 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 
 **Mensagens que dizem o motivo:** a recusa de conta diz "Seu gasto com luz está abaixo do mínimo de R$ 450 por mês… Sentimos muito" e a de cidade diz "Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender…" (check, 142). **Publicado:** push e deploy feitos; `evidencia/servidor-publico.txt` repete na URL pública conta R$ 200 → 422, Campinas → 422, válido → 200 e GET → 405, com as mensagens novas.
 
-**Não verificado:** não abri o formulário no navegador com a função ligada (na versão publicada), nem em aparelho físico; e a validação no servidor hoje não protege nada de fato, porque o servidor ainda não guarda o pedido (item 1 do FALTA.md): ela só passa a valer de verdade quando o pedido passar a ser gravado nele.
+**Não verificado nesta seção:** o formulário aberto no navegador com a função ligada (isso foi feito depois, na seção 17); aparelho físico; e a validação no servidor hoje não protege nada de fato, porque o servidor ainda não guarda o pedido (item 1 do FALTA.md): ela só passa a valer de verdade quando o pedido passar a ser gravado nele.
 
+
+## 17. Conversão para Next (a página não pode mudar)
+
+**Combinado:** a página fica idêntica; muda só a estrutura em volta. **Ponto de retorno:** a tag `antes-da-conversao-next` (estado estático, commit anterior ao da conversão); voltar é `git checkout antes-da-conversao-next`.
+
+**O que mudou na estrutura:** `index.html` virou `app/conteudo.html` (o mesmo HTML) entregue por `app/layout.js`, que traz título, descrição, `lang`, viewport e o `js` do `<html>`; `styles.css` virou `app/styles.css`; `app.js`, `cena.js` e a logo foram para `public/` (mesmos arquivos, mesmo endereço); `api/pedido.js` virou a rota `app/api/pedido/route.js`, que chama `lib/pedido.js`, e este usa o `validar` de `public/app.js`, a única fonte da regra (a página e o servidor leem o mesmo arquivo). `vercel.json` diz à Vercel que o projeto é Next. O endereço de produção é o mesmo, `landing-solar-sigma.vercel.app`.
+
+**Uma escolha que vale registrar:** o HTML da página não foi reescrito em componentes; ele entra como está dentro de um invólucro `display: contents` (que não vira caixa). Tentei antes pôr o conteúdo direto no `<body>`, e o React acusou erro de hidratação (#418) e apagou o que o `app.js` tinha feito; o invólucro resolveu. Reescrever em componentes seria outro trabalho, com risco de mudar a página, e não traz nada enquanto os scripts são de JavaScript puro.
+
+**Evidência de antes e depois (três larguras, de cima a baixo):** `evidencia/conversao-next/antes-*.png` e `depois-*.png` (celular 390, tablet 768 e desktop 1280 px). O script `ferramentas/captura.cjs` abre a página no Chrome, com movimento reduzido e as animações paradas no instante zero, para a imagem não depender do tempo; `ferramentas/compara2.cjs` compara. O "antes" saiu da página estática da tag, servida à parte. Resultado, local (`comparacao-local.txt`) e na URL pública (`comparacao-publica.txt`): mesmas alturas (11906, 11793 e 8889 px), **zero pixels com diferença acima de 3/255 nas três larguras** e o HTML do conteúdo igual depois dos scripts rodarem. Há de 1.637 a 15.610 pixels com diferença de **1/255**, todos na faixa da barra de navegação (y de 12 a 71), que não se enxerga. Para saber que a comparação enxerga diferença, mudei o raio dos cantos de 16 para 6 px no "antes": ela acusou cerca de 2.170 pixels diferentes em cada largura. E duas capturas do mesmo "antes" dão zero de diferença entre si.
+
+**Formulário (navegador, `evidencia/form-next.txt` local e `form-next-publico.txt` público, imagens em `formulario/` e `formulario-publico/`):** conta de R$ 200 recusada na página, com "Seu gasto com luz está abaixo do mínimo de R$ 450…", sem chamar o servidor; cidade "outra" recusada com "Sua cidade fica longe demais. Sentimos muito…", sem chamar o servidor; pedido válido: chama `/api/pedido` uma vez, recebe 200 e abre o WhatsApp com a mensagem; e o caso em que o servidor recusa: **aqui a resposta 422 foi simulada** (a página não deixa passar nada que o servidor recuse), e a página mostra a mensagem do servidor e não abre o WhatsApp. Nenhum erro de página nos quatro casos.
+
+**A rota, com `curl` (`servidor-next-local.txt` e `servidor-next-publico.txt`, script `scripts/pedidos.sh`):** conta R$ 200 → 422; "Campinas" e "outra" → 422; válido → 200; nome como objeto e conta como lista → 422; corpo que não é JSON → 400; GET → 405 com `Allow: POST`. Mesmos resultados de antes da conversão.
+
+**Check:** 146 de 146 (eram 142). Os caminhos do check mudaram para os novos arquivos, sem afrouxar nenhuma regra; entraram checks da estrutura (rota só repassa, uma cópia do `app.js`, scripts no fim do conteúdo, `vercel.json` e dependências).
+
+**Não verificado:** a comparação é da página carregada, com movimento reduzido e animações paradas; **não comparei imagem a imagem as animações em movimento nem os estados em que a página fica durante a rolagem**. Só vi, na versão publicada, que os scripts rodam (as classes de revelar aparecem) e que não há erro de página. Aparelho físico, Safari e Firefox continuam não testados. O primeiro `vercel deploy --prod` desta conversão terminou com erro e não investiguei a causa; repeti o mesmo comando e funcionou. O WhatsApp segue fictício e a validação ainda não guarda pedido.
+
+## 5. (revisão 2) O que NÃO foi verificado
 
 - Não abri em aparelho físico; o celular é emulação de 390 px.
 - Não vi a seção de investimento e a faixa de etapas a 390 px, nem o formulário a 390 px nesta revisão.
