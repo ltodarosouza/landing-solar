@@ -7,15 +7,16 @@ const path = require("path");
 const raiz = path.join(__dirname, "..");
 const ler = (p) => fs.readFileSync(path.join(raiz, p), "utf8");
 
-const html = ler("index.html");
-const css = ler("styles.css");
-const logo = ler("assets/logo.svg");
+const html = ler("app/conteudo.html");
+const layout = ler("app/layout.js");
+const css = ler("app/styles.css");
+const logo = ler("public/assets/logo.svg");
 const design = ler("DESIGN.md");
-const appPath = path.join(raiz, "app.js");
+const appPath = path.join(raiz, "public/app.js");
 const app = require(appPath);
-const cena = require(path.join(raiz, "cena.js"));
-const cenaJs = ler("cena.js");
-const appJs = ler("app.js");
+const cena = require(path.join(raiz, "public/cena.js"));
+const cenaJs = ler("public/cena.js");
+const appJs = ler("public/app.js");
 
 let falhas = 0;
 let total = 0;
@@ -99,14 +100,14 @@ const cssSemComentarios = css.replace(/\/\*[\s\S]*?\*\//g, "");
 const usosGradiente = [...cssSemComentarios.matchAll(/([^{}]+)\{[^}]*?gradient\(/g)].map((m) => m[1].trim());
 const gradPermitidos = new Set([".hero", ".hero-luz", ".destaque::after"]);
 verifica("gradiente só no fundo do hero, na luz do hero e no brilho do marca-texto: " + usosGradiente.join(" | "), usosGradiente.length === 3 && usosGradiente.every((u) => gradPermitidos.has(u)) && !/text-shadow/.test(css));
-verifica("movimento respeita prefers-reduced-motion", /@media \(prefers-reduced-motion: reduce\)/.test(css) && /\.js \.revela\s*{[^}]*opacity: 0/.test(css) && /<script>document\.documentElement\.className \+= " js";<\/script>/.test(html));
+verifica("movimento respeita prefers-reduced-motion", /@media \(prefers-reduced-motion: reduce\)/.test(css) && /\.js \.revela\s*{[^}]*opacity: 0/.test(css) && /document\.documentElement\.className \+= " js";/.test(layout));
 const escala = new Set(["0", "8", "16", "24", "48", "96"]);
 const espacos = [...css.matchAll(/--e[1-5]:\s*(\d+)px/g)].map((m) => m[1]);
 verifica("escala de espaço é 8, 16, 24, 48, 96", espacos.join(",") === "8,16,24,48,96", espacos.join(","));
 verifica("alvo de toque de 48 px no botão, nos campos e nas perguntas", /\.btn \{[^}]*min-height: 48px/.test(css) && /input\[type="text"\], input\[type="tel"\], select \{[^}]*min-height: 48px/.test(css) && /\.faq-item button \{[^}]*min-height: 48px/.test(css));
 
 // ---------- estrutura ----------
-verifica("tem meta viewport", /<meta name="viewport" content="width=device-width, initial-scale=1">/.test(html));
+verifica("tem meta viewport", /export const viewport = \{ width: "device-width", initialScale: 1 \};/.test(layout));
 verifica("tem um h1 só", (html.match(/<h1[\s>]/g) || []).length === 1);
 const imgs = html.match(/<img\b[^>]*>/g) || [];
 verifica("toda imagem tem alt", imgs.length > 0 && imgs.every((t) => /\balt="[^"]+"/.test(t)), imgs.length + " imagens");
@@ -116,7 +117,7 @@ const quebradas = ancoras.filter((a) => !ids.has(a));
 verifica("toda âncora interna aponta para um id", quebradas.length === 0, "quebradas: " + quebradas.join(", "));
 const fors = [...html.matchAll(/<label for="([^"]+)"/g)].map((m) => m[1]);
 verifica("todo label aponta para um campo (quatro, do formulário)", fors.length === 4 && fors.every((f) => ids.has(f)), fors.join(","));
-verifica("lang pt-BR", /<html lang="pt-BR">/.test(html));
+verifica("lang pt-BR", /<html lang="pt-BR"/.test(layout));
 
 // ---------- ação única ----------
 const botoes = [...html.matchAll(/<(?:a|button)\b[^>]*class="btn"[^>]*>([^<]+)</g)].map((m) => m[1].trim());
@@ -289,13 +290,8 @@ verifica("formulário: cada recusa diz o motivo — conta abaixo do mínimo e ci
 verifica("formulário: cidade fora da lista (não só \"outra\") é bloqueada", !!app.validar({ ...ok, cidade: "Campinas" }).cidade);
 
 // servidor: api/pedido.js repete as regras da página
-const pedido = require("../api/pedido.js");
-function chama(metodo, corpo) {
-  const r = { cab: {}, status: 0, json: null };
-  const res = { setHeader: (k, v) => { r.cab[k] = v; }, status: (s) => { r.status = s; return res; }, json: (j) => { r.json = j; return res; } };
-  pedido({ method: metodo, body: corpo }, res);
-  return r;
-}
+const { responder } = require("../lib/pedido.js");
+const chama = (metodo, corpo) => responder(metodo, corpo === undefined || typeof corpo === "string" ? corpo : JSON.stringify(corpo));
 verifica("servidor: pedido válido responde 200", chama("POST", ok).status === 200);
 const r200 = chama("POST", { ...ok, conta: "200" });
 verifica("servidor: conta de R$ 200 responde 422 com o motivo da conta", r200.status === 422 && !!r200.json.erros.conta);
@@ -304,14 +300,18 @@ verifica("servidor: cidade fora do raio responde 422 com o motivo da cidade", rF
 verifica("servidor: corpo vazio, texto solto e lista respondem 400", chama("POST", undefined).status === 400 && chama("POST", "isto não é json").status === 400 && chama("POST", []).status === 400);
 verifica("servidor: campo que não é texto nem número cai na validação (422, sem quebrar)", chama("POST", { ...ok, conta: { a: 1 }, nome: ["x"] }).status === 422);
 verifica("servidor: GET responde 405", chama("GET").status === 405);
-verifica("servidor: usa o validar da página, sem regra copiada", /require\("\.\.\/app\.js"\)/.test(ler("api/pedido.js")) && !/450/.test(ler("api/pedido.js")));
-verifica("página consulta /api/pedido antes de abrir o WhatsApp e só bloqueia com 422", /fetch\("\/api\/pedido"/.test(ler("app.js")) && /r\.status !== 422/.test(ler("app.js")));
+verifica("servidor: usa o validar da página, sem regra copiada", /require\("\.\.\/public\/app\.js"\)/.test(ler("lib/pedido.js")) && !/450/.test(ler("lib/pedido.js")) && !/450/.test(ler("app/api/pedido/route.js")));
+verifica("página consulta /api/pedido antes de abrir o WhatsApp e só bloqueia com 422", /fetch\("\/api\/pedido"/.test(ler("public/app.js")) && /r\.status !== 422/.test(ler("public/app.js")));
+verifica("rota /api/pedido existe na Next e só repassa para lib/pedido.js (sem regra própria)", /import pedido from "\.\.\/\.\.\/\.\.\/lib\/pedido\.js"/.test(ler("app/api/pedido/route.js")) && /export const POST/.test(ler("app/api/pedido/route.js")));
+verifica("uma só cópia do app.js (public/), usada pela página e pelo servidor; nada de app.js solto na raiz", fs.existsSync(path.join(raiz, "public/app.js")) && !fs.existsSync(path.join(raiz, "app.js")) && !fs.existsSync(path.join(raiz, "api")));
+verifica("os scripts da página ficam no fim do conteúdo, cena.js antes de app.js, como na página estática", /<script src="cena\.js"><\/script>\s*<script src="app\.js"><\/script>\s*$/.test(html));
+verifica("Vercel entende o projeto como Next (vercel.json) e tem next, react e react-dom", /"framework":\s*"nextjs"/.test(ler("vercel.json")) && ["next", "react", "react-dom"].every((d) => JSON.parse(ler("package.json")).dependencies[d]));
 const msg = app.montarMensagem(ok);
 verifica("mensagem de WhatsApp leva os quatro dados", ["Marta Souza", "15 99876-5432", "Itu", "620"].every((s) => msg.includes(s)));
 const url = app.linkWhatsApp(ok);
 verifica("link do WhatsApp é wa.me com o texto codificado", /^https:\/\/wa\.me\/\d{12,13}\?text=/.test(url) && !url.includes(" "));
-const defs = (ler("app.js").match(/var WHATSAPP\s*=/g) || []).length;
-verifica("número de WhatsApp definido em um só lugar e marcado como pendente", defs === 1 && /PENDENTE/.test(ler("app.js")));
+const defs = (ler("public/app.js").match(/var WHATSAPP\s*=/g) || []).length;
+verifica("número de WhatsApp definido em um só lugar e marcado como pendente", defs === 1 && /PENDENTE/.test(ler("public/app.js")));
 
 console.log("\n" + (total - falhas) + " de " + total + " verificações passaram.");
 process.exit(falhas ? 1 : 0);

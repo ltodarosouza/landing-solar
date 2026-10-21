@@ -11,12 +11,13 @@ Página única de venda de energia solar residencial para a Ravena Solar (client
 ## Comandos
 
 - `node scripts/check.cjs` roda as verificações (cores contra o logo, contraste, só 4 tamanhos de fonte, fatos do brief, palavras proibidas, regras do formulário). Tem de terminar com todas as verificações passando e código 0. **Se um check falhar, descubra se o check ou a página está errado antes de mudar qualquer um dos dois. Nunca afrouxe o check para passar.**
-- `python3 -m http.server 4173` serve a página em `http://localhost:4173`.
+- `npm run dev` serve a página e a rota `/api/pedido` em `http://localhost:4173`. `npm run build` e `npm start` rodam a versão de produção.
 
 ## Estrutura
 
-- `index.html`, `styles.css`, `app.js`, `cena.js`: sem build, sem dependência. Deploy estático na Vercel. `cena.js` guarda o modelo puro da cena do sol (testado pelo check) e o driver do scroll.
-- `assets/logo.svg`: fonte das cores da marca. Não copie hex de cabeça; os três tokens de marca estão no topo do CSS e o check os compara com o SVG.
+- Projeto Next (App Router), com a página igual à que era estática: `app/conteudo.html` é o HTML da página (entregue pelo `app/layout.js`, que também traz título, descrição e o `js` do `<html>`); `app/styles.css` é o CSS; `public/app.js` e `public/cena.js` são os scripts (sem build, JavaScript puro, servidos como estão); `public/assets/logo.svg` é a logo. `cena.js` guarda o modelo puro da cena do sol (testado pelo check) e o driver do scroll.
+- `public/assets/logo.svg`: fonte das cores da marca. Não copie hex de cabeça; os três tokens de marca estão no topo do CSS e o check os compara com o SVG.
+- `app/api/pedido/route.js` e `lib/pedido.js`: a rota `/api/pedido`. A regra é a do `validar` de `public/app.js`, que é a única fonte: a página e o servidor usam o mesmo arquivo. Não copie a regra para o servidor.
 - `material/`: entrega do cliente (logo e site de 2021). Só leitura.
 - `evidencia/`: saídas do check e medidas feitas no navegador.
 
@@ -33,7 +34,7 @@ Página única de venda de energia solar residencial para a Ravena Solar (client
 - Botão âmbar com texto marinho. Laranja nunca é texto de corpo (contraste).
 - Nunca escrever: grátis, revolução solar, energia do futuro, sustentabilidade, economia de 95%. Nenhum prazo além de 45 a 60 dias. A conta não zera, e a página diz isso.
 - Abaixo de R$ 450 de conta ou cidade fora das quatro atendidas, o formulário não envia e explica por quê.
-- `WHATSAPP` em `app.js` é um número **fictício e pendente**; o brief não traz o real.
+- `WHATSAPP` em `public/app.js` é um número **fictício e pendente**; o brief não traz o real.
 
 ## Verificar antes de dizer que terminou
 

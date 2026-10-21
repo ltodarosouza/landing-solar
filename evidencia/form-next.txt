@@ -1,0 +1,38 @@
+{
+ "caso": "1-conta-200-recusada-no-navegador",
+ "chamadasAoServidor": 0,
+ "mensagens": {
+  "conta": "Seu gasto com luz está abaixo do mínimo de R$ 450 por mês. Abaixo disso o sistema não se paga em tempo razoável, e nós mesmos desaconselhamos a compra. Sentimos muito, mas não vamos seguir com o pedido."
+ },
+ "whatsappAberto": null,
+ "errosDePagina": []
+}
+{
+ "caso": "2-cidade-outra-recusada-no-navegador",
+ "chamadasAoServidor": 0,
+ "mensagens": {
+  "cidade": "Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender: instalamos só em Sorocaba, Votorantim, Itu e Salto, num raio de 80 km."
+ },
+ "whatsappAberto": null,
+ "errosDePagina": []
+}
+{
+ "caso": "3-pedido-valido-aceito",
+ "chamadasAoServidor": 1,
+ "corpoEnviado": "{\"nome\":\"Marta Souza\",\"whatsapp\":\"15998765432\",\"cidade\":\"Itu\",\"conta\":\"620\"}",
+ "mensagens": {
+  "depoisVisivel": true
+ },
+ "whatsappAberto": "https://wa.me/5515999990000?text=Ol%C3%A1%2C%20quero%20uma%2…",
+ "errosDePagina": []
+}
+{
+ "caso": "4-servidor-recusa-com-422",
+ "chamadasAoServidor": 1,
+ "corpoEnviado": "{\"nome\":\"Marta Souza\",\"whatsapp\":\"15998765432\",\"cidade\":\"Itu\",\"conta\":\"620\"}",
+ "mensagens": {
+  "conta": "(resposta do servidor) Seu gasto com luz está abaixo do mínimo."
+ },
+ "whatsappAberto": null,
+ "errosDePagina": []
+}

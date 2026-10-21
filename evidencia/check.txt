@@ -137,8 +137,12 @@ ok    servidor: campo que não é texto nem número cai na validação (422, sem
 ok    servidor: GET responde 405
 ok    servidor: usa o validar da página, sem regra copiada
 ok    página consulta /api/pedido antes de abrir o WhatsApp e só bloqueia com 422
+ok    rota /api/pedido existe na Next e só repassa para lib/pedido.js (sem regra própria)
+ok    uma só cópia do app.js (public/), usada pela página e pelo servidor; nada de app.js solto na raiz
+ok    os scripts da página ficam no fim do conteúdo, cena.js antes de app.js, como na página estática
+ok    Vercel entende o projeto como Next (vercel.json) e tem next, react e react-dom
 ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-142 de 142 verificações passaram.
+146 de 146 verificações passaram.

@@ -39,14 +39,14 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 |---|---|---|
 | Ação única | "Pedir simulação", com a mesma frase no menu, no hero, depois das barras e no formulário | Uma coisa só para clicar |
 | Filtro de conta baixa | No campo, valor abaixo de R$ 450 bloqueia o envio e explica | O vendedor perde o dia com conta de R$ 200; o cliente mesmo desaconselha |
-| Validação no servidor | `api/pedido.js` repete as regras de conta e cidade (o `validar` de `app.js` é a única fonte) e devolve 422 com o motivo. A página só bloqueia com 422; se o servidor não responder, o pedido segue para o WhatsApp | O filtro só no navegador se contorna; mas perder um pedido bom por falha do servidor é pior |
+| Validação no servidor | A rota `/api/pedido` repete as regras de conta e cidade (o `validar` de `public/app.js` é a única fonte, usado pela página e pelo servidor) e devolve 422 com o motivo. A página só bloqueia com 422; se o servidor não responder, o pedido segue para o WhatsApp | O filtro só no navegador se contorna; mas perder um pedido bom por falha do servidor é pior |
 | Filtro de região | Cidade em lista com as quatro atendidas e "Outra cidade", que bloqueia e explica o raio de 80 km | Sem atendimento fora do raio |
 | Foto da conta | Não há campo de arquivo. Depois do envio, a página pede para mandar a foto ou o PDF na conversa de WhatsApp | A página é estática, sem servidor para receber arquivo; o WhatsApp recebe |
 | Envio | O formulário abre o WhatsApp da Ravena com a mensagem pronta | Resposta é por WhatsApp no mesmo dia útil; a única função do servidor é validar (`api/pedido.js`); nenhum dado é guardado por nós |
 | Ordem das seções | Primeiro entender o produto (hero e cena), depois o que muda na conta, o que custa, em quem confiar, o que acontece até ligar | Cada seção responde ao que a pessoa pergunta naquele ponto |
 | Site de 2021 | Recomeço do zero. Aproveitado: só a logo e as cores dela | O antigo é "quem somos" mais um formulário no rodapé, que é o problema |
 | Cor | Tokens tirados de `assets/logo.svg`, conferidos por script | O cliente pede que as cores venham do arquivo |
-| Stack | HTML, CSS e JavaScript puros, sem build, deploy estático na Vercel | Nada justifica framework |
+| Stack | Next (App Router) com a página como era: o HTML, o CSS e os scripts continuam os mesmos, só a estrutura em volta mudou. JavaScript puro nos scripts, sem build deles. Deploy na Vercel | A página ganhou um servidor (`/api/pedido`) e vai ganhar banco e variáveis de ambiente; página e servidor passam a viver no mesmo projeto, com rotas e prévia por PR. Antes era estática com uma função ao lado |
 | Movimento | Cada bloco anima só quando está bem dentro da tela e recomeça quando a pessoa volta. Tudo desliga com `prefers-reduced-motion` e a página funciona sem JavaScript | Animação que acaba antes de alguém ver não serve |
 | Interação com o cursor | Uma só, no hero: uma luz quente que acompanha o cursor | Cursor customizado, ímã e inclinação foram tirados a pedido do aluno |
 
@@ -81,7 +81,7 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 
 ## Pendências assumidas
 
-- O número de WhatsApp da Ravena não consta no brief. O código usa um **número fictício marcado como pendente** em um único lugar (`WHATSAPP` em `app.js`). Trocar antes de qualquer uso real.
+- O número de WhatsApp da Ravena não consta no brief. O código usa um **número fictício marcado como pendente** em um único lugar (`WHATSAPP` em `public/app.js`). Trocar antes de qualquer uso real.
 - Depoimentos em vídeo e fotos de obras: entram assim que o cliente enviar os arquivos.
 
 ## Como saberemos que está pronto
