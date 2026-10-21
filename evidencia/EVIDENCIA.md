@@ -1,10 +1,10 @@
 # Evidência de verificação
 
-Revisão 3 (21/10/2026), que acrescenta a cena guiada pelo scroll, o cursor e a prova social redesenhada sobre a revisão 2. Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 4 (21/10/2026). Acumula as revisões 2 e 3; a seção 7 abaixo é a desta revisão e substitui o que a seção 6 dizia sobre cursor e cartão da cena. Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **97 de 97**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **111 de 111**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -72,6 +72,28 @@ Barra de progresso em scaleX(0,04) perto do topo; navbar marca "O sistema" ao es
 - Aparelho físico, toque e rolagem com o dedo; Safari e Firefox (`backdrop-filter`, `position: sticky` e `transform-box` variam).
 - O cursor foi testado com eventos simulados, não com um mouse real: o movimento suave do anel e o efeito de mistura (`mix-blend-mode`) não foram vistos em movimento.
 - Os quadros intermediários do scroll (transições entre capítulos) só foram vistos parados. Em um quadro, textos de capítulos se sobrepunham durante a transição; confirmei por script que depois de assentar só o capítulo ativo fica com opacidade 1.
+- Desempenho (Lighthouse) e peso da página.
+
+## 7. Revisão 4: casa realista, cena em duas colunas, hero claro, módulos, navbar, FAQ
+
+**Atenção sobre o método:** o painel do navegador estava oculto durante parte dos testes, e uma página em painel oculto não desenha animações nem roda `requestAnimationFrame`. Isso fez a contagem do hero e as entradas parecerem "travadas" em alguns quadros. Depois de mostrar o painel (`show_pane`), as medições abaixo foram refeitas e batem. Os números de quadros por segundo (53 e 62) foram medidos com o painel visível.
+
+**O que o check cobre (111 verificações), além do que já cobria:** hero sem jargão (kWp, inversor, homologação, Lei, CPFL, performance, "injeta") e que diz o que é o produto; título do hero com até 80 caracteres e um destaque; a conta do hero cai de R$ 780 para R$ 118; quatro módulos de confiança, cada um com visual; barras do gráfico na proporção 118/780; linha do tempo das garantias proporcional (25, 10 e 5 anos sobre 25); a casa é um só símbolo usado no hero e na cena; oito painéis em perspectiva; gradiente só em três lugares (fundo e luz do hero, brilho do marca-texto); nada segue o mouse fora do hero (um único `pointermove`); a interação do hero só existe com mouse e sem movimento reduzido; navbar reta no topo e pílula ao rolar; três perguntas animadas e legíveis sem JavaScript.
+
+**Defeitos achados olhando e corrigidos:** cartão da conta cobrindo a casa no hero (era o mesmo erro de texto sobre imagem; passou para baixo da ilustração); título do hero com cinco linhas empurrando o botão para fora da primeira tela (coluna alargada e botão antes dos três passos: botão a 697 px de 800 e a 542 px de 844 no celular); gotas de chuva com um azul fora da paleta; seta laranja da conta com contraste no limite; luz âmbar cobrindo as células dos painéis na cena (opacidade reduzida); rótulo "painéis" em cima dos painéis (subiu para a cumeeira); casa pequena na caixa da cena (enquadramento aproximado).
+
+**Medido no navegador a 1280 px (painel visível):**
+- Hero: botão em y=697; luz do cursor ativa (`luz-ativa`), `--prox` chega a 1,000 com o cursor sobre "bem menor", reflexo dos painéis passa para modo manual e volta ao automático ao sair.
+- Perguntas: altura 0 → 126 px ao abrir; abrir a segunda fecha a primeira (`aria-expanded` troca); fechar volta a 0.
+- Cena: 6 capítulos lidos em p=0,02 / 0,36 / 0,7 / 0,97 (capítulos 1, 3, 5 e 6) com anel no elemento certo; noite com lua, estrelas e fluxo invertido.
+
+**Medido a 390 px:** sem rolagem horizontal; título 40 px; cena com imagem em cima e texto embaixo (capítulo 4 visto); fileira de pontos.
+
+**Não verificado:**
+- A luz do cursor foi testada com eventos simulados (e uma captura em que o halo no marca-texto é visível), não com mouse real; o movimento suave não foi visto em vídeo.
+- Movimento reduzido: não abri a página com a preferência ligada (o check confere o CSS e o JS).
+- Os módulos "Telhado protegido" e "Entrada zero" foram vistos a 864 px e em quadro pequeno a 1280 px, não ampliados.
+- Aparelho físico, toque, Safari e Firefox (`backdrop-filter`, `position: sticky`, `transform-box`).
 - Desempenho (Lighthouse) e peso da página.
 
 ## 5. (revisão 2) O que NÃO foi verificado

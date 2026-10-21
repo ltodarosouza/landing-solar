@@ -95,8 +95,10 @@ const tamanhos = [...css.matchAll(/font-size:\s*([^;]+);/g)].map((m) => m[1].tri
 const tamanhosOk = new Set(["var(--t-corpo)", "var(--t-rotulo)", "var(--t-lead)", "var(--t-h2)", "var(--t-h1)"]);
 const fora = tamanhos.filter((t) => !tamanhosOk.has(t));
 verifica("só cinco tamanhos de fonte, todos pelos tokens", fora.length === 0, "fora do sistema: " + fora.join(", "));
-const gradientes = (css.match(/gradient\(/g) || []).length;
-verifica("gradiente só no hero (1 uso) e sem text-shadow", gradientes === 1 && /\.hero\s*{[^}]*linear-gradient/.test(css) && !/text-shadow/.test(css));
+const cssSemComentarios = css.replace(/\/\*[\s\S]*?\*\//g, "");
+const usosGradiente = [...cssSemComentarios.matchAll(/([^{}]+)\{[^}]*?gradient\(/g)].map((m) => m[1].trim());
+const gradPermitidos = new Set([".hero", ".hero-luz", ".destaque::after"]);
+verifica("gradiente só no fundo do hero, na luz do hero e no brilho do marca-texto: " + usosGradiente.join(" | "), usosGradiente.length === 3 && usosGradiente.every((u) => gradPermitidos.has(u)) && !/text-shadow/.test(css));
 verifica("movimento respeita prefers-reduced-motion", /@media \(prefers-reduced-motion: reduce\)/.test(css) && /\.js \.revela\s*{[^}]*opacity: 0/.test(css) && /<script>document\.documentElement\.className \+= " js";<\/script>/.test(html));
 const escala = new Set(["0", "8", "16", "24", "48", "96"]);
 const espacos = [...css.matchAll(/--e[1-5]:\s*(\d+)px/g)].map((m) => m[1]);
@@ -181,22 +183,32 @@ verifica("cada aba aponta para um painel existente", abas.every((a) => ids.has(a
 verifica("só a primeira aba começa selecionada", (html.match(/aria-selected="true"/g) || []).length === 1);
 
 // ---------- ilustrações ----------
-const ilus = [...html.matchAll(/<div class="ilustra[^"]*" role="img" aria-label="([^"]+)">/g)];
-verifica("cinco ilustrações, todas com role=img e descrição", ilus.length === 5, String(ilus.length));
-verifica("svgs decorativos escondidos do leitor de tela", (html.match(/<svg [^>]*aria-hidden="true"/g) || []).length === 5);
-const hexSvg = [...new Set((html.match(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g) || []).map((m) => m.slice(-8, -1).toUpperCase()))];
-const paleta = new Set([marinho, ambar, laranja, sol, papel, branco, suave, noite]);
+const todosSvg = html.match(/<svg\b[^>]*>/g) || [];
+const svgCena = todosSvg.filter((t) => /id="cena"/.test(t));
+const svgDecor = todosSvg.filter((t) => !/id="cena"/.test(t));
+verifica("todo svg é decorativo (aria-hidden), menos a cena, que tem role=img e descrição", svgCena.length === 1 && svgDecor.every((t) => /aria-hidden="true"/.test(t)) && /role="img" aria-label="[^"]{40,}"/.test(svgCena[0]), svgDecor.length + " svgs decorativos");
+const rolesImg = [...html.matchAll(/role="img" aria-label="([^"]+)"/g)];
+verifica("cada imagem tem descrição própria de verdade (30 caracteres ou mais): " + rolesImg.length + " imagens", rolesImg.length === 6 && rolesImg.every((m) => m[1].length >= 30));
+const hexSvg = [...new Set((html.match(/(?:fill|stroke|stop-color)="(#[0-9A-Fa-f]{6})"/g) || []).map((m) => m.slice(-8, -1).toUpperCase()))];
+const painelTokens = ["#2A6E9C", "#1A4C72", "#0F3350"];
+const paleta = new Set([marinho, ambar, laranja, sol, papel, branco, suave, noite, ...painelTokens]);
 const forasDaPaleta = hexSvg.filter((h) => !paleta.has(h));
-verifica("ilustrações só usam a paleta do DESIGN.md", forasDaPaleta.length === 0, "fora: " + forasDaPaleta.join(", "));
+verifica("ilustrações só usam a paleta do DESIGN.md (inclui o vidro do painel)", forasDaPaleta.length === 0, "fora: " + forasDaPaleta.join(", "));
+verifica("DESIGN.md documenta as três cores do vidro do painel", painelTokens.every((h) => design.toUpperCase().includes(h)));
+verifica("a casa é desenhada uma vez e reaproveitada (hero e cena usam o mesmo símbolo)", (html.match(/<symbol id="casa-arte"/g) || []).length === 1 && (html.match(/<use href="#casa-arte"/g) || []).length === 2);
+const celulas = (html.match(/<polygon points="[^"]+" fill="url\(#g-painel\)"/g) || []).length;
+verifica("oito painéis no telhado, em perspectiva (" + celulas + " polígonos de vidro)", celulas === 8);
 
 // ---------- cena guiada pelo scroll ----------
 verifica("--noite " + noite + " existe no CSS, no DESIGN.md e na última parada do céu", !!noite && design.toUpperCase().includes(noite) && cenaJs.toUpperCase().includes('[1.0, "' + noite + '"]'));
 verifica("a cena tem role=img e descrição", /<svg id="cena"[^>]*role="img" aria-label="[^"]{40,}"/.test(html));
 const ptsCena = (html.match(/<ol class="pontos"[\s\S]*?<\/ol>/) || [""])[0];
-verifica("seis capítulos de texto e seis pontos de navegação", (html.match(/<span class="num">\d de 6<\/span>/g) || []).length === 6 && (ptsCena.match(/<button type="button" aria-label="Capítulo \d/g) || []).length === 6);
+verifica("seis capítulos de texto e seis pontos de navegação", (html.match(/<span class="num">0\d<\/span>/g) || []).length === 6 && (ptsCena.match(/<button type="button" aria-label="Capítulo \d/g) || []).length === 6);
 verifica("o modo de rolagem (.scrub) só é ligado pelo JavaScript, nunca vem no HTML", !/class="[^"]*\bscrub\b/.test(html) && /classList\.add\("scrub"\)/.test(cenaJs));
-verifica("a cena respeita prefers-reduced-motion (fica parada, com todos os textos visíveis)", /prefers-reduced-motion: reduce/.test(cenaJs) && /aplica\(0\.55\)/.test(cenaJs) && /html\.scrub \.capitulos li\s*{[^}]*opacity: 0/.test(css) && !/^\.capitulos li\s*{[^}]*opacity: 0/m.test(css));
-verifica("cursor só com mouse e sem redução de movimento", /@media \(pointer: fine\) and \(prefers-reduced-motion: no-preference\)/.test(css) && /\(pointer: fine\)/.test(appJs) && /\.cursor, \.cursor-ponto \{ display: none; \}/.test(css));
+verifica("a cena respeita prefers-reduced-motion: parada, com todos os textos abertos e nada escondido fora do modo de rolagem", /prefers-reduced-motion: reduce/.test(cenaJs) && /aplica\(0\.55\)/.test(cenaJs) && /\.cap-corpo \{ display: grid; grid-template-rows: 1fr; \}/.test(css) && /html\.scrub \.cap-corpo \{ grid-template-rows: 0fr;/.test(css) && /html\.scrub \.capitulos li:not\(\.ativo\) \{ display: none; \}/.test(css) && !/^\s*\.capitulos li:not/m.test(css));
+const pm = (appJs.match(/addEventListener\("pointermove"/g) || []).length;
+verifica("nada segue o mouse fora do hero: cursor, ímã e inclinação foram removidos, e há um só pointermove, no hero", !/\.cursor\b|cursor-ponto/.test(css) && !/class="cursor/.test(html) && pm === 1 && /hero\.addEventListener\("pointermove"/.test(appJs) && !/magnet|perspective\(/.test(appJs));
+verifica("a interação do hero só existe com mouse e sem redução de movimento", /\(pointer: fine\)/.test(appJs) && appJs.indexOf("if (semMovimento) return;") < appJs.indexOf("if (!comMouse) return;") && appJs.indexOf("if (!comMouse) return;") < appJs.indexOf('hero.addEventListener("pointermove"') && /\.hero-luz \{ display: none; \}/.test(css));
 verifica("alvo de toque dos pontos laterais tem 48 px", /\.pontos button \{ width: 48px; height: 48px;/.test(css));
 const c0 = cena.estadoCena(0), c40 = cena.estadoCena(0.4), c80 = cena.estadoCena(0.8), c100 = cena.estadoCena(1);
 verifica("sol: começa no horizonte (y " + c0.solY + "), passa no alto (y " + c40.solY.toFixed(0) + ") e se põe (y " + c80.solY.toFixed(0) + ")", c0.solY >= cena.HORIZONTE && c40.solY < 150 && c80.solY >= cena.HORIZONTE - 1);
@@ -207,9 +219,28 @@ verifica("à noite: estrelas e lua aparecem, o painel e o inversor apagam", c100
 verifica("a energia só vai para a rede durante o dia, e volta à noite", cena.estadoCena(0.68).redeSai > 0.9 && c100.redeSai === 0 && c100.redeEntra > 0.95 && cena.estadoCena(0.68).redeEntra === 0);
 verifica("o crédito cresce de dia (p=0.78 > p=0.6) e nunca zera por completo à noite", cena.estadoCena(0.78).credito > cena.estadoCena(0.6).credito && c100.credito > 0 && cena.estadoCena(0.6).credito === 0);
 verifica("capítulos em ordem: 0, 0.2, 0.35, 0.5, 0.7, 0.9 mapeiam para 0 a 5", [0, 0.2, 0.35, 0.5, 0.7, 0.9].map(cena.capituloDe).join("") === "012345");
-verifica("capítulo 3 é o do inversor e o texto cita os 10 anos do brief", /<h3>O inversor converte<\/h3><p>[^<]*10 anos de garantia/.test(html));
+verifica("capítulo 3 é o do inversor e o texto cita os 10 anos do brief", /<h3>O inversor[^<]*<\/h3><div class="cap-corpo"><p>[^<]*10 anos de garantia/.test(html));
 verifica("a cena não promete número que o brief não deu (nenhum R$ nem % nos capítulos)", !/<ol class="capitulos">[\s\S]*?<\/ol>/.exec(html)[0].match(/R\$|%/));
 verifica("céu de dia é o token --sol e à noite é --noite", cena.corDoCeu(0).toUpperCase() === sol && cena.corDoCeu(1).toUpperCase() === noite);
+
+// ---------- hero, módulos, navbar, perguntas ----------
+const heroTexto = (html.match(/<div class="hero-texto">([\s\S]*?)<\/div>\s*<div class="hero-visual">/) || [, ""])[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+const jargao = ["kWp", "kW", "inversor", "homologação", "fotovoltaic", "CPFL", "Lei 14", "integradora", "performance", "injeta"];
+verifica("hero sem jargão: nenhuma destas palavras no texto do hero: " + jargao.join(", "), jargao.every((j) => !heroTexto.toLowerCase().includes(j.toLowerCase())), heroTexto);
+verifica("hero diz o que é o produto: painéis solares, telhado, conta de luz", ["painéis solares", "telhado", "conta de luz"].every((t) => heroTexto.toLowerCase().includes(t)));
+const h1 = (html.match(/<h1>([\s\S]*?)<\/h1>/) || [, ""])[1].replace(/<[^>]+>/g, "");
+verifica("o título do hero é curto (" + h1.length + " caracteres, máx. 80) e tem um destaque", h1.length <= 80 && /<span class="destaque">[^<]+<\/span>/.test(html));
+verifica("a conta do hero desce de R$ 780 para R$ 118 (valores do brief)", /data-de="780" data-ate="118">118</.test(html) && /class="antes">R\$ 780</.test(html));
+const artigos = html.match(/<article class="card[\s\S]*?<\/article>/g) || [];
+verifica("quatro módulos de confiança, cada um com visual (mapa, telhado, barras ou linha do tempo) além do texto", artigos.length === 4 && artigos.every((a) => /card-viz|linha-tempo/.test(a)), artigos.length + " módulos");
+const hp = [...html.matchAll(/--hp:([\d.]+)/g)].map((m) => +m[1]);
+verifica("as barras do gráfico respeitam a proporção 118/780 (" + (118 / 780).toFixed(3) + ")", hp.length === 2 && hp[0] === 1 && Math.abs(hp[1] - 118 / 780) < 0.001, hp.join(","));
+const lt = [...html.matchAll(/--w:(\d+)%"><b>(\d+) anos</g)].map((m) => [+m[1], +m[2]]);
+verifica("a linha do tempo das garantias é proporcional (25, 10 e 5 anos sobre 25)", lt.length === 3 && lt.every(([w, a]) => Math.abs(w - (a / 25) * 100) < 0.5), JSON.stringify(lt));
+verifica("a navbar é reta no topo e vira pílula ao rolar", /\.nav \{[^}]*border-radius: 0;/.test(css) && /\.nav-area\.rolou \.nav \{[^}]*border-radius: 999px;/.test(css) && /classList\.toggle\("rolou", window\.scrollY > 24\)/.test(appJs));
+const faqBotoes = [...html.matchAll(/<button type="button" id="(faq-b\d)" aria-expanded="false" aria-controls="(faq-\d)"/g)];
+verifica("três perguntas animadas, fechadas ao carregar, com região ligada ao botão", faqBotoes.length === 3 && faqBotoes.every((m) => ids.has(m[2])) && !/<details/.test(html));
+verifica("sem JavaScript o conteúdo das perguntas continua visível (só colapsa com .js)", /\.faq-corpo \{ display: grid; grid-template-rows: 1fr; \}/.test(css) && /\.js \.faq-corpo \{ grid-template-rows: 0fr;/.test(css));
 
 // ---------- formulário ----------
 const ok = { nome: "Marta Souza", whatsapp: "15 99876-5432", cidade: "Itu", conta: "620" };

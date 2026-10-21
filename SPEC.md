@@ -34,6 +34,23 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 4 (21/10/2026): produto claro, cena sem texto sobre a imagem, módulos no lugar de blocos de texto
+
+Pedido do aluno, em resumo:
+- Tirar tudo que acompanha o mouse (cursor, ímã, inclinação). Depois, liberou uma interação com o cursor só no estilo do hero do Entoa.
+- Casa mais realista (o painel no teto estava feio) e cena mais fluida, com o texto fora da imagem e hierarquia clara.
+- Hero mais claro sobre o produto, sem termo técnico.
+- Depois da cena havia "um monte de blocos iguais, só de texto": trocar por módulos que tragam informação e interação, com animações espalhadas e não lotadas.
+- Navbar reta e fixa no topo, que vira pílula curvada ao rolar. FAQ com movimento ao abrir e fechar.
+
+Decisões:
+- **Hero:** o título fala o que é e o que muda ("Seu telhado produz energia. Sua conta de luz fica bem menor."), com um marca-texto animado em "bem menor". Embaixo, três passos em linguagem simples e o cartão com a conta descendo de R$ 780 para R$ 118. kWp só na legenda pequena do cartão.
+- **Cena:** duas colunas, texto de um lado, imagem do outro. Casa nova em perspectiva e um anel de destaque que mostra de que parte do sistema o capítulo fala.
+- **Os quatro blocos de texto viraram quatro módulos com visual:** mapa animado com as quatro cidades, telhado com selo de 5 anos, barras de conta e parcela, e linha do tempo proporcional das garantias (25, 10 e 5 anos). O custo ganhou um gráfico de barras com o caso de Sorocaba (R$ 780 e R$ 118, proporcional).
+- **Cursor:** uma só interação, no hero (luz quente que acompanha o cursor, marca-texto que brilha, reflexo nos painéis). Nada mais segue o mouse.
+- **Navbar e perguntas:** como pedido.
+- **Texto:** o termo técnico fica fora do hero e volta explicado ("inversor: deixa a energia pronta para usar").
+
 ## Revisão 3 (21/10/2026): o produto em ação
 
 Pedido do aluno: mostrar o uso das placas ao rolar, no espírito do Vale do Silício (cena que muda com o scroll), com mais interações e uma prova social legível (no print dele, o número ficou minúsculo ao lado de rótulos grandes: bug de CSS, corrigido).

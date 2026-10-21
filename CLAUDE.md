@@ -10,17 +10,22 @@ Página única de venda de energia solar residencial para a Ravena Solar (client
 
 ## Comandos
 
-- `node scripts/check.cjs` roda as verificações (cores contra o logo, contraste, só 4 tamanhos de fonte, fatos do brief, palavras proibidas, regras do formulário). Tem de terminar com `65 de 65` e código 0. **Se um check falhar, descubra se o check ou a página está errado antes de mudar qualquer um dos dois. Nunca afrouxe o check para passar.**
+- `node scripts/check.cjs` roda as verificações (cores contra o logo, contraste, só 4 tamanhos de fonte, fatos do brief, palavras proibidas, regras do formulário). Tem de terminar com todas as verificações passando e código 0. **Se um check falhar, descubra se o check ou a página está errado antes de mudar qualquer um dos dois. Nunca afrouxe o check para passar.**
 - `python3 -m http.server 4173` serve a página em `http://localhost:4173`.
 
 ## Estrutura
 
-- `index.html`, `styles.css`, `app.js`: sem build, sem dependência. Deploy estático na Vercel.
+- `index.html`, `styles.css`, `app.js`, `cena.js`: sem build, sem dependência. Deploy estático na Vercel. `cena.js` guarda o modelo puro da cena do telhado (testado pelo check) e o driver do scroll.
 - `assets/logo.svg`: fonte das cores da marca. Não copie hex de cabeça; os três tokens de marca estão no topo do CSS e o check os compara com o SVG.
 - `material/`: entrega do cliente (logo e site de 2021). Só leitura.
 - `evidencia/`: saídas do check e medidas feitas no navegador.
 
 ## Regras da página
+
+- Texto nunca fica por cima de imagem. A cena do telhado tem texto numa coluna e imagem noutra.
+- Nada segue o mouse, exceto a luz do hero. Sem cursor customizado, ímã ou inclinação.
+- O hero não usa jargão (kWp, inversor, homologação, Lei). O check confere.
+- Toda animação desliga com `prefers-reduced-motion` e a página funciona sem JavaScript.
 
 - Um só botão de ação, com o mesmo texto ("Pedir simulação") no menu, na primeira dobra e no formulário.
 - Botão âmbar com texto marinho. Laranja nunca é texto de corpo (contraste).

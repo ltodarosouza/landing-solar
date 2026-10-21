@@ -194,24 +194,28 @@ if (typeof document !== "undefined") {
   }
 }
 
-// Movimento e cursor. Tudo aqui é opcional: sem JS ou com movimento reduzido a página funciona igual.
+// Movimento. Tudo aqui é opcional: sem JS ou com movimento reduzido a página funciona igual.
 if (typeof document !== "undefined") {
   (function () {
     var semMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var comMouse = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+    var limita = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
 
     // Barra de progresso de leitura
-    var barra = document.getElementById("progresso-barra");
-    function progresso() {
+    var barraProgresso = document.getElementById("progresso-barra");
+    // Navbar: reta no topo, vira pílula ao descer
+    var navArea = document.getElementById("nav-area");
+    function aoRolar() {
       var total = document.documentElement.scrollHeight - window.innerHeight;
-      barra.style.transform = "scaleX(" + (total > 0 ? Math.min(1, window.scrollY / total) : 0) + ")";
+      barraProgresso.style.transform = "scaleX(" + (total > 0 ? Math.min(1, window.scrollY / total) : 0) + ")";
+      navArea.classList.toggle("rolou", window.scrollY > 24);
     }
-    window.addEventListener("scroll", progresso, { passive: true });
-    progresso();
+    window.addEventListener("scroll", aoRolar, { passive: true });
+    aoRolar();
 
     // Navbar: destaca a seção que está na tela
     var links = {};
-    document.querySelectorAll('.nav ul a').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    document.querySelectorAll(".nav ul a").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
     if ("IntersectionObserver" in window) {
       var vistas = new IntersectionObserver(function (entradas) {
         entradas.forEach(function (e) {
@@ -228,109 +232,87 @@ if (typeof document !== "undefined") {
       Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) vistas.observe(s); });
     }
 
-    if (semMovimento) return;
-
-    // Título do hero: palavra por palavra
-    var h1 = document.querySelector("h1");
-    var texto = h1.textContent.trim().split(/\s+/);
-    h1.setAttribute("aria-label", texto.join(" "));
-    h1.textContent = "";
-    texto.forEach(function (palavra, i) {
-      var s = document.createElement("span");
-      s.className = "pal";
-      s.setAttribute("aria-hidden", "true");
-      s.style.setProperty("--i", i);
-      s.textContent = palavra;
-      h1.appendChild(s);
-      if (i < texto.length - 1) h1.appendChild(document.createTextNode(" "));
+    // Perguntas: abre uma e fecha as outras
+    var itens = Array.prototype.slice.call(document.querySelectorAll(".faq-item"));
+    itens.forEach(function (item) {
+      var botao = item.querySelector("button");
+      botao.addEventListener("click", function () {
+        var abrir = !item.classList.contains("aberto");
+        itens.forEach(function (o) {
+          o.classList.remove("aberto");
+          o.querySelector("button").setAttribute("aria-expanded", "false");
+        });
+        if (abrir) {
+          item.classList.add("aberto");
+          botao.setAttribute("aria-expanded", "true");
+        }
+      });
     });
 
-    // Ilustrações dos blocos: deslocamento leve ao rolar
-    var paralaxe = Array.prototype.slice.call(document.querySelectorAll(".bloco .ilustra svg"));
-    function aoRolar() {
-      var meio = window.innerHeight / 2;
-      paralaxe.forEach(function (svg) {
-        var r = svg.getBoundingClientRect();
-        var d = (r.top + r.height / 2 - meio) * -0.06;
-        svg.style.transform = "translateY(" + d.toFixed(1) + "px)";
-      });
+    if (semMovimento) return;
+
+    // Hero: a conta desce de R$ 780 para R$ 118
+    var descida = document.querySelector("[data-de]");
+    if (descida) {
+      var de = parseFloat(descida.getAttribute("data-de"));
+      var ate = parseFloat(descida.getAttribute("data-ate"));
+      descida.textContent = String(de);
+      var inicio = null;
+      var passoDescida = function (t) {
+        if (inicio === null) inicio = t;
+        var p = limita((t - inicio) / 1700, 0, 1);
+        var v = de + (ate - de) * (1 - Math.pow(1 - p, 3));
+        descida.textContent = String(p < 1 ? Math.round(v) : ate);
+        if (p < 1) requestAnimationFrame(passoDescida);
+      };
+      setTimeout(function () { requestAnimationFrame(passoDescida); }, 1000);
     }
-    window.addEventListener("scroll", aoRolar, { passive: true });
-    aoRolar();
 
     if (!comMouse) return;
 
-    // Hero: o sol e a casa seguem o mouse em profundidades diferentes
-    var hero = document.querySelector(".hero");
-    var sol = document.getElementById("hero-sol");
-    var casa = document.getElementById("hero-casa");
-    hero.addEventListener("pointermove", function (ev) {
-      var r = hero.getBoundingClientRect();
-      var x = (ev.clientX - r.left) / r.width - 0.5;
-      var y = (ev.clientY - r.top) / r.height - 0.5;
-      sol.style.transform = "translate(" + (x * 28).toFixed(1) + "px," + (y * 18).toFixed(1) + "px)";
-      casa.style.transform = "translate(" + (x * -10).toFixed(1) + "px," + (y * -6).toFixed(1) + "px)";
-    });
-    hero.addEventListener("pointerleave", function () { sol.style.transform = ""; casa.style.transform = ""; });
+    // Hero: uma luz quente acompanha o cursor, o marca-texto brilha quando ele chega perto
+    // e o reflexo nos painéis segue o cursor sobre a casa.
+    var hero = document.getElementById("hero");
+    var destaque = hero.querySelector(".destaque");
+    var ilustra = hero.querySelector(".ilustra-hero");
+    var brilho = hero.querySelector(".brilho-painel");
+    var alvoX = 0, alvoY = 0, x = 0, y = 0, ativo = false, rodando = false;
 
-    // Botões com ímã
-    document.querySelectorAll(".btn").forEach(function (b) {
-      b.addEventListener("pointermove", function (ev) {
-        var r = b.getBoundingClientRect();
-        var x = (ev.clientX - (r.left + r.width / 2)) * 0.18;
-        var y = (ev.clientY - (r.top + r.height / 2)) * 0.28;
-        b.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
-      });
-      b.addEventListener("pointerleave", function () { b.style.transform = ""; });
-    });
-
-    // Cartões de garantia inclinam
-    document.querySelectorAll(".garantia").forEach(function (g) {
-      g.addEventListener("pointermove", function (ev) {
-        var r = g.getBoundingClientRect();
-        var x = (ev.clientX - r.left) / r.width - 0.5;
-        var y = (ev.clientY - r.top) / r.height - 0.5;
-        g.style.transform = "perspective(600px) rotateX(" + (y * -8).toFixed(1) + "deg) rotateY(" + (x * 8).toFixed(1) + "deg)";
-      });
-      g.addEventListener("pointerleave", function () { g.style.transform = ""; });
-    });
-
-    // Cursor
-    var anel = document.querySelector(".cursor");
-    var rotulo = anel.querySelector("span");
-    var ponto = document.querySelector(".cursor-ponto");
-    var mx = -100, my = -100, ax = -100, ay = -100;
-    var ROTULOS = [
-      ['.historia-palco', 'Role'],
-      ['.btn', 'Pedir'],
-      ['summary', 'Abrir'],
-      ['[role="tab"]', 'Ver'],
-      ['input[type="range"]', 'Arraste']
-    ];
-    function rotuloDe(alvo) {
-      if (!alvo || !alvo.closest) return null;
-      if (alvo.closest(".pontos")) return null;
-      for (var i = ROTULOS.length - 1; i >= 0; i--) {
-        if (alvo.closest(ROTULOS[i][0])) {
-          if (ROTULOS[i][0] === ".historia-palco" && document.getElementById("como-funciona").getAttribute("data-capitulo") !== "0") return null;
-          return ROTULOS[i][1];
-        }
-      }
-      return null;
+    function quadro() {
+      x += (alvoX - x) * 0.14;
+      y += (alvoY - y) * 0.14;
+      hero.style.setProperty("--mx", x.toFixed(1) + "px");
+      hero.style.setProperty("--my", y.toFixed(1) + "px");
+      var r = destaque.getBoundingClientRect();
+      var h = hero.getBoundingClientRect();
+      var cx = r.left - h.left + r.width / 2;
+      var cy = r.top - h.top + r.height / 2;
+      var d = Math.hypot(x - cx, y - cy);
+      hero.style.setProperty("--prox", limita(1 - d / 320, 0, 1).toFixed(3));
+      if (ativo || Math.abs(alvoX - x) > 0.5 || Math.abs(alvoY - y) > 0.5) requestAnimationFrame(quadro); else rodando = false;
     }
-    document.addEventListener("pointermove", function (ev) {
-      mx = ev.clientX; my = ev.clientY;
-      ponto.style.transform = "translate(" + mx + "px," + my + "px)";
-      anel.classList.add("visivel");
-      var r = rotuloDe(ev.target);
-      if (r) { rotulo.textContent = r; anel.classList.add("rotulo-ativo"); } else { anel.classList.remove("rotulo-ativo"); }
+    hero.addEventListener("pointermove", function (ev) {
+      var h = hero.getBoundingClientRect();
+      alvoX = ev.clientX - h.left;
+      alvoY = ev.clientY - h.top;
+      if (!ativo) { ativo = true; hero.classList.add("luz-ativa"); x = alvoX; y = alvoY; }
+      if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
+      var i = ilustra.getBoundingClientRect();
+      if (ev.clientX >= i.left && ev.clientX <= i.right && ev.clientY >= i.top && ev.clientY <= i.bottom) {
+        var local = ((ev.clientX - i.left) / i.width) * 560 - 14;
+        brilho.classList.add("manual");
+        brilho.style.transform = "translateX(" + (local + 30).toFixed(1) + "px)";
+      } else {
+        brilho.classList.remove("manual");
+        brilho.style.transform = "";
+      }
     });
-    document.documentElement.addEventListener("pointerleave", function () { anel.classList.remove("visivel"); });
-    (function segue() {
-      ax += (mx - ax) * 0.18;
-      ay += (my - ay) * 0.18;
-      anel.style.transform = "translate(" + ax.toFixed(1) + "px," + ay.toFixed(1) + "px)";
-      requestAnimationFrame(segue);
-    })();
+    hero.addEventListener("pointerleave", function () {
+      ativo = false;
+      hero.classList.remove("luz-ativa");
+      hero.style.setProperty("--prox", "0");
+      brilho.classList.remove("manual");
+      brilho.style.transform = "";
+    });
   })();
 }

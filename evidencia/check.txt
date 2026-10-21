@@ -14,7 +14,7 @@ ok    contraste texto de apoio sobre sol 6.31:1 (mín. 4,5)
 ok    laranja só em texto grande (número de 32 px ou mais sobre o painel branco): .resultado .faixa-valor em
 ok    contraste laranja sobre branco 3.06:1 (texto grande, mín. 3)
 ok    só cinco tamanhos de fonte, todos pelos tokens
-ok    gradiente só no hero (1 uso) e sem text-shadow
+ok    gradiente só no fundo do hero, na luz do hero e no brilho do marca-texto: .hero | .hero-luz | .destaque::after
 ok    movimento respeita prefers-reduced-motion
 ok    escala de espaço é 8, 16, 24, 48, 96
 ok    alvo de toque: botão, campos, abas e controle com 48 px
@@ -61,15 +61,19 @@ ok    a ressalva (não é promessa, a conta não zera) está junto do resultado
 ok    seis abas de etapa
 ok    cada aba aponta para um painel existente
 ok    só a primeira aba começa selecionada
-ok    cinco ilustrações, todas com role=img e descrição
-ok    svgs decorativos escondidos do leitor de tela
-ok    ilustrações só usam a paleta do DESIGN.md
+ok    todo svg é decorativo (aria-hidden), menos a cena, que tem role=img e descrição
+ok    cada imagem tem descrição própria de verdade (30 caracteres ou mais): 6 imagens
+ok    ilustrações só usam a paleta do DESIGN.md (inclui o vidro do painel)
+ok    DESIGN.md documenta as três cores do vidro do painel
+ok    a casa é desenhada uma vez e reaproveitada (hero e cena usam o mesmo símbolo)
+ok    oito painéis no telhado, em perspectiva (8 polígonos de vidro)
 ok    --noite #0B2638 existe no CSS, no DESIGN.md e na última parada do céu
 ok    a cena tem role=img e descrição
 ok    seis capítulos de texto e seis pontos de navegação
 ok    o modo de rolagem (.scrub) só é ligado pelo JavaScript, nunca vem no HTML
-ok    a cena respeita prefers-reduced-motion (fica parada, com todos os textos visíveis)
-ok    cursor só com mouse e sem redução de movimento
+ok    a cena respeita prefers-reduced-motion: parada, com todos os textos abertos e nada escondido fora do modo de rolagem
+ok    nada segue o mouse fora do hero: cursor, ímã e inclinação foram removidos, e há um só pointermove, no hero
+ok    a interação do hero só existe com mouse e sem redução de movimento
 ok    alvo de toque dos pontos laterais tem 48 px
 ok    sol: começa no horizonte (y 560), passa no alto (y 120) e se põe (y 560)
 ok    o sol cruza da esquerda para a direita, sem voltar
@@ -82,6 +86,16 @@ ok    capítulos em ordem: 0, 0.2, 0.35, 0.5, 0.7, 0.9 mapeiam para 0 a 5
 ok    capítulo 3 é o do inversor e o texto cita os 10 anos do brief
 ok    a cena não promete número que o brief não deu (nenhum R$ nem % nos capítulos)
 ok    céu de dia é o token --sol e à noite é --noite
+ok    hero sem jargão: nenhuma destas palavras no texto do hero: kWp, kW, inversor, homologação, fotovoltaic, CPFL, Lei 14, integradora, performance, injeta
+ok    hero diz o que é o produto: painéis solares, telhado, conta de luz
+ok    o título do hero é curto (60 caracteres, máx. 80) e tem um destaque
+ok    a conta do hero desce de R$ 780 para R$ 118 (valores do brief)
+ok    quatro módulos de confiança, cada um com visual (mapa, telhado, barras ou linha do tempo) além do texto
+ok    as barras do gráfico respeitam a proporção 118/780 (0.151)
+ok    a linha do tempo das garantias é proporcional (25, 10 e 5 anos sobre 25)
+ok    a navbar é reta no topo e vira pílula ao rolar
+ok    três perguntas animadas, fechadas ao carregar, com região ligada ao botão
+ok    sem JavaScript o conteúdo das perguntas continua visível (só colapsa com .js)
 ok    formulário: dados válidos passam
 ok    formulário: conta de R$ 200 é bloqueada
 ok    formulário: R$ 449 é bloqueado e R$ 450 passa
@@ -96,5 +110,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-97 de 97 verificações passaram.
+111 de 111 verificações passaram.
 exit=0
