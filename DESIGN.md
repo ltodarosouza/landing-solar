@@ -1,8 +1,8 @@
 # DESIGN — Ravena Solar
 
-Revisão 4. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
+Revisão 5. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
 
-Direção: editorial e claro. Uma ideia por tela, tipografia grande, muito respiro, números como protagonistas, o produto mostrado em ação, movimento só onde explica algo. Texto nunca fica por cima de imagem.
+Direção: editorial e claro. Uma ideia por tela, tipografia grande, muito respiro, números como protagonistas, o produto mostrado em ação, movimento só onde explica algo. Texto nunca fica por cima de imagem. Cada tela diz pouco: o que a pessoa precisa entender, e o resto vira imagem ou animação.
 
 ## Cor
 
@@ -25,7 +25,7 @@ Regras:
 - Na seção escura (marinho), texto é branco e o botão continua âmbar.
 - Branco sobre laranja reprova contraste (cerca de 3,3:1) e laranja sobre `--sol` fica abaixo de 3:1: laranja não leva texto pequeno nem fica sobre o hero.
 - Contraste mínimo 4,5:1 para texto e botão (o check calcula os pares usados).
-- **Gradiente só em três lugares:** fundo do hero (`--sol` para branco), a luz quente do hero (radial, reage ao cursor) e o brilho que passa sobre o marca-texto do título. Sombra só em cartões, na navbar flutuante e no cartão da conta.
+- **Gradiente só em três lugares:** fundo do hero (`--sol` para branco), a luz quente do hero (radial, reage ao cursor) e o brilho que passa sobre o marca-texto do título. Sombra só em cartões, na navbar flutuante, no cartão da conta e na bolinha da trilha.
 
 ## Tipo
 
@@ -68,7 +68,7 @@ No topo é uma barra reta, de ponta a ponta, translúcida, fixa. Depois de 24 px
 
 ## Ilustração
 
-SVG inline, na paleta acima. A **casa** é desenhada uma vez (`<symbol id="casa-arte">`) e reaproveitada no hero e na cena: vista de 3/4, telhado de terracota em perspectiva, oito painéis com moldura clara, vidro azul em gradiente e células, beiral com sombra, janelas, porta e inversor na parede lateral. Cada ilustração mostra um mecanismo (mapa de atendimento, corte do telhado, conta e parcela), nunca decoração abstrata. As imagens têm `role="img"` e descrição; os SVGs internos ficam `aria-hidden`.
+SVG inline, na paleta acima. A **casa** é desenhada uma vez (`<symbol id="casa-arte">`) e reaproveitada no hero e na cena: vista de 3/4, telhado de terracota em perspectiva, oito painéis com moldura clara, vidro azul em gradiente e células, beiral com sombra, janelas, porta e inversor na parede lateral. Cada ilustração mostra um mecanismo (mapa de atendimento, corte do telhado com chuva, ícones das etapas), nunca decoração abstrata. A água usa o primeiro tom do vidro do painel. As imagens têm `role="img"` e descrição; os SVGs internos ficam `aria-hidden`.
 
 ## Cena do telhado (guiada pelo scroll)
 
@@ -82,19 +82,25 @@ Seção de 700 vh com palco fixo (`position: sticky`) de 100 vh, em **duas colun
 
 ## Movimento
 
+**Quando uma animação toca.** Os blocos animados (`.replay`) só começam quando estão bem dentro da tela: as bordas de cima e de baixo (12% de cada lado) não contam, e pelo menos 30% do bloco precisa estar visível. Quando a pessoa sai e volta, a animação recomeça do zero. Textos comuns (`.revela`) entram uma vez só, também só quando já estão dentro da tela. Durações longas de propósito: a barra de antes cresce em 1,4 s, a de hoje em 1,8 s depois de uma pausa, a linha do tempo de 25 anos em 2,2 s, os números da prova contam em 2,2 s e a conta do hero desce em 2,2 s.
+
 - Barra de leitura de 4 px no topo.
-- **Hero:** o texto entra em sequência; o marca-texto âmbar desenha embaixo de "bem menor" e um brilho passa por ele; o cartão mostra a conta descendo de R$ 780 a R$ 118; o reflexo percorre os painéis; nuvens derivam; os raios do sol giram.
-- **Única interação com o cursor, só no hero:** uma luz quente acompanha o cursor, o marca-texto brilha mais quando o cursor chega perto e o reflexo nos painéis segue o cursor sobre a casa. Não há cursor customizado, ímã nem inclinação em lugar nenhum. Desliga com toque ou movimento reduzido.
-- **Módulos entram ao aparecer na tela:** pinos do mapa brotam um a um e o raio de 80 km se abre; o selo de garantia salta e a chuva escorre; as barras sobem; a linha do tempo de garantias cresce, proporcional (25, 10 e 5 anos sobre 25).
-- **Perguntas:** o painel abre e fecha por altura, o mais gira, uma pergunta aberta fecha as outras.
-- Revelar ao rolar: 24 px de deslocamento e opacidade, 700 ms, uma vez. Números da prova contam de 0 ao valor.
-- `prefers-reduced-motion`: sem deslocamento, sem contagem, sem giro, sem luz do cursor; o conteúdo aparece pronto.
+- **Hero:** o texto entra em sequência; o marca-texto âmbar desenha embaixo de "bem menor" e um brilho passa por ele, **toda vez que o hero volta à tela**; o cartão mostra a conta descendo de R$ 780 a R$ 118 (também recomeça); reflexo percorre os painéis; nuvens derivam; os raios giram.
+- **Única interação com o cursor, só no hero:** uma luz quente acompanha o cursor, o marca-texto brilha mais quando o cursor chega perto e o reflexo nos painéis segue o cursor sobre a casa. Sem cursor customizado, ímã ou inclinação. Desliga com toque ou movimento reduzido.
+- **Conta antes e depois:** a barra de antes cresce, a de hoje cresce depois e o número desce; por fim aparece a faixa tracejada da média dos clientes.
+- **Linha do tempo de 25 anos:** as quatro barras crescem em sequência (retorno, instalação, inversor, painel) e só depois aparecem os rótulos.
+- **Mapa:** pinos brotam um a um, o raio de 80 km se abre e três ondas saem de Sorocaba sem parar enquanto o bloco está na tela.
+- **Telhado protegido:** duas animações de chuva lado a lado, que só rodam enquanto o bloco está na tela. À esquerda a água passa pela fresta, pinga e a mancha cresce no teto, com um alerta. À direita a fixação vedada em âmbar faz a água escorrer, o selo de 5 anos salta e o teto fica seco.
+- **Etapas, em trilha vertical:** uma bolinha desce acompanhando o scroll (fica a 55% da altura da tela) e acende cada ponto que alcança; cada etapa toca uma mini-animação própria (conversa, medição do telhado, três tamanhos, homologação, painéis encaixando, curva de produção com sino). Ao subir de volta, os pontos apagam e tocam de novo ao descer.
+- **Cena do telhado:** descrita acima.
+- **Perguntas:** o painel abre e fecha por altura, o ícone gira, uma aberta fecha as outras.
+- `prefers-reduced-motion`: sem deslocamento, sem contagem, sem giro, sem chuva, sem luz do cursor, sem bolinha; tudo aparece pronto e legível.
 - Sem JavaScript o conteúdo continua legível (tudo que esconde só esconde com `.js` no `html`).
 
 ## Componentes
 
 - **Botão de ação:** 48 px, texto "Pedir simulação" em todos os lugares.
-- **Faixa da conta:** controle deslizante de R$ 450 a R$ 1.500, resultado em número grande, ressalva sempre visível.
-- **Etapas:** seis abas (`role="tablist"`), setas do teclado trocam de aba.
+- **Cartão da economia (hero):** abaixo da casa, nunca sobre ela. "Antes" em laranja riscado (número grande sobre branco), "Hoje" em marinho, selo âmbar de queda. O selo é calculado do caso real (780 para 118 é 85%).
+- **Trilha das etapas:** linha pontilhada, trecho já percorrido em laranja, bolinha âmbar com borda marinho.
 - **Perguntas:** botões com `aria-expanded` e região ligada.
 - **Campo:** rótulo visível, erro abaixo com a palavra "Atenção:", nunca só cor.

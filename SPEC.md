@@ -34,6 +34,26 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 5 (21/10/2026): menos informação por tela, animações que o visitante realmente vê
+
+Pedido do aluno, em resumo:
+- Hero com menos informação, casa mais acima junto da economia, sem notas pequenas; o efeito do "bem menor" tem de voltar quando o visitante sobe de novo.
+- Trocar o controle de arrastar da conta por uma animação rápida e fluida.
+- Reapresentar "o que você precisa saber para confiar": onde a empresa atua e como protege o telhado, com uma animação de chuva tentando infiltrar (no estilo do "treine sua voz" do Entoa).
+- Tornar didático o custo (entrada zero, quanto custa, quando se paga) e as garantias.
+- Etapas em trilha vertical, com uma bolinha que desce com o scroll.
+- As animações precisam acontecer quando a pessoa está olhando, devagar o bastante para ser vista, e repetir.
+
+Decisões:
+- **Hero:** só título, uma frase, botão, casa e o cartão da economia (R$ 780 riscado em laranja, R$ 118 em marinho, selo de 85%). Saíram a legenda do caso, a nota "a partir de R$ 450", os três passos e o texto de apoio. O caso completo (6,4 kWp, março de 2025, média de doze meses) foi para a legenda das barras em "Quanto a conta cai". 85% é a conta do caso real, não uma promessa.
+- **"Quanto a conta cai":** sem controle. Duas barras (antes e hoje) e a faixa média dos clientes (75% a 90%) desenhada em volta da barra de hoje. Texto único: a média e a conta não zera.
+- **Custo e garantias juntos:** uma linha do tempo de 25 anos com quatro barras (o sistema se paga em 3 a 4 anos; garantias de 5, 10 e 25 anos), eixo de 0 a 25 e legenda de cor. Acima, duas informações grandes: o investimento (R$ 14 mil a R$ 19 mil, 5 a 8 kWp, 12 a 20 painéis) e a entrada zero com dois bancos.
+- **Onde atuamos:** mapa com ondas saindo de Sorocaba e três pontos curtos (80 km, equipe própria, assistência autorizada).
+- **Telhado protegido:** duas chuvas lado a lado, "o medo" e "com a Ravena". O lado do medo não aponta empresa nenhuma; mostra uma obra mal vedada em geral. A afirmação é só a do brief: garantia de 5 anos contra infiltração causada pela obra.
+- **Etapas:** trilha vertical com bolinha e uma mini-animação por etapa. O prazo (45 a 60 dias entre a assinatura e a ligação) fica no topo e na etapa 3.
+- **Gatilhos:** `.replay` com margem de 12% e 30% de visibilidade, recomeçando ao voltar. Números mais lentos (2,2 s).
+- Saiu o controle deslizante, a lista de abas das etapas, os quatro cartões de texto e o gráfico de barras separado do custo.
+
 ## Revisão 4 (21/10/2026): produto claro, cena sem texto sobre a imagem, módulos no lugar de blocos de texto
 
 Pedido do aluno, em resumo:

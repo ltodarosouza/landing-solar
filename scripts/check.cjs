@@ -83,8 +83,8 @@ for (const [nome, fg, bg] of pares) {
   verifica("contraste " + nome + " " + r.toFixed(2) + ":1 (mín. 4,5)", r >= 4.5);
 }
 const usosLaranjaTexto = [...css.matchAll(/([^{}]+)\{[^}]*?(?<![-\w])color:\s*var\(--laranja\)/g)].map((m) => m[1].trim());
-const so_grandes = new Set([".resultado .faixa-valor em"]);
-verifica("laranja só em texto grande (número de 32 px ou mais sobre o painel branco): " + usosLaranjaTexto.join(" | "), usosLaranjaTexto.length > 0 && usosLaranjaTexto.every((u) => so_grandes.has(u)));
+const so_grandes = new Set([".conta-card .antes"]);
+verifica("laranja só em texto grande (número de 32 px ou mais sobre o cartão branco): " + usosLaranjaTexto.join(" | "), usosLaranjaTexto.length > 0 && usosLaranjaTexto.every((u) => so_grandes.has(u)));
 for (const [nome, bg] of [["branco", branco]]) {
   const r = contraste(laranja, bg);
   verifica("contraste laranja sobre " + nome + " " + r.toFixed(2) + ":1 (texto grande, mín. 3)", r >= 3);
@@ -103,7 +103,7 @@ verifica("movimento respeita prefers-reduced-motion", /@media \(prefers-reduced-
 const escala = new Set(["0", "8", "16", "24", "48", "96"]);
 const espacos = [...css.matchAll(/--e[1-5]:\s*(\d+)px/g)].map((m) => m[1]);
 verifica("escala de espaço é 8, 16, 24, 48, 96", espacos.join(",") === "8,16,24,48,96", espacos.join(","));
-verifica("alvo de toque: botão, campos, abas e controle com 48 px", (css.match(/min-height:\s*48px/g) || []).length >= 5);
+verifica("alvo de toque de 48 px no botão, nos campos e nas perguntas", /\.btn \{[^}]*min-height: 48px/.test(css) && /input\[type="text"\], input\[type="tel"\], select \{[^}]*min-height: 48px/.test(css) && /\.faq-item button \{[^}]*min-height: 48px/.test(css));
 
 // ---------- estrutura ----------
 verifica("tem meta viewport", /<meta name="viewport" content="width=device-width, initial-scale=1">/.test(html));
@@ -115,7 +115,7 @@ const ancoras = [...html.matchAll(/href="#([^"]*)"/g)].map((m) => m[1]).filter((
 const quebradas = ancoras.filter((a) => !ids.has(a));
 verifica("toda âncora interna aponta para um id", quebradas.length === 0, "quebradas: " + quebradas.join(", "));
 const fors = [...html.matchAll(/<label for="([^"]+)"/g)].map((m) => m[1]);
-verifica("todo label aponta para um campo", fors.length === 5 && fors.every((f) => ids.has(f)), fors.join(","));
+verifica("todo label aponta para um campo (quatro, do formulário)", fors.length === 4 && fors.every((f) => ids.has(f)), fors.join(","));
 verifica("lang pt-BR", /<html lang="pt-BR">/.test(html));
 
 // ---------- ação única ----------
@@ -167,20 +167,17 @@ const caso = (780 - 118) / 780;
 verifica("o caso (780 para 118) cai " + (caso * 100).toFixed(1) + "%, dentro da faixa de 75% a 90%", caso >= 0.75 && caso <= 0.9);
 
 // ---------- interação: faixa da conta ----------
-const faixaHtml = html.match(/<input id="faixa-conta" type="range"[^>]*min="(\d+)" max="(\d+)"/);
-verifica("controle da conta começa no mínimo da empresa (R$ 450)", !!faixaHtml && +faixaHtml[1] === app.CONTA_MINIMA);
+verifica("a conta mínima do formulário é R$ 450", app.CONTA_MINIMA === 450);
 const f780 = app.faixaDaConta(780);
 verifica("faixa de R$ 780: " + f780.min + " a " + f780.max + " (75% a 90% de queda)", f780.min === 78 && f780.max === 195);
 verifica("o caso real (R$ 118) cai dentro da faixa de R$ 780", 118 >= f780.min && 118 <= f780.max);
 const nunca0 = [450, 780, 1500].every((c) => app.faixaDaConta(c).min > 0);
 verifica("a faixa nunca chega a zero (a conta não zera)", nunca0);
-verifica("a ressalva (não é promessa, a conta não zera) está junto do resultado", /id="faixa-ressalva">[^<]*Não é promessa[^<]*A conta não zera/.test(html));
+verifica("a conta explica a faixa média e que ela não zera, junto das barras", /<div class="conta-fecho[^"]*">\s*<p class="lead">[^<]*75% a 90%[^<]*não zera/.test(html));
 
 // ---------- interação: etapas ----------
-const abas = [...html.matchAll(/role="tab" id="(aba-\d)" aria-controls="(passo-\d)"/g)];
-verifica("seis abas de etapa", abas.length === 6);
-verifica("cada aba aponta para um painel existente", abas.every((a) => ids.has(a[2])));
-verifica("só a primeira aba começa selecionada", (html.match(/aria-selected="true"/g) || []).length === 1);
+verifica("seis etapas na trilha vertical, cada uma com ícone animado, e a bolinha que desce", (html.match(/<li class="tv-passo">/g) || []).length === 6 && (html.match(/<div class="tv-icone">/g) || []).length === 6 && /id="tv-bola"/.test(html) && /id="tv-feito"/.test(html) && !/role="tab"/.test(html));
+verifica("a bolinha acende cada ponto que alcança e apaga quando volta (toggle de .alcancado), e a trilha respeita movimento reduzido", /classList\.toggle\("alcancado", yAtual >= pos\[i\] - 6\)/.test(appJs) && /passos\.forEach\(function \(p\) \{ p\.classList\.add\("alcancado"\); \}\)/.test(appJs) && /\.tv-bola, \.tv-feito \{ display: none; \}/.test(css));
 
 // ---------- ilustrações ----------
 const todosSvg = html.match(/<svg\b[^>]*>/g) || [];
@@ -208,7 +205,7 @@ verifica("o modo de rolagem (.scrub) só é ligado pelo JavaScript, nunca vem no
 verifica("a cena respeita prefers-reduced-motion: parada, com todos os textos abertos e nada escondido fora do modo de rolagem", /prefers-reduced-motion: reduce/.test(cenaJs) && /aplica\(0\.55\)/.test(cenaJs) && /\.cap-corpo \{ display: grid; grid-template-rows: 1fr; \}/.test(css) && /html\.scrub \.cap-corpo \{ grid-template-rows: 0fr;/.test(css) && /html\.scrub \.capitulos li:not\(\.ativo\) \{ display: none; \}/.test(css) && !/^\s*\.capitulos li:not/m.test(css));
 const pm = (appJs.match(/addEventListener\("pointermove"/g) || []).length;
 verifica("nada segue o mouse fora do hero: cursor, ímã e inclinação foram removidos, e há um só pointermove, no hero", !/\.cursor\b|cursor-ponto/.test(css) && !/class="cursor/.test(html) && pm === 1 && /hero\.addEventListener\("pointermove"/.test(appJs) && !/magnet|perspective\(/.test(appJs));
-verifica("a interação do hero só existe com mouse e sem redução de movimento", /\(pointer: fine\)/.test(appJs) && appJs.indexOf("if (semMovimento) return;") < appJs.indexOf("if (!comMouse) return;") && appJs.indexOf("if (!comMouse) return;") < appJs.indexOf('hero.addEventListener("pointermove"') && /\.hero-luz \{ display: none; \}/.test(css));
+verifica("a interação do hero só existe com mouse e sem redução de movimento", /\(pointer: fine\)/.test(appJs) && appJs.indexOf("if (semMovimento || !comMouse) return;") > 0 && appJs.indexOf("if (semMovimento || !comMouse) return;") < appJs.indexOf('hero.addEventListener("pointermove"') && /\.hero-luz \{ display: none; \}/.test(css));
 verifica("alvo de toque dos pontos laterais tem 48 px", /\.pontos button \{ width: 48px; height: 48px;/.test(css));
 const c0 = cena.estadoCena(0), c40 = cena.estadoCena(0.4), c80 = cena.estadoCena(0.8), c100 = cena.estadoCena(1);
 verifica("sol: começa no horizonte (y " + c0.solY + "), passa no alto (y " + c40.solY.toFixed(0) + ") e se põe (y " + c80.solY.toFixed(0) + ")", c0.solY >= cena.HORIZONTE && c40.solY < 150 && c80.solY >= cena.HORIZONTE - 1);
@@ -231,12 +228,31 @@ verifica("hero diz o que é o produto: painéis solares, telhado, conta de luz",
 const h1 = (html.match(/<h1>([\s\S]*?)<\/h1>/) || [, ""])[1].replace(/<[^>]+>/g, "");
 verifica("o título do hero é curto (" + h1.length + " caracteres, máx. 80) e tem um destaque", h1.length <= 80 && /<span class="destaque">[^<]+<\/span>/.test(html));
 verifica("a conta do hero desce de R$ 780 para R$ 118 (valores do brief)", /data-de="780" data-ate="118">118</.test(html) && /class="antes">R\$ 780</.test(html));
-const artigos = html.match(/<article class="card[\s\S]*?<\/article>/g) || [];
-verifica("quatro módulos de confiança, cada um com visual (mapa, telhado, barras ou linha do tempo) além do texto", artigos.length === 4 && artigos.every((a) => /card-viz|linha-tempo/.test(a)), artigos.length + " módulos");
-const hp = [...html.matchAll(/--hp:([\d.]+)/g)].map((m) => +m[1]);
-verifica("as barras do gráfico respeitam a proporção 118/780 (" + (118 / 780).toFixed(3) + ")", hp.length === 2 && hp[0] === 1 && Math.abs(hp[1] - 118 / 780) < 0.001, hp.join(","));
-const lt = [...html.matchAll(/--w:(\d+)%"><b>(\d+) anos</g)].map((m) => [+m[1], +m[2]]);
-verifica("a linha do tempo das garantias é proporcional (25, 10 e 5 anos sobre 25)", lt.length === 3 && lt.every(([w, a]) => Math.abs(w - (a / 25) * 100) < 0.5), JSON.stringify(lt));
+const heroTexto2 = heroTexto;
+// A revisão 4 tinha 441 caracteres no texto do hero (mais 148 no cartão). Pedido: muito menos informação.
+verifica("hero enxuto: menos de um terço dos 441 caracteres da versão anterior (" + heroTexto.length + "), sem nota de rodapé", heroTexto.length < 441 / 3 && !/<p class="apoio">/.test((html.match(/<div class="hero-texto">[\s\S]*?<div class="hero-visual">/) || [""])[0]), heroTexto);
+verifica("o cartão da economia fica abaixo da casa, nunca sobre ela (sem position: absolute)", !/\.conta-card \{[^}]*position: absolute/.test(css) && html.indexOf('class="ilustra ilustra-hero"') < html.indexOf('class="conta-card"'));
+const queda = Math.round(((780 - 118) / 780) * 100);
+verifica("o selo de queda no hero é " + queda + "% (780 para 118)", new RegExp('class="selo-queda">−' + queda + "%<").test(html));
+verifica("o efeito do título volta toda vez que o hero reaparece (hero é .replay e o marca-texto só anima em .hero.visivel)", /<section class="hero replay"/.test(html) && /\.js \.hero\.visivel \.destaque::before \{ animation: marca/.test(css) && /\.js \.destaque::before \{ transform: scaleX\(0\); \}/.test(css));
+verifica("blocos animados só começam bem dentro da tela e recomeçam ao voltar (margem de 12%, 30% visível, classe tirada ao sair)", /rootMargin: "-12% 0px -12% 0px"/.test(appJs) && /intersectionRatio >= 0\.3/.test(appJs) && /classList\.remove\("visivel"\)/.test(appJs));
+verifica("os números não passam rápido demais: contagem da prova com 2,2 s e descida da conta com 1,8 s ou mais", /\/ 2200, 1\)/.test(appJs) && /var dur = el\.closest\("\.hero"\) \? 2200 : 1800;/.test(appJs));
+const cvw = (html.match(/class="cv-barra cv-depois" style="--w:([\d.]+)%"/) || [])[1];
+verifica("a barra de hoje tem " + cvw + "% da barra de antes (118/780 = " + ((118 / 780) * 100).toFixed(1) + "%)", Math.abs(+cvw - (118 / 780) * 100) < 0.2);
+const fx = html.match(/class="cv-faixa" style="--ini:(\d+)%;--fim:(\d+)%"/);
+const f100 = app.faixaDaConta(100);
+verifica("a faixa média desenhada nas barras (" + (fx && fx[1]) + "% a " + (fx && fx[2]) + "%) é a que o modelo calcula (" + f100.min + "% a " + f100.max + "%)", !!fx && +fx[1] === f100.min && +fx[2] === f100.max);
+verifica("o caso real (6,4 kWp, março de 2025) vem com a média de doze meses junto das barras", /<figcaption>[^<]*6,4 kWp[^<]*março de 2025[^<]*média dos últimos doze meses/.test(html));
+const anos = [...html.matchAll(/<div class="anos-barra( [a-z ]+)?" style="--w:(\d+)%"><b>([^<]+)<\/b>/g)].map((m) => [m[1] ? m[1].trim() : "", +m[2], m[3]]);
+const garantias = anos.filter((a) => a[0].indexOf("retorno") < 0);
+verifica("a linha do tempo de 25 anos é proporcional: garantias de 5, 10 e 25 anos e retorno de 3 a 4 anos", anos.length === 4 && garantias.every(([, w, t]) => Math.abs(w - (parseInt(t, 10) / 25) * 100) < 0.5) && anos.filter((a) => a[0].indexOf("retorno") >= 0).every(([, w]) => w >= (3 / 25) * 100 - 0.5 && w <= (4 / 25) * 100 + 0.5), JSON.stringify(anos));
+verifica("o eixo da linha do tempo vai de 0 a 25 anos", /<div class="anos-eixo"[^>]*><span>0<\/span><span>5<\/span><span>10<\/span><span>15<\/span><span>20<\/span><span>25 anos<\/span>/.test(html));
+verifica("mapa: Sorocaba no centro e três pinos, com o raio de 80 km e ondas", (html.match(/<circle class="pin"/g) || []).length === 4 && /class="raio-80"/.test(html) && (html.match(/class="onda o\d"/g) || []).length === 3);
+const paineisChuva = html.match(/<div class="comp-painel[\s\S]*?<\/svg>/g) || [];
+verifica("telhado protegido: dois painéis lado a lado, com sete gotas de chuva em cada", paineisChuva.length === 2 && paineisChuva.every((p) => (p.match(/class="chuva"/g) || []).length === 7));
+verifica("o painel do medo tem fresta, mancha, pingos e alerta; o da Ravena tem vedação, água escorrendo, selo e teto seco", /class="mancha"/.test(paineisChuva[0]) && /class="pinga"/.test(paineisChuva[0]) && /class="alerta"/.test(paineisChuva[0]) && /class="escorre"/.test(paineisChuva[1]) && /class="selo-ok"/.test(paineisChuva[1]) && /class="seco"/.test(paineisChuva[1]) && !/class="mancha"/.test(paineisChuva[1]));
+verifica("a chuva só anima quando o bloco está visível (nenhuma animação fora de .visivel)", /\.visivel \.chuva \{ animation: chuva/.test(css) && !/^\.chuva[^{]*\{[^}]*animation/m.test(css) && !/^\.pinga[^{]*\{[^}]*animation/m.test(css));
+verifica("a garantia de 5 anos contra infiltração está dita junto da animação", /<h2 id="telhado-titulo">[^<]*água[^<]*<\/h2>\s*<p class="lead">[^<]*5 anos[^<]*infiltração/.test(html));
 verifica("a navbar é reta no topo e vira pílula ao rolar", /\.nav \{[^}]*border-radius: 0;/.test(css) && /\.nav-area\.rolou \.nav \{[^}]*border-radius: 999px;/.test(css) && /classList\.toggle\("rolou", window\.scrollY > 24\)/.test(appJs));
 const faqBotoes = [...html.matchAll(/<button type="button" id="(faq-b\d)" aria-expanded="false" aria-controls="(faq-\d)"/g)];
 verifica("três perguntas animadas, fechadas ao carregar, com região ligada ao botão", faqBotoes.length === 3 && faqBotoes.every((m) => ids.has(m[2])) && !/<details/.test(html));

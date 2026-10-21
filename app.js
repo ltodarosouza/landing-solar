@@ -108,102 +108,13 @@ if (typeof document !== "undefined") {
 }
 
 if (typeof document !== "undefined") {
-  var reduzido = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var reais = function (n) { return "R$ " + n.toLocaleString("pt-BR"); };
-
-  // Faixa da conta
-  var faixa = document.getElementById("faixa-conta");
-  var paga = document.getElementById("faixa-paga");
-  var resultado = document.getElementById("faixa-resultado");
-  function atualizaFaixa() {
-    var conta = parseInt(faixa.value, 10);
-    var f = faixaDaConta(conta);
-    paga.textContent = reais(conta);
-    resultado.innerHTML = "";
-    resultado.appendChild(document.createTextNode(reais(f.min) + " e "));
-    var em = document.createElement("em");
-    em.textContent = reais(f.max);
-    resultado.appendChild(em);
-    faixa.setAttribute("aria-valuetext", "Conta de " + reais(conta) + ", fica entre " + reais(f.min) + " e " + reais(f.max));
-  }
-  faixa.addEventListener("input", atualizaFaixa);
-  atualizaFaixa();
-
-  // Leva a conta escolhida para o formulário
-  document.querySelectorAll("[data-leva-conta]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      document.getElementById("conta").value = faixa.value;
-    });
-  });
-
-  // Etapas (abas)
-  var abas = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
-  var barra = document.getElementById("trilha-barra");
-  function mostraAba(i, foco) {
-    abas.forEach(function (aba, j) {
-      var ativa = i === j;
-      aba.setAttribute("aria-selected", ativa ? "true" : "false");
-      aba.tabIndex = ativa ? 0 : -1;
-      document.getElementById(aba.getAttribute("aria-controls")).hidden = !ativa;
-    });
-    barra.style.width = ((i + 1) / abas.length * 100) + "%";
-    if (foco) abas[i].focus();
-  }
-  abas.forEach(function (aba, i) {
-    aba.addEventListener("click", function () { mostraAba(i, false); });
-    aba.addEventListener("keydown", function (ev) {
-      var prox = null;
-      if (ev.key === "ArrowRight") prox = (i + 1) % abas.length;
-      if (ev.key === "ArrowLeft") prox = (i - 1 + abas.length) % abas.length;
-      if (ev.key === "Home") prox = 0;
-      if (ev.key === "End") prox = abas.length - 1;
-      if (prox !== null) { ev.preventDefault(); mostraAba(prox, true); }
-    });
-  });
-  mostraAba(0, false);
-
-  // Revelar ao rolar e contar os números
-  function conta(el) {
-    var alvo = parseFloat(el.getAttribute("data-conta"));
-    var casas = parseInt(el.getAttribute("data-casas") || "0", 10);
-    var fim = alvo.toLocaleString("pt-BR", { minimumFractionDigits: casas, maximumFractionDigits: casas });
-    if (reduzido) { el.textContent = fim; return; }
-    var t0 = null;
-    function passo(t) {
-      if (t0 === null) t0 = t;
-      var p = Math.min((t - t0) / 1200, 1);
-      var v = alvo * (1 - Math.pow(1 - p, 3));
-      el.textContent = p < 1 ? v.toLocaleString("pt-BR", { minimumFractionDigits: casas, maximumFractionDigits: casas }) : fim;
-      if (p < 1) requestAnimationFrame(passo);
-    }
-    requestAnimationFrame(passo);
-  }
-  var revela = document.querySelectorAll(".revela");
-  if (!("IntersectionObserver" in window) || reduzido) {
-    revela.forEach(function (el) { el.classList.add("visivel"); });
-  } else {
-    var obs = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        e.target.classList.add("visivel");
-        e.target.querySelectorAll("[data-conta]").forEach(conta);
-        obs.unobserve(e.target);
-      });
-    }, { threshold: 0.15 });
-    revela.forEach(function (el) { obs.observe(el); });
-  }
-}
-
-// Movimento. Tudo aqui é opcional: sem JS ou com movimento reduzido a página funciona igual.
-if (typeof document !== "undefined") {
   (function () {
     var semMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var comMouse = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
     var limita = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
 
-    // Barra de progresso de leitura
+    // ---- Barra de leitura e navbar (reta no topo, pílula ao descer)
     var barraProgresso = document.getElementById("progresso-barra");
-    // Navbar: reta no topo, vira pílula ao descer
     var navArea = document.getElementById("nav-area");
     function aoRolar() {
       var total = document.documentElement.scrollHeight - window.innerHeight;
@@ -213,7 +124,7 @@ if (typeof document !== "undefined") {
     window.addEventListener("scroll", aoRolar, { passive: true });
     aoRolar();
 
-    // Navbar: destaca a seção que está na tela
+    // ---- Navbar: destaca a seção que está na tela
     var links = {};
     document.querySelectorAll(".nav ul a").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
     if ("IntersectionObserver" in window) {
@@ -232,7 +143,7 @@ if (typeof document !== "undefined") {
       Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) vistas.observe(s); });
     }
 
-    // Perguntas: abre uma e fecha as outras
+    // ---- Perguntas: abre uma e fecha as outras
     var itens = Array.prototype.slice.call(document.querySelectorAll(".faq-item"));
     itens.forEach(function (item) {
       var botao = item.querySelector("button");
@@ -242,61 +153,156 @@ if (typeof document !== "undefined") {
           o.classList.remove("aberto");
           o.querySelector("button").setAttribute("aria-expanded", "false");
         });
-        if (abrir) {
-          item.classList.add("aberto");
-          botao.setAttribute("aria-expanded", "true");
-        }
+        if (abrir) { item.classList.add("aberto"); botao.setAttribute("aria-expanded", "true"); }
       });
     });
 
-    if (semMovimento) return;
-
-    // Hero: a conta desce de R$ 780 para R$ 118
-    var descida = document.querySelector("[data-de]");
-    if (descida) {
-      var de = parseFloat(descida.getAttribute("data-de"));
-      var ate = parseFloat(descida.getAttribute("data-ate"));
-      descida.textContent = String(de);
-      var inicio = null;
-      var passoDescida = function (t) {
-        if (inicio === null) inicio = t;
-        var p = limita((t - inicio) / 1700, 0, 1);
-        var v = de + (ate - de) * (1 - Math.pow(1 - p, 3));
-        descida.textContent = String(p < 1 ? Math.round(v) : ate);
-        if (p < 1) requestAnimationFrame(passoDescida);
-      };
-      setTimeout(function () { requestAnimationFrame(passoDescida); }, 1000);
+    // ---- Números da prova: contam quando aparecem
+    function conta(el) {
+      var alvo = parseFloat(el.getAttribute("data-conta"));
+      var casas = parseInt(el.getAttribute("data-casas") || "0", 10);
+      var fmt = function (v) { return v.toLocaleString("pt-BR", { minimumFractionDigits: casas, maximumFractionDigits: casas }); };
+      if (semMovimento) { el.textContent = fmt(alvo); return; }
+      var t0 = null;
+      (function passo(t) {
+        if (t0 === null) t0 = t;
+        var p = Math.min((t - t0) / 2200, 1);
+        el.textContent = fmt(p < 1 ? alvo * (1 - Math.pow(1 - p, 3)) : alvo);
+        if (p < 1) requestAnimationFrame(passo);
+      })(performance.now());
+    }
+    // Revela uma vez só, e só quando o bloco já está bem dentro da tela
+    var revela = document.querySelectorAll(".revela");
+    if (!("IntersectionObserver" in window) || semMovimento) {
+      revela.forEach(function (el) { el.classList.add("visivel"); el.querySelectorAll("[data-conta]").forEach(conta); });
+    } else {
+      var obs = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("visivel");
+          e.target.querySelectorAll("[data-conta]").forEach(conta);
+          obs.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px -18% 0px", threshold: 0.2 });
+      revela.forEach(function (el) { obs.observe(el); });
     }
 
-    if (!comMouse) return;
+    // ---- Números que descem (conta antes e depois): recomeçam sempre que o bloco volta à tela
+    var descidas = Array.prototype.slice.call(document.querySelectorAll("[data-de]"));
+    var raf = new WeakMap();
+    function desce(el, ligar) {
+      var de = parseFloat(el.getAttribute("data-de"));
+      var ate = parseFloat(el.getAttribute("data-ate"));
+      var atraso = el.closest(".hero") ? 900 : 1500;
+      var dur = el.closest(".hero") ? 2200 : 1800;
+      var antigo = raf.get(el);
+      if (antigo) { clearTimeout(antigo.t); cancelAnimationFrame(antigo.r); }
+      if (!ligar || semMovimento) { el.textContent = String(ligar ? ate : de); return; }
+      el.textContent = String(de);
+      var estado = {};
+      estado.t = setTimeout(function () {
+        var t0 = null;
+        (function passo(t) {
+          if (t0 === null) t0 = t;
+          var p = limita((t - t0) / dur, 0, 1);
+          el.textContent = String(p < 1 ? Math.round(de + (ate - de) * (1 - Math.pow(1 - p, 3))) : ate);
+          if (p < 1) estado.r = requestAnimationFrame(passo);
+        })(performance.now());
+      }, atraso);
+      raf.set(el, estado);
+    }
 
-    // Hero: uma luz quente acompanha o cursor, o marca-texto brilha quando ele chega perto
-    // e o reflexo nos painéis segue o cursor sobre a casa.
+    // ---- Blocos que repetem a animação toda vez que voltam à tela.
+    // A animação só começa quando o bloco está bem dentro da tela (as bordas de cima e de baixo não contam),
+    // e recomeça do zero quando a pessoa sai e volta.
+    var replay = document.querySelectorAll(".replay");
+    if (!("IntersectionObserver" in window) || semMovimento) {
+      replay.forEach(function (el) { el.classList.add("visivel"); });
+      descidas.forEach(function (el) { desce(el, true); });
+    } else {
+      var obs2 = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          var dentro = e.isIntersecting && e.intersectionRatio >= 0.3;
+          if (dentro && !e.target.classList.contains("visivel")) {
+            e.target.classList.add("visivel");
+            descidas.forEach(function (el) { if (e.target.contains(el)) desce(el, true); });
+          } else if (!e.isIntersecting && e.target.classList.contains("visivel")) {
+            e.target.classList.remove("visivel");
+            descidas.forEach(function (el) { if (e.target.contains(el)) desce(el, false); });
+          }
+        });
+      }, { rootMargin: "-12% 0px -12% 0px", threshold: [0, 0.3] });
+      replay.forEach(function (el) { obs2.observe(el); });
+    }
+
+    // ---- Etapas: a bolinha desce com o scroll e acende cada ponto que alcança
+    var trilha = document.getElementById("trilha-v");
+    if (trilha) {
+      var passos = Array.prototype.slice.call(trilha.querySelectorAll(".tv-passo"));
+      if (semMovimento) {
+        passos.forEach(function (p) { p.classList.add("alcancado"); });
+      } else {
+        var yAtual = 0, yAlvo = 0, rodando = false;
+        var posicoes = function () {
+          var base = trilha.getBoundingClientRect().top + window.scrollY;
+          return passos.map(function (p) {
+            var no = p.querySelector(".tv-no").getBoundingClientRect();
+            return no.top + window.scrollY + no.height / 2 - base;
+          });
+        };
+        var alvoDoScroll = function () {
+          var pos = posicoes();
+          var base = trilha.getBoundingClientRect().top + window.scrollY;
+          var ponto = window.scrollY + window.innerHeight * 0.55 - base;
+          return limita(ponto, pos[0], pos[pos.length - 1]);
+        };
+        var desenha = function () {
+          var pos = posicoes();
+          trilha.style.setProperty("--y", yAtual.toFixed(1) + "px");
+          passos.forEach(function (p, i) { p.classList.toggle("alcancado", yAtual >= pos[i] - 6); });
+        };
+        var quadro = function () {
+          yAtual += (yAlvo - yAtual) * 0.1;
+          if (Math.abs(yAlvo - yAtual) < 0.5) yAtual = yAlvo;
+          desenha();
+          if (yAtual !== yAlvo) requestAnimationFrame(quadro); else rodando = false;
+        };
+        var mover = function () {
+          yAlvo = alvoDoScroll();
+          if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
+        };
+        window.addEventListener("scroll", mover, { passive: true });
+        window.addEventListener("resize", mover);
+        yAlvo = alvoDoScroll(); yAtual = yAlvo; desenha();
+      }
+    }
+
+    if (semMovimento || !comMouse) return;
+
+    // ---- Hero: uma luz quente acompanha o cursor, o marca-texto brilha quando ele chega perto
+    // e o reflexo nos painéis segue o cursor sobre a casa. É a única coisa na página que segue o mouse.
     var hero = document.getElementById("hero");
     var destaque = hero.querySelector(".destaque");
     var ilustra = hero.querySelector(".ilustra-hero");
     var brilho = hero.querySelector(".brilho-painel");
-    var alvoX = 0, alvoY = 0, x = 0, y = 0, ativo = false, rodando = false;
-
-    function quadro() {
+    var alvoX = 0, alvoY = 0, x = 0, y = 0, ativo = false, girando = false;
+    function seguir() {
       x += (alvoX - x) * 0.14;
       y += (alvoY - y) * 0.14;
       hero.style.setProperty("--mx", x.toFixed(1) + "px");
       hero.style.setProperty("--my", y.toFixed(1) + "px");
       var r = destaque.getBoundingClientRect();
       var h = hero.getBoundingClientRect();
-      var cx = r.left - h.left + r.width / 2;
-      var cy = r.top - h.top + r.height / 2;
-      var d = Math.hypot(x - cx, y - cy);
+      var d = Math.hypot(x - (r.left - h.left + r.width / 2), y - (r.top - h.top + r.height / 2));
       hero.style.setProperty("--prox", limita(1 - d / 320, 0, 1).toFixed(3));
-      if (ativo || Math.abs(alvoX - x) > 0.5 || Math.abs(alvoY - y) > 0.5) requestAnimationFrame(quadro); else rodando = false;
+      if (ativo || Math.abs(alvoX - x) > 0.5 || Math.abs(alvoY - y) > 0.5) requestAnimationFrame(seguir); else girando = false;
     }
     hero.addEventListener("pointermove", function (ev) {
       var h = hero.getBoundingClientRect();
       alvoX = ev.clientX - h.left;
       alvoY = ev.clientY - h.top;
       if (!ativo) { ativo = true; hero.classList.add("luz-ativa"); x = alvoX; y = alvoY; }
-      if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
+      if (!girando) { girando = true; requestAnimationFrame(seguir); }
       var i = ilustra.getBoundingClientRect();
       if (ev.clientX >= i.left && ev.clientX <= i.right && ev.clientY >= i.top && ev.clientY <= i.bottom) {
         var local = ((ev.clientX - i.left) / i.width) * 560 - 14;

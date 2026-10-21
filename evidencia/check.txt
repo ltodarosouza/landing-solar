@@ -11,18 +11,18 @@ ok    contraste botão: marinho sobre âmbar 5.60:1 (mín. 4,5)
 ok    contraste seção escura: branco sobre marinho 11.92:1 (mín. 4,5)
 ok    contraste rótulo da legenda: marinho sobre sol 10.70:1 (mín. 4,5)
 ok    contraste texto de apoio sobre sol 6.31:1 (mín. 4,5)
-ok    laranja só em texto grande (número de 32 px ou mais sobre o painel branco): .resultado .faixa-valor em
+ok    laranja só em texto grande (número de 32 px ou mais sobre o cartão branco): .conta-card .antes
 ok    contraste laranja sobre branco 3.06:1 (texto grande, mín. 3)
 ok    só cinco tamanhos de fonte, todos pelos tokens
 ok    gradiente só no fundo do hero, na luz do hero e no brilho do marca-texto: .hero | .hero-luz | .destaque::after
 ok    movimento respeita prefers-reduced-motion
 ok    escala de espaço é 8, 16, 24, 48, 96
-ok    alvo de toque: botão, campos, abas e controle com 48 px
+ok    alvo de toque de 48 px no botão, nos campos e nas perguntas
 ok    tem meta viewport
 ok    tem um h1 só
 ok    toda imagem tem alt
 ok    toda âncora interna aponta para um id
-ok    todo label aponta para um campo
+ok    todo label aponta para um campo (quatro, do formulário)
 ok    lang pt-BR
 ok    o botão de ação diz a mesma coisa em todo lugar
 ok    todo link de ação leva ao formulário
@@ -53,14 +53,13 @@ ok    fato do brief presente: a conta não zera
 ok    fato do brief presente: resposta no mesmo dia útil
 ok    nenhum valor em reais fora do brief
 ok    o caso (780 para 118) cai 84.9%, dentro da faixa de 75% a 90%
-ok    controle da conta começa no mínimo da empresa (R$ 450)
+ok    a conta mínima do formulário é R$ 450
 ok    faixa de R$ 780: 78 a 195 (75% a 90% de queda)
 ok    o caso real (R$ 118) cai dentro da faixa de R$ 780
 ok    a faixa nunca chega a zero (a conta não zera)
-ok    a ressalva (não é promessa, a conta não zera) está junto do resultado
-ok    seis abas de etapa
-ok    cada aba aponta para um painel existente
-ok    só a primeira aba começa selecionada
+ok    a conta explica a faixa média e que ela não zera, junto das barras
+ok    seis etapas na trilha vertical, cada uma com ícone animado, e a bolinha que desce
+ok    a bolinha acende cada ponto que alcança e apaga quando volta (toggle de .alcancado), e a trilha respeita movimento reduzido
 ok    todo svg é decorativo (aria-hidden), menos a cena, que tem role=img e descrição
 ok    cada imagem tem descrição própria de verdade (30 caracteres ou mais): 6 imagens
 ok    ilustrações só usam a paleta do DESIGN.md (inclui o vidro do painel)
@@ -90,9 +89,22 @@ ok    hero sem jargão: nenhuma destas palavras no texto do hero: kWp, kW, inver
 ok    hero diz o que é o produto: painéis solares, telhado, conta de luz
 ok    o título do hero é curto (60 caracteres, máx. 80) e tem um destaque
 ok    a conta do hero desce de R$ 780 para R$ 118 (valores do brief)
-ok    quatro módulos de confiança, cada um com visual (mapa, telhado, barras ou linha do tempo) além do texto
-ok    as barras do gráfico respeitam a proporção 118/780 (0.151)
-ok    a linha do tempo das garantias é proporcional (25, 10 e 5 anos sobre 25)
+ok    hero enxuto: menos de um terço dos 441 caracteres da versão anterior (125), sem nota de rodapé
+ok    o cartão da economia fica abaixo da casa, nunca sobre ela (sem position: absolute)
+ok    o selo de queda no hero é 85% (780 para 118)
+ok    o efeito do título volta toda vez que o hero reaparece (hero é .replay e o marca-texto só anima em .hero.visivel)
+ok    blocos animados só começam bem dentro da tela e recomeçam ao voltar (margem de 12%, 30% visível, classe tirada ao sair)
+ok    os números não passam rápido demais: contagem da prova com 2,2 s e descida da conta com 1,8 s ou mais
+ok    a barra de hoje tem 15.1% da barra de antes (118/780 = 15.1%)
+ok    a faixa média desenhada nas barras (10% a 25%) é a que o modelo calcula (10% a 25%)
+ok    o caso real (6,4 kWp, março de 2025) vem com a média de doze meses junto das barras
+ok    a linha do tempo de 25 anos é proporcional: garantias de 5, 10 e 25 anos e retorno de 3 a 4 anos
+ok    o eixo da linha do tempo vai de 0 a 25 anos
+ok    mapa: Sorocaba no centro e três pinos, com o raio de 80 km e ondas
+ok    telhado protegido: dois painéis lado a lado, com sete gotas de chuva em cada
+ok    o painel do medo tem fresta, mancha, pingos e alerta; o da Ravena tem vedação, água escorrendo, selo e teto seco
+ok    a chuva só anima quando o bloco está visível (nenhuma animação fora de .visivel)
+ok    a garantia de 5 anos contra infiltração está dita junto da animação
 ok    a navbar é reta no topo e vira pílula ao rolar
 ok    três perguntas animadas, fechadas ao carregar, com região ligada ao botão
 ok    sem JavaScript o conteúdo das perguntas continua visível (só colapsa com .js)
@@ -110,5 +122,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-111 de 111 verificações passaram.
+123 de 123 verificações passaram.
 exit=0

@@ -1,10 +1,10 @@
 # Evidência de verificação
 
-Revisão 4 (21/10/2026). Acumula as revisões 2 e 3; a seção 7 abaixo é a desta revisão e substitui o que a seção 6 dizia sobre cursor e cartão da cena. Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 5 (21/10/2026). Acumula as revisões anteriores; as seções 7 e 8 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **111 de 111**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **123 de 123**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -95,6 +95,29 @@ Barra de progresso em scaleX(0,04) perto do topo; navbar marca "O sistema" ao es
 - Os módulos "Telhado protegido" e "Entrada zero" foram vistos a 864 px e em quadro pequeno a 1280 px, não ampliados.
 - Aparelho físico, toque, Safari e Firefox (`backdrop-filter`, `position: sticky`, `transform-box`).
 - Desempenho (Lighthouse) e peso da página.
+
+## 8. Revisão 5: hero enxuto, replay, módulos novos, trilha vertical
+
+**Medido contra a versão anterior (via git):** o texto do hero tinha 441 caracteres e o cartão 148. Agora o texto tem 125 (inclui o rótulo do botão) e o cartão só traz "Antes", "Hoje", os dois valores e o selo. O check exige menos de um terço de 441 (147).
+
+**Novas verificações no check (123 no total):** hero sem nota de rodapé e curto; cartão da economia abaixo da casa e sem `position: absolute`; selo de queda igual a 85%; hero e marca-texto como `.replay`; blocos animados só com margem de 12% e 30% visível, recomeçando ao sair; contagens a 2,2 s e 1,8 s; barra de hoje com 15,1% da de antes (118/780); faixa média desenhada igual à do modelo (10% a 25%); legenda do caso real junto das barras; linha do tempo de 25 anos proporcional (5, 10 e 25 anos; retorno entre 12% e 16%); eixo de 0 a 25; mapa com 4 pinos e 3 ondas; chuva com 7 gotas em cada painel; lado do medo com fresta, mancha, pingos e alerta, lado da Ravena com escorrimento, selo e teto seco; nenhuma animação de chuva fora de `.visivel`; trilha com 6 etapas, 6 ícones e bolinha que acende e apaga.
+
+**Defeitos achados olhando e corrigidos:** selo de queda caindo sozinho numa segunda linha do cartão (agora fixo no canto, com espaço no topo para não bater no rótulo "Hoje" no celular); "118" em itálico por causa da tag; gotas e mancha de infiltração pequenas e fracas (aumentadas).
+
+**Medido no navegador com o painel visível:**
+- Hero a 1280 px: título em y=104 a 406, botão em y=514 a 562, casa em y=104 e cartão logo abaixo; botão e casa na primeira tela. A 390 px a primeira tela mostra título, botão, casa e cartão (cartão termina em 838 de 844). Sem rolagem horizontal nos dois.
+- **Replay do hero:** na primeira vez marca-texto em matrix(1,…) e conta em 118; longe do hero a classe sai, o marca-texto volta a 0 e a conta a 780; ao voltar, 1 s depois o marca-texto está em 0,87 e a conta em 710, e 6 s depois está completo e em 118.
+- **Trilha:** `--y` da bolinha 190 → 840 → 1340 → 1694 px conforme o scroll; pontos acesos 1, 3, 4 e 6; ao voltar o scroll voltam a 3 (apagam e tocam de novo).
+- Conta antes e depois, linha do tempo de 25 anos, mapa e chuva vistos prontos depois de alguns segundos na tela. Chuva e animações só correm com a classe `.visivel` (conferido por `getComputedStyle`: `animationName` = chuva dentro da tela).
+- Chuva a 390 px: os dois painéis empilhados, cada um legível.
+
+**Não verificado:**
+- Quadros no meio da animação da chuva, do mapa e da trilha: vi os estados finais, não o movimento. A sensação de ritmo (durações de 1,4 a 2,2 s) é escolha minha, não medida em uso real.
+- Em tela pequena o bloco da chuva é alto (dois painéis empilhados): confirmei que a animação liga, mas não que cada painel está visível no momento em que os ícones de chuva aparecem.
+- Cada ícone das etapas só foi visto parado (etapa 3 com barras e check); as outras cinco foram vistas apenas pela estrutura e pelo check.
+- Movimento reduzido ligado: não abri a página assim; o check confere CSS e JavaScript.
+- Aparelho físico, toque, Safari e Firefox; `backdrop-filter`, `position: sticky`, `transform-box` e `clip-path` variam.
+- Desempenho (Lighthouse) e peso da página, com muitas animações SVG ao mesmo tempo.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

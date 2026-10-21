@@ -72,27 +72,20 @@
 <main id="inicio">
 
   <!-- Hero -->
-  <section class="hero" id="hero">
+  <section class="hero replay" id="hero">
     <div class="hero-luz" aria-hidden="true"></div>
     <div class="wrap hero-grade">
       <div class="hero-texto">
-        <span class="sobretitulo">Energia solar para a sua casa</span>
         <h1>Seu telhado produz energia. Sua conta de luz fica <span class="destaque">bem menor</span>.</h1>
-        <p class="lead">A Ravena instala painéis solares na sua casa. Eles transformam a luz do sol em energia, e você paga menos para a distribuidora.</p>
+        <p class="lead">A Ravena instala painéis solares na sua casa.</p>
         <div class="acao">
           <a class="btn" href="#simulacao">Pedir simulação</a>
-          <p class="apoio">Para contas de luz a partir de R$ 450 por mês. A conta não zera: sempre resta a taxa mínima e o custo do fio.</p>
         </div>
-        <ol class="mini-passos" aria-label="Em três passos">
-          <li><span class="mp-n">1</span>Painéis no telhado captam o sol</li>
-          <li><span class="mp-n">2</span>A casa usa a energia que eles produzem</li>
-          <li><span class="mp-n">3</span>A conta de luz cai</li>
-        </ol>
       </div>
       <div class="hero-visual">
         <div class="ilustra ilustra-hero" role="img" aria-label="Casa com oito painéis solares no telhado, sob o sol, e a conta de luz de uma casa real caindo de R$ 780 para R$ 118">
-          <svg viewBox="0 0 560 460" aria-hidden="true">
-            <g class="hero-sol" transform="translate(452 92)">
+          <svg viewBox="0 0 560 420" aria-hidden="true">
+            <g class="hero-sol" transform="translate(452 80)">
               <g class="raios-hero" stroke="#F2A03D" stroke-width="7" stroke-linecap="round">
                 <line x1="52" y1="0" x2="70" y2="0"/><line x1="45" y1="26" x2="60.6" y2="35"/><line x1="26" y1="45" x2="35" y2="60.6"/>
                 <line x1="0" y1="52" x2="0" y2="70"/><line x1="-26" y1="45" x2="-35" y2="60.6"/><line x1="-45" y1="26" x2="-60.6" y2="35"/>
@@ -101,23 +94,20 @@
               </g>
               <circle r="38" fill="#F2A03D"/>
             </g>
-            <g class="nuvem" style="--dur:70s;--atraso:-20s;--de:-160px;--ate:700px"><g transform="translate(40 70)" fill="#FFFFFF"><circle cx="0" cy="0" r="18"/><circle cx="22" cy="-7" r="22"/><circle cx="46" cy="0" r="16"/><rect x="-18" y="0" width="64" height="18" rx="9"/></g></g>
-            <g class="nuvem" style="--dur:95s;--atraso:-60s;--de:-160px;--ate:700px"><g transform="translate(0 150)" fill="#FFFFFF" opacity="0.8"><circle cx="0" cy="0" r="14"/><circle cx="18" cy="-6" r="18"/><circle cx="38" cy="0" r="13"/><rect x="-14" y="0" width="52" height="14" rx="7"/></g></g>
-            <rect x="0" y="412" width="560" height="48" fill="#123A55" opacity="0.1"/>
-            <g transform="translate(14 20)">
+            <g class="nuvem" style="--dur:70s;--atraso:-20s;--de:-160px;--ate:700px"><g transform="translate(40 60)" fill="#FFFFFF"><circle cx="0" cy="0" r="18"/><circle cx="22" cy="-7" r="22"/><circle cx="46" cy="0" r="16"/><rect x="-18" y="0" width="64" height="18" rx="9"/></g></g>
+            <g class="nuvem" style="--dur:95s;--atraso:-60s;--de:-160px;--ate:700px"><g transform="translate(0 135)" fill="#FFFFFF" opacity="0.8"><circle cx="0" cy="0" r="14"/><circle cx="18" cy="-6" r="18"/><circle cx="38" cy="0" r="13"/><rect x="-14" y="0" width="52" height="14" rx="7"/></g></g>
+            <rect x="0" y="372" width="560" height="48" fill="#123A55" opacity="0.1"/>
+            <g transform="translate(14 -10)">
               <use href="#casa-arte"/>
               <g clip-path="url(#clip-paineis)"><g class="brilho-painel"><polygon points="-40,120 20,120 -20,260 -80,260" fill="url(#g-brilho)"/></g></g>
             </g>
           </svg>
         </div>
-        <div class="conta-card" aria-hidden="false">
-          <span class="rotulo">Conta de luz por mês, casa em Sorocaba</span>
-          <div class="conta-linha">
-            <span class="antes">R$ 780</span>
-            <span class="seta" aria-hidden="true">&rarr;</span>
-            <span class="depois">R$ <b data-de="780" data-ate="118">118</b></span>
-          </div>
-          <span class="rotulo apoio">Sistema de 6,4 kWp, instalado em março de 2025. R$ 118 é a média dos últimos doze meses.</span>
+        <div class="conta-card">
+          <div class="cc-col"><span class="cc-rot">Antes</span><span class="antes">R$ 780</span></div>
+          <span class="seta" aria-hidden="true">&rarr;</span>
+          <div class="cc-col"><span class="cc-rot">Hoje</span><span class="depois">R$ <b data-de="780" data-ate="118">118</b></span></div>
+          <span class="selo-queda">−85%</span>
         </div>
       </div>
     </div>
@@ -273,144 +263,111 @@
     </div>
   </section>
 
-  <!-- Faixa da conta -->
-  <section aria-labelledby="faixa-titulo">
-    <div class="wrap faixa">
-      <div class="revela">
-        <span class="sobretitulo">Na prática</span>
-        <h2 id="faixa-titulo">Quanto a sua conta tende a cair</h2>
-        <p class="lead lead-topo">Mova o controle até o valor da sua conta de luz.</p>
-      </div>
-      <div class="painel revela">
-        <label for="faixa-conta">Quanto você paga de luz por mês</label>
-        <output class="paga" id="faixa-paga" for="faixa-conta">R$ 780</output>
-        <input id="faixa-conta" type="range" min="450" max="1500" step="10" value="780" aria-describedby="faixa-ressalva">
-        <div class="escala" aria-hidden="true"><span>R$ 450</span><span>R$ 1.500</span></div>
-        <div class="resultado" aria-live="polite">
-          <span class="apoio rotulo">Na média dos nossos clientes, a conta fica entre</span>
-          <span class="faixa-valor" id="faixa-resultado">&nbsp;</span>
-          <p class="ressalva" id="faixa-ressalva">Queda de 75% a 90%, a média dos clientes. Não é promessa: quem diz o seu número é a simulação, depois da visita ao telhado. A conta não zera.</p>
-        </div>
-        <a class="btn" href="#simulacao" data-leva-conta>Pedir simulação</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Confiança, em módulos -->
-  <section class="alt" aria-labelledby="confianca">
+  <!-- Conta antes e depois -->
+  <section class="alt" id="conta" aria-labelledby="conta-titulo">
     <div class="wrap">
       <div class="cabeca revela">
-        <span class="sobretitulo">Antes de assinar</span>
-        <h2 id="confianca">O que você precisa saber para confiar</h2>
+        <span class="sobretitulo">Na prática</span>
+        <h2 id="conta-titulo">Quanto a conta cai</h2>
       </div>
-      <div class="bento">
-
-        <article class="card largo horizontal revela">
-          <div class="card-viz" role="img" aria-label="Mapa esquemático, sem escala: Sorocaba no centro e Votorantim, Itu e Salto dentro de um raio de 80 km">
-            <svg viewBox="0 0 480 220" aria-hidden="true">
-              <circle class="raio-80" cx="240" cy="110" r="96" fill="#FFF1DB" stroke="#E8721C" stroke-width="2" stroke-dasharray="6 8"/>
-              <g stroke="#123A55" stroke-width="2" opacity="0.35">
-                <line x1="240" y1="110" x2="200" y2="146"/><line x1="240" y1="110" x2="160" y2="72"/><line x1="240" y1="110" x2="204" y2="46"/>
-              </g>
-              <circle class="pulso" cx="240" cy="110" r="22" fill="#F2A03D" opacity="0.5"/>
-              <circle class="pin" style="--d:0ms" cx="240" cy="110" r="11" fill="#F2A03D" stroke="#123A55" stroke-width="3"/>
-              <circle class="pin" style="--d:250ms" cx="200" cy="146" r="7" fill="#123A55"/>
-              <circle class="pin" style="--d:450ms" cx="160" cy="72" r="7" fill="#123A55"/>
-              <circle class="pin" style="--d:650ms" cx="204" cy="46" r="7" fill="#123A55"/>
-              <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#123A55">
-                <text x="256" y="114">Sorocaba</text>
-                <text x="190" y="162" text-anchor="end">Votorantim</text>
-                <text x="148" y="76" text-anchor="end">Itu</text>
-                <text x="218" y="50">Salto</text>
-              </g>
-              <text x="240" y="214" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#4A5B68">raio de 80 km</text>
-            </svg>
+      <figure class="conta-viz replay" role="img" aria-label="Barras da conta de luz de uma casa em Sorocaba: R$ 780 por mês antes do sistema e R$ 118 depois, dentro da faixa média dos clientes, que é de queda de 75% a 90%">
+        <div class="cv-linha">
+          <span class="cv-rot">Antes</span>
+          <div class="cv-trilho"><div class="cv-barra cv-antes"><b>R$ 780</b></div></div>
+        </div>
+        <div class="cv-linha">
+          <span class="cv-rot">Hoje</span>
+          <div class="cv-trilho">
+            <div class="cv-faixa" style="--ini:10%;--fim:25%"><span>faixa média dos clientes</span></div>
+            <div class="cv-barra cv-depois" style="--w:15.1%"><b>R$ <i data-de="780" data-ate="118">118</i></b></div>
           </div>
-          <div class="card-texto">
-            <h3>Quem instala é a nossa equipe</h3>
-            <p>Seis anos, onze pessoas com carteira assinada e 412 sistemas instalados. Não terceirizamos, e somos assistência técnica autorizada da marca de inversor que instalamos.</p>
-            <p class="apoio">Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km.</p>
-          </div>
-        </article>
-
-        <article class="card revela">
-          <div class="card-viz" role="img" aria-label="Corte do telhado com telhas, painel e o selo de 5 anos de garantia contra infiltração">
-            <svg viewBox="0 0 300 220" aria-hidden="true">
-              <g transform="translate(26 188) rotate(-19.3) scale(0.72)">
-                <rect x="0" y="0" width="360" height="36" fill="#123A55"/>
-                <g fill="#E8721C" stroke="#FFFFFF" stroke-width="2">
-                  <rect x="0" y="-14" width="44" height="16" rx="8"/><rect x="42" y="-14" width="44" height="16" rx="8"/><rect x="84" y="-14" width="44" height="16" rx="8"/>
-                  <rect x="126" y="-14" width="44" height="16" rx="8"/><rect x="168" y="-14" width="44" height="16" rx="8"/><rect x="210" y="-14" width="44" height="16" rx="8"/>
-                  <rect x="252" y="-14" width="44" height="16" rx="8"/><rect x="294" y="-14" width="44" height="16" rx="8"/><rect x="336" y="-14" width="44" height="16" rx="8"/>
-                </g>
-                <rect x="70" y="-44" width="8" height="30" fill="#4A5B68"/><rect x="270" y="-44" width="8" height="30" fill="#4A5B68"/>
-                <rect x="50" y="-62" width="270" height="18" rx="3" fill="url(#g-painel)"/>
-              </g>
-              <g class="gota-grupo" fill="#123A55" opacity="0.4"><path class="gota" d="M70 20 q-5 9 0 12 q5 -3 0 -12z"/><path class="gota b" d="M120 10 q-5 9 0 12 q5 -3 0 -12z"/><path class="gota c" d="M170 22 q-5 9 0 12 q5 -3 0 -12z"/></g>
-              <g class="selo"><path d="M232 112 l30 10 v24 c0 17 -15 27 -30 33 c-15 -6 -30 -16 -30 -33 v-24 z" fill="#123A55"/>
-              <path d="M218 148 l11 11 l19 -21" fill="none" stroke="#F2A03D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>
-            </svg>
-          </div>
-          <div class="card-texto">
-            <h3>Telhado protegido por 5 anos</h3>
-            <p>A garantia da nossa instalação cobre qualquer infiltração causada pela obra. Antes da proposta, medimos o seu telhado na visita.</p>
-          </div>
-        </article>
-
-        <article class="card revela">
-          <div class="card-viz" role="img" aria-label="Duas barras de altura parecida: a conta de luz de hoje e a parcela do sistema">
-            <svg viewBox="0 0 300 220" aria-hidden="true">
-              <line x1="30" y1="190" x2="270" y2="190" stroke="#123A55" stroke-width="3" stroke-linecap="round"/>
-              <rect class="barra-viz" style="--d:0ms" x="66" y="50" width="70" height="140" rx="8" fill="#123A55"/>
-              <rect class="barra-viz" style="--d:200ms" x="164" y="62" width="70" height="128" rx="8" fill="#F2A03D"/>
-              <line class="traco-viz" x1="66" y1="36" x2="234" y2="36" stroke="#E8721C" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
-              <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" text-anchor="middle" fill="#123A55">
-                <text x="150" y="24" font-size="14">valores próximos</text>
-                <text x="101" y="210" font-size="14">Conta de hoje</text>
-                <text x="199" y="210" font-size="14">Parcela</text>
-              </g>
-            </svg>
-          </div>
-          <div class="card-texto">
-            <h3>Entrada zero é possível</h3>
-            <p>Trabalhamos com dois bancos. Na maioria dos casos a parcela fica próxima do valor que você já paga de luz hoje.</p>
-          </div>
-        </article>
-
-        <article class="card largo revela">
-          <div class="card-texto">
-            <h3>Por quanto tempo cada parte é coberta</h3>
-          </div>
-          <div class="linha-tempo">
-            <div class="lt-linha"><span class="lt-rot">Painel (performance)</span><div class="lt-trilho"><div class="lt-barra" style="--w:100%"><b>25 anos</b></div></div></div>
-            <div class="lt-linha"><span class="lt-rot">Inversor</span><div class="lt-trilho"><div class="lt-barra" style="--w:40%"><b>10 anos</b></div></div></div>
-            <div class="lt-linha"><span class="lt-rot">Nossa instalação, com infiltração</span><div class="lt-trilho"><div class="lt-barra" style="--w:20%"><b>5 anos</b></div></div></div>
-          </div>
-        </article>
-
+        </div>
+        <figcaption>Casa em Sorocaba, sistema de 6,4 kWp, instalado em março de 2025. R$ 118 é a média dos últimos doze meses.</figcaption>
+      </figure>
+      <div class="conta-fecho revela">
+        <p class="lead">Na média dos clientes, a conta cai de 75% a 90%. Ela não zera: sempre resta a taxa mínima e o custo do fio.</p>
+        <a class="btn" href="#simulacao">Pedir simulação</a>
       </div>
     </div>
   </section>
 
-  <!-- Investimento -->
-  <section class="escura" aria-labelledby="invest-titulo">
-    <div class="wrap invest-grade">
-      <div class="revela">
+  <!-- Custo e tempo -->
+  <section aria-labelledby="anos-titulo">
+    <div class="wrap">
+      <div class="cabeca revela">
         <span class="sobretitulo">O investimento</span>
-        <h2 id="invest-titulo">Quanto custa e quando se paga</h2>
-        <div class="invest">
-          <div class="item"><strong>R$ 14 mil a R$ 19 mil</strong><span>para 5 a 8 kWp (12 a 20 painéis no telhado)</span></div>
-          <div class="item"><strong>3 a 4 anos</strong><span>de retorno do investimento</span></div>
-          <div class="item"><strong>Mais de 25 anos</strong><span>de vida útil do sistema</span></div>
+        <h2 id="anos-titulo">Quanto custa e quando se paga</h2>
+      </div>
+      <div class="custo-itens revela">
+        <div class="ci"><strong>R$ 14 mil a R$ 19 mil</strong><span>para uma casa com 5 a 8 kWp (12 a 20 painéis)</span></div>
+        <div class="ci"><strong>Entrada zero</strong><span>é possível, com dois bancos. A parcela costuma ficar perto da sua conta de luz de hoje</span></div>
+      </div>
+      <figure class="anos replay" role="img" aria-label="Linha do tempo de 25 anos: o sistema se paga em 3 a 4 anos, a instalação tem 5 anos de garantia, o inversor 10 anos e o painel 25 anos">
+        <div class="anos-legenda"><span class="lg lg-retorno">Retorno do investimento</span><span class="lg lg-garantia">Garantia</span></div>
+        <div class="anos-linha"><span class="anos-rot">O sistema se paga</span><div class="anos-trilho"><div class="anos-barra retorno" style="--w:14%"><b>3 a 4 anos</b></div></div></div>
+        <div class="anos-linha"><span class="anos-rot">Nossa instalação, com infiltração</span><div class="anos-trilho"><div class="anos-barra" style="--w:20%"><b>5 anos</b></div></div></div>
+        <div class="anos-linha"><span class="anos-rot">Inversor</span><div class="anos-trilho"><div class="anos-barra" style="--w:40%"><b>10 anos</b></div></div></div>
+        <div class="anos-linha"><span class="anos-rot">Painel (performance)</span><div class="anos-trilho"><div class="anos-barra" style="--w:100%"><b>25 anos</b></div></div></div>
+        <div class="anos-eixo" aria-hidden="true"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25 anos</span></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Onde atuamos -->
+  <section class="alt" aria-labelledby="onde-titulo">
+    <div class="wrap onde-grade">
+      <div class="revela">
+        <span class="sobretitulo">Onde atuamos</span>
+        <h2 id="onde-titulo">Quem instala é a nossa equipe</h2>
+        <ul class="onde-itens">
+          <li><strong>80 km</strong><span>de raio em volta de Sorocaba: Votorantim, Itu e Salto</span></li>
+          <li><strong>Equipe própria</strong><span>com carteira assinada, sem terceirizar a instalação</span></li>
+          <li><strong>Assistência autorizada</strong><span>da marca de inversor que instalamos</span></li>
+        </ul>
+      </div>
+      <div class="mapa replay" role="img" aria-label="Mapa esquemático, sem escala: Sorocaba no centro e Votorantim, Itu e Salto dentro de um raio de 80 km">
+        <svg viewBox="0 0 480 400" aria-hidden="true">
+          <circle class="raio-80" cx="240" cy="200" r="168" fill="#FFF1DB" stroke="#E8721C" stroke-width="2" stroke-dasharray="6 8"/>
+          <circle class="onda o1" cx="240" cy="200" r="30" fill="none" stroke="#F2A03D" stroke-width="3"/>
+          <circle class="onda o2" cx="240" cy="200" r="30" fill="none" stroke="#F2A03D" stroke-width="3"/>
+          <circle class="onda o3" cx="240" cy="200" r="30" fill="none" stroke="#F2A03D" stroke-width="3"/>
+          <g class="ligacoes" stroke="#123A55" stroke-width="2" opacity="0.35"><line x1="240" y1="200" x2="176" y2="262"/><line x1="240" y1="200" x2="140" y2="132"/><line x1="240" y1="200" x2="196" y2="88"/></g>
+          <circle class="pin" style="--d:0ms" cx="240" cy="200" r="14" fill="#F2A03D" stroke="#123A55" stroke-width="3"/>
+          <circle class="pin" style="--d:500ms" cx="176" cy="262" r="9" fill="#123A55"/>
+          <circle class="pin" style="--d:800ms" cx="140" cy="132" r="9" fill="#123A55"/>
+          <circle class="pin" style="--d:1100ms" cx="196" cy="88" r="9" fill="#123A55"/>
+          <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#123A55">
+            <text x="260" y="206">Sorocaba</text>
+            <text x="164" y="268" text-anchor="end">Votorantim</text>
+            <text x="128" y="136" text-anchor="end">Itu</text>
+            <text x="212" y="84">Salto</text>
+          </g>
+          <text x="240" y="392" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#4A5B68">raio de 80 km</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Telhado protegido -->
+  <section aria-labelledby="telhado-titulo">
+    <div class="wrap">
+      <div class="cabeca revela">
+        <span class="sobretitulo">Telhado protegido</span>
+        <h2 id="telhado-titulo">A água não entra no seu telhado</h2>
+        <p class="lead">A garantia de 5 anos da nossa instalação cobre qualquer infiltração causada pela obra.</p>
+      </div>
+      <div class="compara replay" role="img" aria-label="Duas animações lado a lado de chuva sobre um telhado com painéis. À esquerda, uma obra mal vedada deixa a água passar e manchar o teto. À direita, a instalação vedada da Ravena faz a água escorrer, com o teto seco">
+        <div class="comp-painel comp-mal">
+          <span class="comp-chip">O medo: obra mal vedada</span>
+          <svg viewBox="0 0 420 300" aria-hidden="true"><polygon points="10,220.7 410,130.7 410,280 10,280" fill="#FFFFFF"/><line x1="10" y1="280" x2="410" y2="280" stroke="#123A55" stroke-width="4"/><line x1="210" y1="176" x2="210" y2="198" stroke="#123A55" stroke-width="3"/><circle cx="210" cy="206" r="9" fill="#F2A03D"/><ellipse class="mancha" cx="94" cy="198" rx="56" ry="14" fill="#2A6E9C" opacity="0.5"/><g transform="translate(10 190) rotate(-12.68)"><rect x="0" y="0" width="410" height="30" fill="#123A55"/><g fill="#E8721C" stroke="#FFFFFF" stroke-width="2"><rect x="0" y="-12" width="46" height="14" rx="7"/><rect x="44" y="-12" width="46" height="14" rx="7"/><rect x="88" y="-12" width="46" height="14" rx="7"/><rect x="132" y="-12" width="46" height="14" rx="7"/><rect x="176" y="-12" width="46" height="14" rx="7"/><rect x="220" y="-12" width="46" height="14" rx="7"/><rect x="264" y="-12" width="46" height="14" rx="7"/><rect x="308" y="-12" width="46" height="14" rx="7"/><rect x="352" y="-12" width="46" height="14" rx="7"/><rect x="396" y="-12" width="46" height="14" rx="7"/></g><rect x="44" y="-14" width="12" height="46" fill="#FFFFFF" stroke="#123A55" stroke-width="2"/><rect x="82" y="-44" width="7" height="30" fill="#4A5B68"/><rect x="292" y="-44" width="7" height="30" fill="#4A5B68"/><rect x="62" y="-60" width="258" height="16" rx="3" fill="url(#g-painel)"/><g stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"><line x1="126" y1="-60" x2="126" y2="-44"/><line x1="190" y1="-60" x2="190" y2="-44"/><line x1="254" y1="-60" x2="254" y2="-44"/></g></g><g transform="translate(58 8)"><ellipse class="chuva" style="--cai:157.2px;--d:0.00s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(58 165.2)"><circle class="respingo" style="--d:0.00s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(120 8)"><ellipse class="chuva" style="--cai:97.2px;--d:0.37s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(120 105.2)"><circle class="respingo" style="--d:0.37s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(175 8)"><ellipse class="chuva" style="--cai:84.9px;--d:0.74s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(175 92.9)"><circle class="respingo" style="--d:0.74s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(230 8)"><ellipse class="chuva" style="--cai:72.5px;--d:1.11s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(230 80.5)"><circle class="respingo" style="--d:1.11s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(285 8)"><ellipse class="chuva" style="--cai:60.1px;--d:1.48s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(285 68.1)"><circle class="respingo" style="--d:1.48s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(350 8)"><ellipse class="chuva" style="--cai:91.5px;--d:0.15s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(350 99.5)"><circle class="respingo" style="--d:0.15s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(395 8)"><ellipse class="chuva" style="--cai:81.4px;--d:0.52s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(395 89.4)"><circle class="respingo" style="--d:0.52s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(64 210.2)"><ellipse class="pinga" style="--cai:55.8px;--d:0.90s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(64 210.2)"><ellipse class="pinga" style="--cai:55.8px;--d:1.50s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(64 210.2)"><ellipse class="pinga" style="--cai:55.8px;--d:2.10s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g class="alerta"><circle cx="58" cy="236" r="16" fill="#E8721C"/><path d="M58 226 v12 M58 243 v1" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/></g></svg>
+          <p class="comp-legenda">A água passa pela fresta e mancha o teto.</p>
+        </div>
+        <div class="comp-painel comp-bom">
+          <span class="comp-chip comp-chip-bom">Com a Ravena</span>
+          <svg viewBox="0 0 420 300" aria-hidden="true"><polygon points="10,220.7 410,130.7 410,280 10,280" fill="#FFFFFF"/><line x1="10" y1="280" x2="410" y2="280" stroke="#123A55" stroke-width="4"/><line x1="210" y1="176" x2="210" y2="198" stroke="#123A55" stroke-width="3"/><circle cx="210" cy="206" r="9" fill="#F2A03D"/><g transform="translate(10 190) rotate(-12.68)"><rect x="0" y="0" width="410" height="30" fill="#123A55"/><g fill="#E8721C" stroke="#FFFFFF" stroke-width="2"><rect x="0" y="-12" width="46" height="14" rx="7"/><rect x="44" y="-12" width="46" height="14" rx="7"/><rect x="88" y="-12" width="46" height="14" rx="7"/><rect x="132" y="-12" width="46" height="14" rx="7"/><rect x="176" y="-12" width="46" height="14" rx="7"/><rect x="220" y="-12" width="46" height="14" rx="7"/><rect x="264" y="-12" width="46" height="14" rx="7"/><rect x="308" y="-12" width="46" height="14" rx="7"/><rect x="352" y="-12" width="46" height="14" rx="7"/><rect x="396" y="-12" width="46" height="14" rx="7"/></g><rect x="82" y="-44" width="7" height="30" fill="#4A5B68"/><rect x="292" y="-44" width="7" height="30" fill="#4A5B68"/><rect x="62" y="-60" width="258" height="16" rx="3" fill="url(#g-painel)"/><g stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"><line x1="126" y1="-60" x2="126" y2="-44"/><line x1="190" y1="-60" x2="190" y2="-44"/><line x1="254" y1="-60" x2="254" y2="-44"/></g><rect x="76" y="-16" width="19" height="9" rx="4" fill="#F2A03D" stroke="#123A55" stroke-width="2"/><rect x="286" y="-16" width="19" height="9" rx="4" fill="#F2A03D" stroke="#123A55" stroke-width="2"/><rect x="40" y="-16" width="20" height="9" rx="4" fill="#F2A03D" stroke="#123A55" stroke-width="2"/></g><path class="escorre" d="M400 96 L14 183" fill="none" stroke="#2A6E9C" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 14"/><g transform="translate(58 8)"><ellipse class="chuva" style="--cai:157.2px;--d:0.00s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(58 165.2)"><circle class="respingo" style="--d:0.00s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(120 8)"><ellipse class="chuva" style="--cai:97.2px;--d:0.37s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(120 105.2)"><circle class="respingo" style="--d:0.37s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(175 8)"><ellipse class="chuva" style="--cai:84.9px;--d:0.74s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(175 92.9)"><circle class="respingo" style="--d:0.74s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(230 8)"><ellipse class="chuva" style="--cai:72.5px;--d:1.11s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(230 80.5)"><circle class="respingo" style="--d:1.11s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(285 8)"><ellipse class="chuva" style="--cai:60.1px;--d:1.48s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(285 68.1)"><circle class="respingo" style="--d:1.48s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(350 8)"><ellipse class="chuva" style="--cai:91.5px;--d:0.15s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(350 99.5)"><circle class="respingo" style="--d:0.15s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g transform="translate(395 8)"><ellipse class="chuva" style="--cai:81.4px;--d:0.52s" cx="0" cy="0" rx="3.8" ry="6.2" fill="#2A6E9C"/></g><g transform="translate(395 89.4)"><circle class="respingo" style="--d:0.52s" r="8" fill="none" stroke="#2A6E9C" stroke-width="2"/></g><g class="selo-ok"><path d="M352 40 l30 10 v24 c0 17 -15 27 -30 33 c-15 -6 -30 -16 -30 -33 v-24 z" fill="#123A55"/><path d="M338 76 l11 11 l19 -21" fill="none" stroke="#F2A03D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="seco"><circle cx="58" cy="236" r="16" fill="#F2A03D"/><path d="M50 236 l6 6 l11 -12" fill="none" stroke="#123A55" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+          <p class="comp-legenda">A fixação é vedada e a água escorre. O teto fica seco.</p>
         </div>
       </div>
-      <figure class="grafico revela" role="img" aria-label="Barras da conta de luz de uma casa em Sorocaba: R$ 780 por mês antes do sistema e R$ 118 depois">
-        <div class="grafico-barras">
-          <div class="gb"><div class="gb-barra gb-antes" style="--hp:1"><b>R$ 780</b></div><span>Antes</span></div>
-          <div class="gb"><div class="gb-barra gb-depois" style="--hp:0.151"><b>R$ 118</b></div><span>Depois</span></div>
-        </div>
-        <figcaption>Conta por mês de uma casa em Sorocaba. Um caso, não uma média.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -422,46 +379,70 @@
         <h2 id="etapas-titulo">Etapas</h2>
         <p class="lead">De 45 a 60 dias entre a assinatura e o sistema ligado.</p>
       </div>
-      <div class="revela">
-        <div class="abas" role="tablist" aria-label="Etapas">
-          <button role="tab" id="aba-1" aria-controls="passo-1" aria-selected="true" type="button">1 Simulação</button>
-          <button role="tab" id="aba-2" aria-controls="passo-2" aria-selected="false" tabindex="-1" type="button">2 Visita</button>
-          <button role="tab" id="aba-3" aria-controls="passo-3" aria-selected="false" tabindex="-1" type="button">3 Proposta</button>
-          <button role="tab" id="aba-4" aria-controls="passo-4" aria-selected="false" tabindex="-1" type="button">4 Homologação</button>
-          <button role="tab" id="aba-5" aria-controls="passo-5" aria-selected="false" tabindex="-1" type="button">5 Instalação</button>
-          <button role="tab" id="aba-6" aria-controls="passo-6" aria-selected="false" tabindex="-1" type="button">6 Depois</button>
-        </div>
-        <div class="trilha" aria-hidden="true"><span id="trilha-barra"></span></div>
-        <div class="passo" id="passo-1" role="tabpanel" aria-labelledby="aba-1">
-          <h3>Simulação no mesmo dia útil</h3>
-          <p>Você pede a simulação e nós respondemos por WhatsApp no mesmo dia útil.</p>
-          <span class="quem">Por WhatsApp</span>
-        </div>
-        <div class="passo" id="passo-2" role="tabpanel" aria-labelledby="aba-2" hidden>
-          <h3>Visita técnica ao telhado</h3>
-          <p>Medimos o telhado na sua casa. A visita não tem custo e não tem compromisso.</p>
-          <span class="quem">Sem custo, sem compromisso</span>
-        </div>
-        <div class="passo" id="passo-3" role="tabpanel" aria-labelledby="aba-3" hidden>
-          <h3>Proposta com três tamanhos</h3>
-          <p>Você compara três tamanhos de sistema e escolhe. Se fechar, assina.</p>
-          <span class="quem">A assinatura abre a contagem dos 45 a 60 dias</span>
-        </div>
-        <div class="passo" id="passo-4" role="tabpanel" aria-labelledby="aba-4" hidden>
-          <h3>Projeto e homologação na CPFL</h3>
-          <p>Fazemos o projeto e pedimos a aprovação da distribuidora. É a parte mais demorada, e o prazo dela não depende de nós.</p>
-          <span class="quem">Depende da CPFL</span>
-        </div>
-        <div class="passo" id="passo-5" role="tabpanel" aria-labelledby="aba-5" hidden>
-          <h3>Instalação em dois dias</h3>
-          <p>A nossa equipe sobe no telhado e instala. Depois vêm a vistoria e a ligação.</p>
-          <span class="quem">Equipe própria</span>
-        </div>
-        <div class="passo" id="passo-6" role="tabpanel" aria-labelledby="aba-6" hidden>
-          <h3>Acompanhamento no primeiro ano</h3>
-          <p>Acompanhamos a produção do seu sistema. Se cair fora do previsto, ligamos para você.</p>
-          <span class="quem">Depois de ligado</span>
-        </div>
+      <div class="trilha-v" id="trilha-v">
+        <div class="tv-linha" aria-hidden="true"><span class="tv-fundo"></span><span class="tv-feito" id="tv-feito"></span><span class="tv-bola" id="tv-bola"></span></div>
+        <ol class="tv-passos">
+        <li class="tv-passo">
+          <span class="tv-no" aria-hidden="true"></span>
+          <div class="tv-conteudo">
+            <span class="tv-num">Etapa 1</span>
+            <h3>Simulação no mesmo dia útil</h3>
+            <p>Você pede e nós respondemos por WhatsApp no mesmo dia útil.</p>
+            <span class="quem">Por WhatsApp</span>
+          </div>
+          <div class="tv-icone"><svg viewBox="0 0 200 140" aria-hidden="true"><rect x="20" y="18" width="116" height="48" rx="14" fill="#FFFFFF" stroke="#123A55" stroke-width="3"/><g fill="#123A55"><circle class="ponto-d d1" cx="56" cy="42" r="5"/><circle class="ponto-d d2" cx="78" cy="42" r="5"/><circle class="ponto-d d3" cx="100" cy="42" r="5"/></g><rect class="resp" x="66" y="78" width="114" height="48" rx="14" fill="#F2A03D"/><path class="traco" d="M104 102 l12 12 l26 -28" fill="none" stroke="#123A55" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg></div>
+        </li>
+        <li class="tv-passo">
+          <span class="tv-no" aria-hidden="true"></span>
+          <div class="tv-conteudo">
+            <span class="tv-num">Etapa 2</span>
+            <h3>Visita técnica ao telhado</h3>
+            <p>Medimos o telhado na sua casa. A visita não tem custo e não tem compromisso.</p>
+            <span class="quem">Sem custo, sem compromisso</span>
+          </div>
+          <div class="tv-icone"><svg viewBox="0 0 200 140" aria-hidden="true"><polygon points="36,74 100,30 164,74" fill="#E8721C" stroke="#123A55" stroke-width="3" stroke-linejoin="round"/><rect x="50" y="74" width="100" height="52" fill="#FFFFFF" stroke="#123A55" stroke-width="3"/><rect x="88" y="94" width="24" height="32" fill="#123A55"/><path class="traco" d="M36 74 L100 30 L164 74" fill="none" stroke="#F2A03D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/><g fill="#123A55" stroke="#FFFFFF" stroke-width="2"><circle class="pop p1" cx="36" cy="74" r="6"/><circle class="pop p2" cx="100" cy="30" r="6"/><circle class="pop p3" cx="164" cy="74" r="6"/></g></svg></div>
+        </li>
+        <li class="tv-passo">
+          <span class="tv-no" aria-hidden="true"></span>
+          <div class="tv-conteudo">
+            <span class="tv-num">Etapa 3</span>
+            <h3>Proposta com três tamanhos</h3>
+            <p>Você compara três tamanhos de sistema e escolhe. Se fechar, assina.</p>
+            <span class="quem">A assinatura abre a contagem dos 45 a 60 dias</span>
+          </div>
+          <div class="tv-icone"><svg viewBox="0 0 200 140" aria-hidden="true"><line x1="24" y1="122" x2="176" y2="122" stroke="#123A55" stroke-width="3" stroke-linecap="round"/><rect class="barra b1" x="38" y="82" width="34" height="40" rx="6" fill="#123A55"/><rect class="barra b2" x="83" y="58" width="34" height="64" rx="6" fill="#F2A03D" stroke="#123A55" stroke-width="3"/><rect class="barra b3" x="128" y="30" width="34" height="92" rx="6" fill="#123A55"/><circle class="pop p1" cx="100" cy="36" r="14" fill="#123A55"/><path class="traco" d="M93 36 l5 5 l10 -11" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg></div>
+        </li>
+        <li class="tv-passo">
+          <span class="tv-no" aria-hidden="true"></span>
+          <div class="tv-conteudo">
+            <span class="tv-num">Etapa 4</span>
+            <h3>Projeto e homologação na CPFL</h3>
+            <p>Fazemos o projeto e pedimos a aprovação da distribuidora. É a parte mais demorada, e o prazo dela não depende de nós.</p>
+            <span class="quem">Depende da CPFL</span>
+          </div>
+          <div class="tv-icone"><svg viewBox="0 0 200 140" aria-hidden="true"><rect x="48" y="12" width="92" height="116" rx="8" fill="#FFFFFF" stroke="#123A55" stroke-width="3"/><g stroke="#123A55" stroke-width="4" stroke-linecap="round" fill="none" pathLength="1"><path class="traco l1" d="M64 36 H124" pathLength="1"/><path class="traco l2" d="M64 54 H124" pathLength="1"/><path class="traco l3" d="M64 72 H104" pathLength="1"/></g><circle class="carimbo" cx="132" cy="98" r="26" fill="#FFF1DB" stroke="#E8721C" stroke-width="4"/><path class="traco ck" d="M120 98 l9 9 l17 -19" fill="none" stroke="#E8721C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg></div>
+        </li>
+        <li class="tv-passo">
+          <span class="tv-no" aria-hidden="true"></span>
+          <div class="tv-conteudo">
+            <span class="tv-num">Etapa 5</span>
+            <h3>Instalação em dois dias</h3>
+            <p>A nossa equipe sobe no telhado e instala. Depois vêm a vistoria e a ligação.</p>
+            <span class="quem">Equipe própria</span>
+          </div>
+          <div class="tv-icone"><svg viewBox="0 0 200 140" aria-hidden="true"><polygon points="30,96 100,44 170,96" fill="#E8721C" stroke="#123A55" stroke-width="3" stroke-linejoin="round"/><rect x="44" y="96" width="112" height="32" fill="#FFFFFF" stroke="#123A55" stroke-width="3"/><polygon class="plac pa" points="34.2,92.9 55.2,77.3 48.6,68.4 27.6,84.0" fill="url(#g-painel)" stroke="#F6F8FA" stroke-width="2"/><polygon class="plac pb" points="58.0,75.2 79.0,59.6 72.4,50.8 51.4,66.4" fill="url(#g-painel)" stroke="#F6F8FA" stroke-width="2"/><polygon class="plac pc" points="81.8,57.5 100.0,44.0 93.4,35.2 75.2,48.7" fill="url(#g-painel)" stroke="#F6F8FA" stroke-width="2"/></svg></div>
+        </li>
+        <li class="tv-passo">
+          <span class="tv-no" aria-hidden="true"></span>
+          <div class="tv-conteudo">
+            <span class="tv-num">Etapa 6</span>
+            <h3>Acompanhamento no primeiro ano</h3>
+            <p>Acompanhamos a produção do seu sistema. Se cair fora do previsto, ligamos para você.</p>
+            <span class="quem">Depois de ligado</span>
+          </div>
+          <div class="tv-icone"><svg viewBox="0 0 200 140" aria-hidden="true"><path d="M24 20 V118 H180" fill="none" stroke="#123A55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path class="traco" d="M30 108 C54 108 62 78 88 78 S122 50 134 56 S158 34 176 28" fill="none" stroke="#F2A03D" stroke-width="6" stroke-linecap="round" pathLength="1"/><circle class="pop p1" cx="176" cy="28" r="7" fill="#123A55"/><g class="sino"><path d="M150 82 q0 -12 10 -12 q10 0 10 12 v8 l6 6 h-32 l6 -6z" fill="#FFFFFF" stroke="#123A55" stroke-width="3" stroke-linejoin="round"/><circle cx="160" cy="102" r="4" fill="#E8721C"/></g></svg></div>
+        </li>
+        </ol>
       </div>
     </div>
   </section>
