@@ -15,7 +15,7 @@ Página única de venda de energia solar residencial para a Ravena Solar (client
 
 ## Estrutura
 
-- `index.html`, `styles.css`, `app.js`, `cena.js`: sem build, sem dependência. Deploy estático na Vercel. `cena.js` guarda o modelo puro da cena do sol (testado pelo check) e o driver do scroll; `chuva.js` faz o mesmo para a cena da tempestade.
+- `index.html`, `styles.css`, `app.js`, `cena.js`: sem build, sem dependência. Deploy estático na Vercel. `cena.js` guarda o modelo puro da cena do sol (testado pelo check) e o driver do scroll.
 - `assets/logo.svg`: fonte das cores da marca. Não copie hex de cabeça; os três tokens de marca estão no topo do CSS e o check os compara com o SVG.
 - `material/`: entrega do cliente (logo e site de 2021). Só leitura.
 - `evidencia/`: saídas do check e medidas feitas no navegador.

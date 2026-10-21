@@ -1,10 +1,10 @@
 # Evidência de verificação
 
-Revisão 8 (21/10/2026). Acumula as revisões anteriores; as seções 7 a 11 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 9 (21/10/2026). Acumula as revisões anteriores; as seções 7 a 12 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **136 de 136**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **128 de 128**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -174,6 +174,16 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 - Capítulo 1 e a transição suave entre capítulos no celular foram vistos só pelo estado.
 - Movimento reduzido ligado, aparelho físico, Safari e Firefox (`clip-path` evenodd e `transform-box` variam).
 - Desempenho com 86 linhas de chuva animadas ao mesmo tempo.
+
+## 12. Revisão 9: "E se chover?" pequeno e sutil (a seção 11 ficou obsoleta)
+
+**Queixa:** a cena da tempestade "parece um arco-íris em cima da casa", não se entende cada parte, o usuário espera; pediu algo pequeno e sutil. **Decisão:** removi a cena inteira (cúpula, três camadas de chuva, relâmpago, scroll preso, arquivo `chuva.js`). A cena tinha 231 peças; o bloco novo tem menos de um quarto disso (o check exige menos de 231/4 = 57) e nenhum texto dentro do desenho.
+
+**Verificações novas e removidas:** saíram os testes do modelo da tempestade (agora não existe modelo); entraram bloco pequeno de duas colunas sem scroll preso nem `chuva.js`; peças menos de um quarto da cena anterior, sem cúpula nem arco e sem texto no desenho; oito gotas e o selo e a nuvem; "5 anos" em destaque fora da imagem; a chuva só anima sob `.visivel` e o bloco é `.replay`; sem movimento a chuva some e o selo aparece pronto; a página continua sem técnica de obra. Total: 128.
+
+**Visto no navegador:** a 1280 px, o bloco com a pergunta, a frase da garantia, "5 anos de garantia contra infiltração" e a casa com gotas, nuvem e selo; `animationName` das gotas é `mc-cai` (animando, o defeito da revisão 8 não se repetiu); a 390 px, o mesmo bloco empilhado, sem rolagem horizontal.
+
+**Não verificado:** as gotas e o respingo em movimento contínuo (vistos em quadro parado, com três ou quatro gotas no ar); o brilho que respira nas janelas; movimento reduzido ligado; aparelho físico, Safari e Firefox.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

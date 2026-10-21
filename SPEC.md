@@ -34,6 +34,12 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 9 (21/10/2026): "E se chover?" pequeno e sutil
+
+Pedido do aluno: a cena da tempestade "parece um arco-íris em cima da casa", não dá para saber o que é cada parte e o usuário fica esperando; simplificar, uma animação pequena e sutil, não só texto, e sem precisar de uma cena.
+
+Decisão: sai a cena (cúpula, nuvens pesadas, relâmpago, três camadas de chuva, scroll preso, 231 peças). Entra um bloco de duas colunas: o texto com "5 anos" em destaque e uma animação pequena (a casa, chuva leve, o selo de garantia). A página continua sem descrever técnica de obra; só diz o que o brief diz.
+
 ## Revisão 8 (21/10/2026): "E se chover?" refeito por outro caminho
 
 Pedido do aluno: a animação da infiltração, mesmo simplificada, continuava feia, com estética e intuito errados; pensar em outra forma completamente diferente.

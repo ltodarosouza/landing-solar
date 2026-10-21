@@ -102,21 +102,13 @@ ok    o caso real (6,4 kWp, março de 2025) vem com a média de doze meses junto
 ok    a linha do tempo de 25 anos é proporcional: garantias de 5, 10 e 25 anos e retorno de 3 a 4 anos
 ok    o eixo da linha do tempo vai de 0 a 25 anos
 ok    mapa: Sorocaba no centro e três pinos, com o raio de 80 km e ondas
-ok    telhado protegido: uma cena só, com três capítulos que ficam fora da imagem (texto nunca sobre a imagem)
-ok    a cena não tem rótulos técnicos: o único texto do desenho é o selo "5 anos" (5 anos)
+ok    telhado protegido: um bloco pequeno (texto de um lado, animação do outro), sem cena grande nem scroll preso
+ok    animação sutil: 48 peças (a tempestade tinha 231; máximo 231/4 = 57), nenhum texto no desenho, sem cúpula nem arco
+ok    o desenho reaproveita a mesma casa do hero e tem oito gotas (seis no telhado, duas no chão), um selo de garantia e uma nuvem
+ok    a garantia aparece em texto, em destaque, fora da imagem: 5 anos de garantia contra infiltração
 ok    a página não descreve técnica de vedação, fixação ou manta, porque o brief só traz a garantia de 5 anos contra infiltração causada pela obra
-ok    a história em três capítulos: começa a chover, a chuva aperta, o telhado segue protegido com a garantia
-ok    tempestade: sem chuva no começo, chuva forte no meio e abranda um pouco no fim (nível 0.00, 1.00, 0.65)
-ok    a chuva entra em três camadas (leve, média, forte), cada uma mais tarde que a anterior
-ok    o relâmpago só acontece no meio da tempestade, nunca no começo nem no fim
-ok    as janelas acendem durante a tempestade e o selo de 5 anos só aparece no último capítulo
-ok    o céu escurece sem voltar atrás até o pico da chuva
-ok    capítulos em ordem: 0, 0,35 e 0,8 mapeiam para 0, 1 e 2
-ok    a chuva é recortada para cair só fora da cúpula e acima do chão: dentro da garantia fica seco (três camadas com clip-path)
-ok    a cúpula âmbar da garantia está desenhada em volta da casa e a casa é o mesmo símbolo do hero
-ok    a chuva só corre enquanto a cena está perto da tela (animação pausada fora de .ativa), e o JavaScript liga e desliga essa classe
-ok    a tempestade só prende o scroll com JavaScript e movimento permitido; com movimento reduzido mostra o fim, sem chuva
-ok    a cena cabe na tela enquanto prende o scroll: altura de até 560 px e menos de 100svh − 270 px
+ok    a chuva só anima enquanto o bloco está na tela e volta a tocar quando a pessoa volta (animação só sob .visivel)
+ok    com movimento reduzido a chuva some e o selo e a casa aparecem prontos
 ok    a pergunta do cliente e a garantia do brief estão ditas junto da cena: E se chover? e 5 anos contra infiltração causada pela obra
 ok    a navbar é reta no topo e vira pílula ao rolar
 ok    três perguntas animadas, fechadas ao carregar, com região ligada ao botão
@@ -135,5 +127,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-136 de 136 verificações passaram.
+128 de 128 verificações passaram.
 exit=0
