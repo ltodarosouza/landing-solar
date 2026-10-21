@@ -185,6 +185,13 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 
 **Não verificado:** as gotas e o respingo em movimento contínuo (vistos em quadro parado, com três ou quatro gotas no ar); o brilho que respira nas janelas; movimento reduzido ligado; aparelho físico, Safari e Firefox.
 
+## 13. Publicação (21/10/2026)
+
+- **Repositório público:** https://github.com/ltodarosouza/landing-solar (branch `main`). Confirmado sem credencial: `GIT_TERMINAL_PROMPT=0 git -c credential.helper= ls-remote https://github.com/ltodarosouza/landing-solar.git` devolveu as referências `HEAD` e `refs/heads/main`.
+- **Página no ar:** https://landing-solar-sigma.vercel.app (deploy de produção da Vercel, projeto `landing-solar`). Conferido sem login: a página e os quatro arquivos (`styles.css`, `app.js`, `cena.js`, `assets/logo.svg`) respondem 200 com o tipo certo; o título e o `h1` são os esperados; o console não mostra erro; a conta do hero termina em 118.
+- **Defeito achado só depois de publicar:** a 864 px (tablet) a trilha das etapas estourava 3 px na horizontal, porque a palavra "Acompanhamento", a 48 px, é mais larga que a coluna de texto naquele tamanho. Eu tinha testado só 390 e 1280. Corrigido (coluna de texto com `minmax(0, 1fr)`, ícone com `clamp(220px, 28vw, 300px)` e quebra de palavra no título) e medido em **360, 390, 600, 768, 864, 899, 1024, 1280 e 1440 px**: nenhum tem rolagem horizontal.
+- **Não verificado na versão publicada:** aparelho físico, Safari e Firefox; desempenho; o número de WhatsApp continua fictício e as fotos reais das obras e os depoimentos em vídeo continuam pendentes (ver SPEC).
+
 ## 5. (revisão 2) O que NÃO foi verificado
 
 - Não abri em aparelho físico; o celular é emulação de 390 px.
