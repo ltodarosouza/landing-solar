@@ -4,186 +4,368 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ravena Solar | Energia solar residencial em Sorocaba, Votorantim, Itu e Salto</title>
-<meta name="description" content="Conta de luz de R$ 780 que virou R$ 118 numa casa de Sorocaba. Sistema solar com instalação por equipe própria. Peça uma simulação, resposta no mesmo dia útil por WhatsApp.">
+<meta name="description" content="A conta de luz de uma casa em Sorocaba era R$ 780. Hoje é R$ 118. Sistema solar com instalação por equipe própria. Peça uma simulação, resposta no mesmo dia útil por WhatsApp.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23F2A03D'/%3E%3C/svg%3E">
+<script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header class="topo">
+<div class="nav-area">
   <div class="wrap">
-    <a href="#inicio" aria-label="Ravena Solar, início"><img src="assets/logo.svg" alt="Ravena Solar" width="135" height="36"></a>
-    <a class="btn" href="#simulacao">Pedir simulação</a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#inicio" aria-label="Ravena Solar, início"><img src="assets/logo.svg" alt="Ravena Solar" width="135" height="36"></a>
+      <ul>
+        <li><a href="#etapas">Como funciona</a></li>
+        <li><a href="#perguntas">Perguntas</a></li>
+      </ul>
+      <a class="btn" href="#simulacao">Pedir simulação</a>
+    </nav>
   </div>
-</header>
+</div>
 
 <main id="inicio">
 
-  <section class="dobra">
+  <!-- Hero -->
+  <section class="hero">
     <div class="wrap">
-      <div class="filete" aria-hidden="true"></div>
-      <h1>Uma casa em Sorocaba pagava R$ 780 de luz. Hoje paga R$ 118.</h1>
-      <div class="caso" aria-label="Conta antes e depois">
-        <span class="antes">R$ 780</span>
-        <span class="seta" aria-hidden="true">&rarr;</span>
-        <span class="depois">R$ 118</span>
+      <div>
+        <span class="sobretitulo">Energia solar residencial</span>
+        <h1>A conta de luz era R$ 780. Hoje é R$ 118.</h1>
+        <p class="lead">Casa em Sorocaba, sistema de 6,4 kWp instalado em março de 2025. O valor de hoje é a média dos últimos doze meses.</p>
+        <div class="acao">
+          <a class="btn" href="#simulacao">Pedir simulação</a>
+          <p class="apoio">Para contas de luz a partir de R$ 450 por mês. A conta não zera: sempre resta a taxa mínima e o custo do fio.</p>
+        </div>
       </div>
-      <p>Sistema de 6,4 kWp instalado em março de 2025. O valor de R$ 118 é a média dos últimos doze meses. A conta não zera: sempre resta a taxa mínima da distribuidora e o custo do fio.</p>
-      <div class="acao">
-        <a class="btn" href="#simulacao">Pedir simulação</a>
-        <p class="apoio">Para contas de luz a partir de R$ 450 por mês, em Sorocaba, Votorantim, Itu e Salto. Resposta no mesmo dia útil, por WhatsApp.</p>
+      <div class="ilustra" role="img" aria-label="Casa com painéis solares no telhado e o sol ao fundo">
+        <svg viewBox="0 0 560 460" aria-hidden="true">
+          <circle cx="420" cy="120" r="54" fill="#F2A03D"/>
+          <g class="raios" stroke="#F2A03D" stroke-width="8" stroke-linecap="round">
+            <line x1="494" y1="120" x2="516" y2="120"/><line x1="484.1" y1="157" x2="503.1" y2="168"/>
+            <line x1="457" y1="184.1" x2="468" y2="203.1"/><line x1="420" y1="194" x2="420" y2="216"/>
+            <line x1="383" y1="184.1" x2="372" y2="203.1"/><line x1="355.9" y1="157" x2="336.9" y2="168"/>
+            <line x1="346" y1="120" x2="324" y2="120"/><line x1="355.9" y1="83" x2="336.9" y2="72"/>
+            <line x1="383" y1="55.9" x2="372" y2="36.9"/><line x1="420" y1="46" x2="420" y2="24"/>
+            <line x1="457" y1="55.9" x2="468" y2="36.9"/><line x1="484.1" y1="83" x2="503.1" y2="72"/>
+          </g>
+          <rect x="0" y="380" width="560" height="80" fill="#123A55" opacity="0.1"/>
+          <rect x="110" y="250" width="320" height="130" fill="#FFFFFF" stroke="#123A55" stroke-width="4"/>
+          <polygon points="80,254 270,140 460,254" fill="#F6F8FA" stroke="#123A55" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M150 238 L222 176 L318 176 L390 238 Z" fill="#123A55"/>
+          <g stroke="#FFFFFF" stroke-width="3" opacity="0.85">
+            <line x1="254" y1="176" x2="230" y2="238"/><line x1="286" y1="176" x2="310" y2="238"/>
+            <line x1="186" y1="207" x2="354" y2="207"/>
+          </g>
+          <rect x="250" y="300" width="44" height="80" fill="#123A55"/>
+          <rect x="140" y="285" width="60" height="50" fill="#FFF1DB" stroke="#123A55" stroke-width="3"/>
+          <rect x="340" y="285" width="60" height="50" fill="#FFF1DB" stroke="#123A55" stroke-width="3"/>
+        </svg>
+        <span class="legenda">6,4 kWp, Sorocaba</span>
       </div>
     </div>
   </section>
 
-  <section class="alt" aria-labelledby="prova">
+  <!-- Prova -->
+  <div class="prova">
     <div class="wrap">
-      <h2 id="prova" class="titulo-secao">Quem sobe no seu telhado</h2>
-      <div class="numeros">
-        <div class="numero"><strong>412</strong><span>sistemas residenciais instalados</span></div>
-        <div class="numero"><strong>4,8 no Google</strong><span>137 avaliações</span></div>
-        <div class="numero"><strong>6 anos</strong><span>11 pessoas, sede em Sorocaba</span></div>
+      <div class="numeros revela">
+        <div class="numero"><strong><span data-conta="412">412</span></strong><span>sistemas residenciais instalados</span></div>
+        <div class="numero"><strong><span data-conta="4.8" data-casas="1">4,8</span> no Google</strong><span>137 avaliações</span></div>
+        <div class="numero"><strong><span data-conta="6">6</span> anos</strong><span>de Ravena, sede em Sorocaba</span></div>
+        <div class="numero"><strong><span data-conta="11">11</span> pessoas</strong><span>equipe própria, com carteira assinada</span></div>
       </div>
-      <p class="nota">Somos integradora: projeto, homologação na distribuidora, instalação e acompanhamento depois de ligado. A equipe que instala é nossa, com carteira assinada. Não terceirizamos. Somos assistência técnica autorizada da marca de inversor que instalamos.</p>
     </div>
-  </section>
+  </div>
 
-  <section aria-labelledby="custo">
-    <div class="wrap">
-      <h2 id="custo" class="titulo-secao">Quanto custa e em quanto tempo se paga</h2>
-      <p>Sistema fotovoltaico ligado à rede, para casa. O ticket médio dos últimos doze meses foi R$ 16.300.</p>
-      <div class="grade tres nota">
-        <div class="cartao"><span class="valor">R$ 14 mil a R$ 19 mil</span><span class="rotulo">investimento</span></div>
-        <div class="cartao"><span class="valor">5 a 8 kWp</span><span class="rotulo">de 12 a 20 painéis no telhado</span></div>
-        <div class="cartao"><span class="valor">3 a 4 anos</span><span class="rotulo">retorno do investimento, e o sistema dura mais de 25</span></div>
-        <div class="cartao"><span class="valor">75% a 90%</span><span class="rotulo">queda média na conta dos nossos clientes</span></div>
-        <div class="cartao"><span class="valor">Dois bancos</span><span class="rotulo">entrada zero é possível; na maioria dos casos a parcela fica perto do que a pessoa já paga de luz</span></div>
+  <!-- Faixa da conta -->
+  <section aria-labelledby="faixa-titulo">
+    <div class="wrap faixa">
+      <div class="revela">
+        <span class="sobretitulo">Na prática</span>
+        <h2 id="faixa-titulo">Quanto a sua conta tende a cair</h2>
+        <p class="lead" style="margin-top:var(--e3)">Mova o controle até o valor da sua conta de luz.</p>
       </div>
-      <p class="nota apoio">A conta não zera. Sempre resta a taxa mínima da distribuidora e o custo do fio. Abaixo de R$ 450 de conta por mês, o investimento não fecha, e nós mesmos desaconselhamos.</p>
+      <div class="painel revela">
+        <label for="faixa-conta">Quanto você paga de luz por mês</label>
+        <output class="paga" id="faixa-paga" for="faixa-conta">R$ 780</output>
+        <input id="faixa-conta" type="range" min="450" max="1500" step="10" value="780" aria-describedby="faixa-ressalva">
+        <div class="escala" aria-hidden="true"><span>R$ 450</span><span>R$ 1.500</span></div>
+        <div class="resultado" aria-live="polite">
+          <span class="apoio rotulo">Na média dos nossos clientes, a conta fica entre</span>
+          <span class="faixa-valor" id="faixa-resultado">&nbsp;</span>
+          <p class="ressalva" id="faixa-ressalva">Queda de 75% a 90%, a média dos clientes. Não é promessa: quem diz o seu número é a simulação, depois da visita ao telhado. A conta não zera.</p>
+        </div>
+        <a class="btn" href="#simulacao" data-leva-conta>Pedir simulação</a>
+      </div>
     </div>
   </section>
 
-  <section class="alt" aria-labelledby="perguntas">
+  <!-- Objeções -->
+  <section class="alt" aria-labelledby="objecoes">
     <div class="wrap">
-      <h2 id="perguntas" class="titulo-secao">O que as pessoas perguntam antes de assinar</h2>
-      <details>
-        <summary>Como sei que vocês não vão sumir daqui a dois anos?</summary>
-        <div class="resposta">
-          <p>A região já viu empresas fecharem com a obra pela metade. A Ravena existe há seis anos, tem onze pessoas e 412 sistemas instalados. A equipe que instala é nossa, com carteira assinada. Damos 5 anos de garantia da instalação e somos assistência técnica autorizada da marca de inversor que instalamos.</p>
+      <div class="cabeca revela">
+        <span class="sobretitulo">O que costumam nos perguntar</span>
+        <h2 id="objecoes">As dúvidas de quem vai assinar</h2>
+      </div>
+
+      <article class="bloco">
+        <div class="revela">
+          <h3>Quem sobe no telhado é nosso.</h3>
+          <p>Seis anos, onze pessoas, equipe própria com carteira assinada. Não terceirizamos a instalação, e somos assistência técnica autorizada da marca de inversor que instalamos.</p>
+          <p>Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km.</p>
         </div>
-      </details>
-      <details>
-        <summary>Isso não vai estragar meu telhado?</summary>
-        <div class="resposta">
-          <p>A garantia de 5 anos da nossa instalação inclui qualquer infiltração causada pela obra. Antes da proposta fazemos uma visita técnica com medição do telhado.</p>
+        <div class="ilustra revela" role="img" aria-label="Mapa esquemático, sem escala: Sorocaba no centro e Votorantim, Itu e Salto dentro de um raio de 80 km">
+          <svg viewBox="0 0 480 360" aria-hidden="true">
+            <circle cx="240" cy="190" r="150" fill="#FFF1DB" stroke="#E8721C" stroke-width="2" stroke-dasharray="6 8"/>
+            <g stroke="#123A55" stroke-width="2" opacity="0.35">
+              <line x1="240" y1="190" x2="190" y2="232"/><line x1="240" y1="190" x2="130" y2="130"/><line x1="240" y1="190" x2="178" y2="84"/>
+            </g>
+            <circle class="pulso" cx="240" cy="190" r="24" fill="#F2A03D" opacity="0.5"/>
+            <circle cx="240" cy="190" r="12" fill="#F2A03D" stroke="#123A55" stroke-width="3"/>
+            <circle cx="190" cy="232" r="8" fill="#123A55"/><circle cx="130" cy="130" r="8" fill="#123A55"/><circle cx="178" cy="84" r="8" fill="#123A55"/>
+            <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#123A55">
+              <text x="258" y="196">Sorocaba</text>
+              <text x="178" y="238" text-anchor="end">Votorantim</text>
+              <text x="116" y="136" text-anchor="end">Itu</text>
+              <text x="194" y="80">Salto</text>
+            </g>
+            <text x="240" y="352" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#4A5B68">raio de 80 km</text>
+          </svg>
         </div>
-      </details>
-      <details>
-        <summary>Taxaram o sol. Ainda vale a pena?</summary>
-        <div class="resposta">
-          <p>Desde a Lei 14.300 existe uma cobrança sobre a energia que você injeta na rede, e ela aumenta ano a ano. Continua valendo: entre os nossos clientes, o retorno tem levado de três a quatro anos. O cálculo mudou, e na simulação mostramos o seu, com a sua conta.</p>
+      </article>
+
+      <article class="bloco">
+        <div class="revela">
+          <h3>Garantia de 5 anos contra infiltração.</h3>
+          <p>A garantia de 5 anos da nossa instalação inclui qualquer infiltração causada pela obra. Antes da proposta, a visita técnica mede o seu telhado.</p>
         </div>
-      </details>
-      <details>
-        <summary>E se eu mudar de casa?</summary>
-        <div class="resposta">
-          <p>O sistema valoriza o imóvel e pode ser transferido.</p>
+        <div class="ilustra revela" role="img" aria-label="Corte do telhado: telhas, suportes e painel solar, com o selo de 5 anos de garantia">
+          <svg viewBox="0 0 480 360" aria-hidden="true">
+            <g transform="translate(40 300) rotate(-19.3)">
+              <rect x="0" y="0" width="420" height="36" fill="#123A55"/>
+              <g fill="#E8721C" stroke="#FFFFFF" stroke-width="2">
+                <rect x="0" y="-14" width="44" height="16" rx="8"/><rect x="42" y="-14" width="44" height="16" rx="8"/>
+                <rect x="84" y="-14" width="44" height="16" rx="8"/><rect x="126" y="-14" width="44" height="16" rx="8"/>
+                <rect x="168" y="-14" width="44" height="16" rx="8"/><rect x="210" y="-14" width="44" height="16" rx="8"/>
+                <rect x="252" y="-14" width="44" height="16" rx="8"/><rect x="294" y="-14" width="44" height="16" rx="8"/>
+                <rect x="336" y="-14" width="44" height="16" rx="8"/><rect x="378" y="-14" width="44" height="16" rx="8"/>
+              </g>
+              <rect x="80" y="-44" width="8" height="30" fill="#4A5B68"/><rect x="300" y="-44" width="8" height="30" fill="#4A5B68"/>
+              <rect x="60" y="-62" width="300" height="18" rx="3" fill="#123A55"/>
+              <g stroke="#FFFFFF" stroke-width="2" opacity="0.85">
+                <line x1="135" y1="-62" x2="135" y2="-44"/><line x1="210" y1="-62" x2="210" y2="-44"/><line x1="285" y1="-62" x2="285" y2="-44"/>
+              </g>
+            </g>
+            <path d="M370 226 l38 12 v30 c0 21 -19 34 -38 42 c-19 -8 -38 -21 -38 -42 v-30 z" fill="#123A55"/>
+            <path d="M352 270 l14 14 l24 -27" fill="none" stroke="#F2A03D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="370" y="344" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#123A55">5 anos</text>
+          </svg>
         </div>
-      </details>
-      <details>
-        <summary>E em dia nublado? E à noite?</summary>
-        <div class="resposta">
-          <p>Em dia nublado o sistema produz menos. À noite, não produz. O que compensa é o crédito acumulado ao longo do mês.</p>
+      </article>
+
+      <article class="bloco">
+        <div class="revela">
+          <h3>Nublado ou à noite, o crédito compensa.</h3>
+          <p>Em dia nublado o sistema produz menos, e à noite não produz. O que compensa é o crédito acumulado ao longo do mês.</p>
         </div>
-      </details>
-      <details>
-        <summary>Preciso de bateria?</summary>
-        <div class="resposta">
-          <p>Para casa ligada na rede, não. Também não vendemos bateria.</p>
+        <div class="ilustra revela" role="img" aria-label="Dois quadros: de dia a casa produz e envia o que sobra para a rede; à noite usa o crédito acumulado">
+          <svg viewBox="0 0 480 360" aria-hidden="true">
+            <rect x="0" y="0" width="240" height="360" fill="#FFF1DB"/>
+            <rect x="240" y="0" width="240" height="360" fill="#123A55"/>
+            <circle cx="70" cy="70" r="26" fill="#F2A03D"/>
+            <g fill="#FFFFFF"><circle cx="160" cy="62" r="14"/><circle cx="178" cy="68" r="12"/><circle cx="144" cy="70" r="10"/></g>
+            <rect x="40" y="210" width="110" height="70" fill="#FFFFFF" stroke="#123A55" stroke-width="3"/>
+            <polygon points="26,214 95,160 164,214" fill="#F6F8FA" stroke="#123A55" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M58 204 L82 176 L108 176 L132 204 Z" fill="#123A55"/>
+            <rect x="198" y="190" width="6" height="90" fill="#123A55"/><rect x="186" y="198" width="30" height="5" fill="#123A55"/>
+            <path d="M156 244 H184" stroke="#E8721C" stroke-width="5" stroke-linecap="round"/><path d="M178 236 L186 244 L178 252" fill="none" stroke="#E8721C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="330" cy="70" r="24" fill="#FFF1DB"/><circle cx="342" cy="62" r="22" fill="#123A55"/>
+            <g fill="#FFFFFF"><circle cx="400" cy="50" r="2.5"/><circle cx="430" cy="90" r="2.5"/><circle cx="380" cy="110" r="2.5"/><circle cx="270" cy="120" r="2.5"/></g>
+            <rect x="330" y="210" width="110" height="70" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3"/>
+            <polygon points="316,214 385,160 454,214" fill="#FFFFFF"/>
+            <rect x="350" y="228" width="26" height="26" fill="#F2A03D"/><rect x="394" y="228" width="26" height="26" fill="#F2A03D"/>
+            <rect x="264" y="190" width="6" height="90" fill="#FFFFFF"/><rect x="252" y="198" width="30" height="5" fill="#FFFFFF"/>
+            <path d="M296 244 H324" stroke="#F2A03D" stroke-width="5" stroke-linecap="round"/><path d="M318 236 L326 244 L318 252" fill="none" stroke="#F2A03D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">
+              <text x="120" y="318" fill="#123A55">De dia: produz</text><text x="120" y="338" fill="#123A55">e envia o que sobra</text>
+              <text x="360" y="318" fill="#FFFFFF">À noite: usa</text><text x="360" y="338" fill="#FFFFFF">o crédito do mês</text>
+            </g>
+          </svg>
         </div>
-      </details>
+      </article>
+
+      <article class="bloco">
+        <div class="revela">
+          <h3>Entrada zero, parcela perto da sua conta.</h3>
+          <p>Trabalhamos com dois bancos. Entrada zero é possível e, na maioria dos casos, a parcela fica próxima do valor que a pessoa já paga de luz hoje.</p>
+        </div>
+        <div class="ilustra revela" role="img" aria-label="Duas barras de altura parecida: a conta de luz de hoje e a parcela do sistema">
+          <svg viewBox="0 0 480 360" aria-hidden="true">
+            <line x1="60" y1="290" x2="420" y2="290" stroke="#123A55" stroke-width="3" stroke-linecap="round"/>
+            <rect x="110" y="90" width="100" height="200" rx="8" fill="#123A55"/>
+            <rect x="270" y="110" width="100" height="180" rx="8" fill="#F2A03D"/>
+            <line x1="110" y1="70" x2="370" y2="70" stroke="#E8721C" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
+            <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" text-anchor="middle" fill="#123A55">
+              <text x="240" y="52" font-size="16">valores próximos</text>
+              <text x="160" y="320" font-size="14">Conta de luz hoje</text>
+              <text x="320" y="320" font-size="14">Parcela do sistema</text>
+            </g>
+          </svg>
+        </div>
+      </article>
     </div>
   </section>
 
+  <!-- Investimento -->
+  <section class="escura" aria-labelledby="invest-titulo">
+    <div class="wrap">
+      <div class="cabeca revela">
+        <span class="sobretitulo">O investimento</span>
+        <h2 id="invest-titulo">Quanto custa e quando se paga</h2>
+      </div>
+      <div class="invest revela">
+        <div class="item"><strong>R$ 14 mil a R$ 19 mil</strong><span>para 5 a 8 kWp (12 a 20 painéis no telhado)</span></div>
+        <div class="item"><strong>3 a 4 anos</strong><span>de retorno do investimento</span></div>
+        <div class="item"><strong>Mais de 25 anos</strong><span>de vida útil do sistema</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Etapas -->
+  <section class="alt" id="etapas" aria-labelledby="etapas-titulo">
+    <div class="wrap">
+      <div class="cabeca revela">
+        <span class="sobretitulo">Como funciona</span>
+        <h2 id="etapas-titulo">Do pedido ao sistema ligado</h2>
+        <p class="lead">De 45 a 60 dias entre a assinatura e o sistema ligado.</p>
+      </div>
+      <div class="revela">
+        <div class="abas" role="tablist" aria-label="Etapas">
+          <button role="tab" id="aba-1" aria-controls="passo-1" aria-selected="true" type="button">1 Simulação</button>
+          <button role="tab" id="aba-2" aria-controls="passo-2" aria-selected="false" tabindex="-1" type="button">2 Visita</button>
+          <button role="tab" id="aba-3" aria-controls="passo-3" aria-selected="false" tabindex="-1" type="button">3 Proposta</button>
+          <button role="tab" id="aba-4" aria-controls="passo-4" aria-selected="false" tabindex="-1" type="button">4 Homologação</button>
+          <button role="tab" id="aba-5" aria-controls="passo-5" aria-selected="false" tabindex="-1" type="button">5 Instalação</button>
+          <button role="tab" id="aba-6" aria-controls="passo-6" aria-selected="false" tabindex="-1" type="button">6 Depois</button>
+        </div>
+        <div class="trilha" aria-hidden="true"><span id="trilha-barra"></span></div>
+        <div class="passo" id="passo-1" role="tabpanel" aria-labelledby="aba-1">
+          <h3>Simulação no mesmo dia útil</h3>
+          <p>Você pede a simulação e nós respondemos por WhatsApp no mesmo dia útil.</p>
+          <span class="quem">Por WhatsApp</span>
+        </div>
+        <div class="passo" id="passo-2" role="tabpanel" aria-labelledby="aba-2" hidden>
+          <h3>Visita técnica ao telhado</h3>
+          <p>Medimos o telhado na sua casa. A visita não tem custo e não tem compromisso.</p>
+          <span class="quem">Sem custo, sem compromisso</span>
+        </div>
+        <div class="passo" id="passo-3" role="tabpanel" aria-labelledby="aba-3" hidden>
+          <h3>Proposta com três tamanhos</h3>
+          <p>Você compara três tamanhos de sistema e escolhe. Se fechar, assina.</p>
+          <span class="quem">A assinatura abre a contagem dos 45 a 60 dias</span>
+        </div>
+        <div class="passo" id="passo-4" role="tabpanel" aria-labelledby="aba-4" hidden>
+          <h3>Projeto e homologação na CPFL</h3>
+          <p>Fazemos o projeto e pedimos a aprovação da distribuidora. É a parte mais demorada, e o prazo dela não depende de nós.</p>
+          <span class="quem">Depende da CPFL</span>
+        </div>
+        <div class="passo" id="passo-5" role="tabpanel" aria-labelledby="aba-5" hidden>
+          <h3>Instalação em dois dias</h3>
+          <p>A nossa equipe sobe no telhado e instala. Depois vêm a vistoria e a ligação.</p>
+          <span class="quem">Equipe própria</span>
+        </div>
+        <div class="passo" id="passo-6" role="tabpanel" aria-labelledby="aba-6" hidden>
+          <h3>Acompanhamento no primeiro ano</h3>
+          <p>Acompanhamos a produção do seu sistema. Se cair fora do previsto, ligamos para você.</p>
+          <span class="quem">Depois de ligado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Garantias -->
   <section aria-labelledby="garantias">
     <div class="wrap">
-      <h2 id="garantias" class="titulo-secao">Garantias</h2>
-      <div class="grade tres">
-        <div class="cartao"><span class="valor">25 anos</span><span class="rotulo">performance do painel</span></div>
-        <div class="cartao"><span class="valor">10 anos</span><span class="rotulo">inversor</span></div>
-        <div class="cartao"><span class="valor">5 anos</span><span class="rotulo">nossa instalação, incluindo qualquer infiltração causada pela obra</span></div>
+      <div class="cabeca revela">
+        <span class="sobretitulo">Garantias</span>
+        <h2 id="garantias">Quanto tempo cada parte é coberta</h2>
+      </div>
+      <div class="garantias revela">
+        <div class="garantia"><strong>25 anos</strong><span>performance do painel</span></div>
+        <div class="garantia"><strong>10 anos</strong><span>inversor</span></div>
+        <div class="garantia"><strong>5 anos</strong><span>nossa instalação, incluindo infiltração causada pela obra</span></div>
       </div>
     </div>
   </section>
 
-  <section class="alt" aria-labelledby="caminho">
+  <!-- Perguntas -->
+  <section class="alt" id="perguntas" aria-labelledby="perguntas-titulo">
     <div class="wrap">
-      <h2 id="caminho" class="titulo-secao">Do pedido ao sistema ligado</h2>
-      <p>De 45 a 60 dias entre a assinatura e o sistema ligado. A instalação leva dois dias. O resto é projeto e homologação na CPFL, e essa parte não depende de nós.</p>
-      <ol class="etapas nota">
-        <li><span>Simulação por WhatsApp, no mesmo dia útil.</span></li>
-        <li><span>Visita técnica com medição do telhado. Sem custo e sem compromisso.</span></li>
-        <li><span>Proposta com três tamanhos de sistema.</span></li>
-        <li><span>Assinatura.</span></li>
-        <li><span>Projeto.</span></li>
-        <li><span>Homologação na CPFL. <span class="quem">Depende da distribuidora.</span></span></li>
-        <li><span>Instalação em dois dias.</span></li>
-        <li><span>Vistoria e ligação.</span></li>
-        <li><span>Acompanhamento da produção no primeiro ano. Se cair fora do previsto, ligamos para você.</span></li>
-      </ol>
+      <div class="cabeca revela">
+        <h2 id="perguntas-titulo">Mais três perguntas</h2>
+      </div>
+      <div class="revela">
+        <details>
+          <summary>Taxaram o sol. Ainda vale a pena?</summary>
+          <div class="resposta"><p>Desde a Lei 14.300 existe uma cobrança sobre a energia que você injeta na rede, e ela aumenta ano a ano. Continua valendo: entre os nossos clientes, o retorno tem levado de três a quatro anos. O cálculo mudou, e na simulação mostramos o seu, com a sua conta.</p></div>
+        </details>
+        <details>
+          <summary>E se eu mudar de casa?</summary>
+          <div class="resposta"><p>O sistema valoriza o imóvel e pode ser transferido.</p></div>
+        </details>
+        <details>
+          <summary>Preciso de bateria?</summary>
+          <div class="resposta"><p>Para casa ligada na rede, não. Também não vendemos bateria.</p></div>
+        </details>
+      </div>
     </div>
   </section>
 
-  <section aria-labelledby="naoe">
-    <div class="wrap">
-      <h2 id="naoe" class="titulo-secao">Quando não somos a empresa certa</h2>
-      <ul class="lista">
-        <li>Conta de luz abaixo de R$ 450 por mês: a conta não fecha.</li>
-        <li>Indústria, ou comércio acima de 75 kWp.</li>
-        <li>Quem quer bateria. Não vendemos.</li>
-        <li>Manutenção de sistema instalado por outra empresa. Não fazemos.</li>
-        <li>Casa fora de Sorocaba, Votorantim, Itu e Salto, num raio de 80 km.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="alt" id="simulacao" aria-labelledby="pedido">
-    <div class="wrap">
-      <h2 id="pedido" class="titulo-secao">Pedir simulação</h2>
-      <p>Quatro informações. Respondemos no mesmo dia útil, por WhatsApp. A visita técnica ao telhado não tem custo e não tem compromisso.</p>
-      <form id="form-simulacao" novalidate class="nota">
-        <div class="campo">
-          <label for="nome">Nome</label>
-          <input id="nome" name="nome" type="text" autocomplete="name" required>
-          <div class="erro" id="erro-nome" role="alert"></div>
+  <!-- Formulário -->
+  <section class="escura" id="simulacao" aria-labelledby="pedido">
+    <div class="wrap forma-area">
+      <div class="revela">
+        <span class="sobretitulo">Simulação</span>
+        <h2 id="pedido">Pedir simulação</h2>
+        <p class="lead" style="margin-top:var(--e3)">Quatro informações. Respondemos no mesmo dia útil, por WhatsApp. A visita ao telhado não tem custo e não tem compromisso.</p>
+        <p class="nao-atendemos">Não atendemos conta abaixo de R$ 450 por mês, indústria nem comércio acima de 75 kWp. Não vendemos bateria e não fazemos manutenção de sistema instalado por outra empresa.</p>
+      </div>
+      <div class="revela">
+        <form id="form-simulacao" novalidate>
+          <div class="campo">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" autocomplete="name" required>
+            <div class="erro" id="erro-nome" role="alert"></div>
+          </div>
+          <div class="campo">
+            <label for="whatsapp">WhatsApp, com DDD</label>
+            <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="15 99999-9999" required>
+            <div class="erro" id="erro-whatsapp" role="alert"></div>
+          </div>
+          <div class="campo">
+            <label for="cidade">Cidade</label>
+            <select id="cidade" name="cidade" required>
+              <option value="">Escolha</option>
+              <option>Sorocaba</option>
+              <option>Votorantim</option>
+              <option>Itu</option>
+              <option>Salto</option>
+              <option value="outra">Outra cidade</option>
+            </select>
+            <div class="erro" id="erro-cidade" role="alert"></div>
+          </div>
+          <div class="campo">
+            <label for="conta">Valor médio da conta de luz, em reais por mês</label>
+            <input id="conta" name="conta" type="text" inputmode="numeric" placeholder="Ex.: 620" required>
+            <div class="erro" id="erro-conta" role="alert"></div>
+          </div>
+          <button class="btn" type="submit">Pedir simulação</button>
+        </form>
+        <div class="depois-envio" id="depois-envio" hidden role="status">
+          <h3>Falta um passo no WhatsApp</h3>
+          <p>Abrimos a conversa com seus dados. Envie a mensagem e, se puder, anexe a foto ou o PDF da sua conta de luz: isso melhora muito a simulação. Se a conversa não abriu, <a id="link-whatsapp" href="#" rel="noopener">toque aqui para abrir</a>.</p>
         </div>
-        <div class="campo">
-          <label for="whatsapp">WhatsApp, com DDD</label>
-          <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="15 99999-9999" required>
-          <div class="erro" id="erro-whatsapp" role="alert"></div>
-        </div>
-        <div class="campo">
-          <label for="cidade">Cidade</label>
-          <select id="cidade" name="cidade" required>
-            <option value="">Escolha</option>
-            <option>Sorocaba</option>
-            <option>Votorantim</option>
-            <option>Itu</option>
-            <option>Salto</option>
-            <option value="outra">Outra cidade</option>
-          </select>
-          <div class="erro" id="erro-cidade" role="alert"></div>
-        </div>
-        <div class="campo">
-          <label for="conta">Valor médio da conta de luz, em reais por mês</label>
-          <input id="conta" name="conta" type="text" inputmode="numeric" placeholder="Ex.: 620" required>
-          <div class="erro" id="erro-conta" role="alert"></div>
-        </div>
-        <button class="btn" type="submit">Pedir simulação</button>
-      </form>
-      <div class="depois-envio nota" id="depois-envio" hidden role="status">
-        <h3>Falta um passo no WhatsApp</h3>
-        <p>Abrimos a conversa com seus dados. Envie a mensagem e, se puder, anexe a foto ou o PDF da sua conta de luz: isso melhora muito a simulação. Se a conversa não abriu, <a id="link-whatsapp" href="#" rel="noopener">toque aqui para abrir</a>.</p>
       </div>
     </div>
   </section>

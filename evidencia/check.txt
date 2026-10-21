@@ -8,12 +8,16 @@ ok    contraste texto marinho sobre papel 11.19:1 (mín. 4,5)
 ok    contraste texto de apoio sobre branco 7.03:1 (mín. 4,5)
 ok    contraste texto de apoio sobre papel 6.60:1 (mín. 4,5)
 ok    contraste botão: marinho sobre âmbar 5.60:1 (mín. 4,5)
-ok    contraste rodapé: branco sobre marinho 11.92:1 (mín. 4,5)
-ok    laranja não é usada como cor de texto de corpo
-ok    só quatro tamanhos de fonte, todos pelos tokens
-ok    sem gradiente e sem sombra
+ok    contraste seção escura: branco sobre marinho 11.92:1 (mín. 4,5)
+ok    contraste rótulo da legenda: marinho sobre sol 10.70:1 (mín. 4,5)
+ok    contraste texto de apoio sobre sol 6.31:1 (mín. 4,5)
+ok    laranja só em texto grande (número de 32 px ou mais sobre o painel branco): .resultado .faixa-valor em
+ok    contraste laranja sobre branco 3.06:1 (texto grande, mín. 3)
+ok    só cinco tamanhos de fonte, todos pelos tokens
+ok    gradiente só no hero (1 uso) e sem text-shadow
+ok    movimento respeita prefers-reduced-motion
 ok    escala de espaço é 8, 16, 24, 48, 96
-ok    alvo de toque: botão e campos com 48 px
+ok    alvo de toque: botão, campos, abas e controle com 48 px
 ok    tem meta viewport
 ok    tem um h1 só
 ok    toda imagem tem alt
@@ -32,7 +36,6 @@ ok    fato do brief presente: caso R$ 118
 ok    fato do brief presente: 6,4 kWp
 ok    fato do brief presente: março de 2025
 ok    fato do brief presente: investimento R$ 14 mil a R$ 19 mil
-ok    fato do brief presente: ticket médio R$ 16.300
 ok    fato do brief presente: 5 a 8 kWp
 ok    fato do brief presente: 12 a 20 painéis
 ok    fato do brief presente: retorno de 3 a 4 anos
@@ -50,6 +53,17 @@ ok    fato do brief presente: a conta não zera
 ok    fato do brief presente: resposta no mesmo dia útil
 ok    nenhum valor em reais fora do brief
 ok    o caso (780 para 118) cai 84.9%, dentro da faixa de 75% a 90%
+ok    controle da conta começa no mínimo da empresa (R$ 450)
+ok    faixa de R$ 780: 78 a 195 (75% a 90% de queda)
+ok    o caso real (R$ 118) cai dentro da faixa de R$ 780
+ok    a faixa nunca chega a zero (a conta não zera)
+ok    a ressalva (não é promessa, a conta não zera) está junto do resultado
+ok    seis abas de etapa
+ok    cada aba aponta para um painel existente
+ok    só a primeira aba começa selecionada
+ok    cinco ilustrações, todas com role=img e descrição
+ok    svgs decorativos escondidos do leitor de tela
+ok    ilustrações só usam a paleta do DESIGN.md
 ok    formulário: dados válidos passam
 ok    formulário: conta de R$ 200 é bloqueada
 ok    formulário: R$ 449 é bloqueado e R$ 450 passa
@@ -64,5 +78,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-65 de 65 verificações passaram.
+79 de 79 verificações passaram.
 exit=0

@@ -30,25 +30,36 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 | Site de 2021 | Recomeço do zero. Aproveitado: só a logo e as cores dela | O antigo é "quem somos" + formulário no rodapé, que é o problema |
 | Cor | Tokens tirados de `assets/logo.svg`, conferidos por script | O cliente pede que as cores venham do arquivo |
 
+## Revisão 2 (21/10/2026): menos texto, mais demonstração
+
+Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
+
 ## O que entra, na ordem
 
-1. **Topo:** logo, link "Pedir simulação".
-2. **Primeira dobra:** o caso de R$ 780 para R$ 118; para quem é (conta a partir de R$ 450, quatro cidades); ação.
-3. **Prova em números:** 412 sistemas, nota 4,8 no Google (137 avaliações), seis anos, equipe própria com carteira assinada.
-4. **Quanto custa e quando se paga:** R$ 14 mil a R$ 19 mil, 5 a 8 kWp, retorno de três a quatro anos, o que a conta não zera.
-5. **Perguntas que os clientes fazem**, na ordem do brief: sumir, telhado, taxação do sol, mudar de casa, nublado e noite, bateria.
-6. **Garantias:** 25, 10 e 5 anos, com o que cada uma cobre.
-7. **Do pedido ao sistema ligado:** etapas e prazo de 45 a 60 dias, com a parte que não depende de nós dita.
-8. **Para quem não é:** conta baixa, comércio acima de 75 kWp, bateria, manutenção de sistema alheio.
-9. **Formulário:** nome, WhatsApp, cidade, conta média; o que acontece depois (resposta no mesmo dia útil, visita sem custo e sem compromisso).
-10. **Rodapé:** razão da empresa, cidades, CPFL como distribuidora. Sem ação concorrente.
+1. **Navbar** em pílula flutuante: logo, âncoras "Como funciona" e "Perguntas", botão "Pedir simulação".
+2. **Hero:** título com o caso R$ 780 para R$ 118, subtítulo de uma frase, botão, ilustração de casa com painéis. Para quem é, numa linha.
+3. **Prova social:** 412 sistemas, 4,8 no Google (137 avaliações), 6 anos, equipe própria. Números que contam ao rolar.
+4. **Interação "Veja a faixa da sua conta":** o visitante move um controle de R$ 450 a R$ 1.500 e vê a faixa em que a conta tende a ficar (queda de 75% a 90%, a média dos clientes). Diz que não é promessa e que a conta não zera. Leva o valor para o formulário. É a demonstração do produto e também o filtro de conta baixa.
+5. **Quatro blocos de objeção, cada um com título curto, duas frases e ilustração:** quem instala (mapa das quatro cidades, equipe própria, seis anos), telhado (garantia de infiltração), nublado e noite (crédito do mês), financiamento (entrada zero, parcela perto da conta).
+6. **Números do investimento numa faixa só:** R$ 14 mil a R$ 19 mil, 5 a 8 kWp, retorno de 3 a 4 anos.
+7. **Etapas interativas:** seis passos clicáveis, do pedido à ligação, com o prazo de 45 a 60 dias e a parte que não depende de nós.
+8. **Garantias:** 25, 10 e 5 anos.
+9. **Perguntas curtas:** Lei 14.300, mudar de casa, bateria.
+10. **Formulário em seção escura**, com o botão repetido. Antes dele, uma linha de quem não atendemos.
+11. **Rodapé.**
+
+## Mudanças de decisão
+
+- A **calculadora**, que eu tinha deixado de fora, volta numa forma limitada: ela só aplica a faixa de 75% a 90% que o brief dá, sem tarifa nem irradiação, e diz que é média. Motivo: o aluno pediu interação, e esta é verdadeira com os dados que temos.
+- **Imagens:** ilustrações vetoriais próprias, nas cores da marca, nítidas em qualquer tela. Não há foto de obra no material; foto de banco de imagens seria fingir obra que não é da Ravena. As 40 fotos próprias do cliente entram assim que ele enviar, no lugar das ilustrações dos blocos.
+- **Menos texto:** o custo em cartões, a lista longa de etapas e a seção "quando não somos a empresa certa" viraram uma faixa, seis passos clicáveis e uma linha.
 
 ## O que fica de fora, e por quê
 
 - **"Quem somos", "missão, visão e valores":** não vendem; o que importa de "quem somos" (seis anos, 11 pessoas, equipe própria) vira prova.
 - **Depoimentos em vídeo e fotos das 40 obras:** o cliente tem, mas não estão no material entregue. Não invento depoimento nem uso foto de banco. Pendência para o cliente enviar; a seção entra quando houver arquivo.
 - **Texto das avaliações do Google:** só a nota e a contagem, que são o que o brief dá.
-- **Calculadora de economia na página:** exigiria premissas que o brief não dá (tarifa, irradiação). A simulação é o produto do vendedor.
+- **Calculadora de economia com tarifa e irradiação:** o brief não dá as premissas. A interação da página só aplica a faixa média de 75% a 90%.
 - **Bateria, indústria, comércio:** só aparecem na seção "para quem não é".
 - **Slogans do setor:** "energia do futuro", "sustentabilidade", "revolução solar".
 - **Blog, redes sociais, chat flutuante, pop-up:** concorrem com a ação.

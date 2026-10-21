@@ -46,6 +46,7 @@ const laranja = token("laranja");
 const papel = token("papel");
 const branco = token("branco");
 const suave = token("tinta-suave");
+const sol = token("sol");
 const logoHex = (logo.match(/#[0-9A-Fa-f]{6}/g) || []).map((h) => h.toUpperCase());
 
 verifica("tokens de marca existem no CSS", !!(marinho && ambar && laranja), [marinho, ambar, laranja].join(" "));
@@ -69,24 +70,34 @@ const pares = [
   ["texto de apoio sobre branco", suave, branco],
   ["texto de apoio sobre papel", suave, papel],
   ["botão: marinho sobre âmbar", marinho, ambar],
-  ["rodapé: branco sobre marinho", branco, marinho],
+  ["seção escura: branco sobre marinho", branco, marinho],
+  ["rótulo da legenda: marinho sobre sol", marinho, sol],
+  ["texto de apoio sobre sol", suave, sol],
 ];
 for (const [nome, fg, bg] of pares) {
   const r = contraste(fg, bg);
   verifica("contraste " + nome + " " + r.toFixed(2) + ":1 (mín. 4,5)", r >= 4.5);
 }
-verifica("laranja não é usada como cor de texto de corpo", !/(^|[;{\s])color:\s*var\(--laranja\)/.test(css.replace(/\.dobra \.seta[^}]*}/, "")), "laranja só na seta e nos filetes");
+const usosLaranjaTexto = [...css.matchAll(/([^{}]+)\{[^}]*?(?<![-\w])color:\s*var\(--laranja\)/g)].map((m) => m[1].trim());
+const so_grandes = new Set([".resultado .faixa-valor em"]);
+verifica("laranja só em texto grande (número de 32 px ou mais sobre o painel branco): " + usosLaranjaTexto.join(" | "), usosLaranjaTexto.length > 0 && usosLaranjaTexto.every((u) => so_grandes.has(u)));
+for (const [nome, bg] of [["branco", branco]]) {
+  const r = contraste(laranja, bg);
+  verifica("contraste laranja sobre " + nome + " " + r.toFixed(2) + ":1 (texto grande, mín. 3)", r >= 3);
+}
 
 // ---------- design ----------
 const tamanhos = [...css.matchAll(/font-size:\s*([^;]+);/g)].map((m) => m[1].trim());
-const tamanhosOk = new Set(["var(--t-corpo)", "var(--t-rotulo)", "var(--t-h2)", "var(--t-h1)"]);
+const tamanhosOk = new Set(["var(--t-corpo)", "var(--t-rotulo)", "var(--t-lead)", "var(--t-h2)", "var(--t-h1)"]);
 const fora = tamanhos.filter((t) => !tamanhosOk.has(t));
-verifica("só quatro tamanhos de fonte, todos pelos tokens", fora.length === 0, "fora do sistema: " + fora.join(", "));
-verifica("sem gradiente e sem sombra", !/gradient\(/.test(css) && !/box-shadow|text-shadow/.test(css));
+verifica("só cinco tamanhos de fonte, todos pelos tokens", fora.length === 0, "fora do sistema: " + fora.join(", "));
+const gradientes = (css.match(/gradient\(/g) || []).length;
+verifica("gradiente só no hero (1 uso) e sem text-shadow", gradientes === 1 && /\.hero\s*{[^}]*linear-gradient/.test(css) && !/text-shadow/.test(css));
+verifica("movimento respeita prefers-reduced-motion", /@media \(prefers-reduced-motion: reduce\)/.test(css) && /\.js \.revela\s*{[^}]*opacity: 0/.test(css) && /<script>document\.documentElement\.className \+= " js";<\/script>/.test(html));
 const escala = new Set(["0", "8", "16", "24", "48", "96"]);
 const espacos = [...css.matchAll(/--e[1-5]:\s*(\d+)px/g)].map((m) => m[1]);
 verifica("escala de espaço é 8, 16, 24, 48, 96", espacos.join(",") === "8,16,24,48,96", espacos.join(","));
-verifica("alvo de toque: botão e campos com 48 px", (css.match(/min-height:\s*48px/g) || []).length >= 3);
+verifica("alvo de toque: botão, campos, abas e controle com 48 px", (css.match(/min-height:\s*48px/g) || []).length >= 5);
 
 // ---------- estrutura ----------
 verifica("tem meta viewport", /<meta name="viewport" content="width=device-width, initial-scale=1">/.test(html));
@@ -98,7 +109,7 @@ const ancoras = [...html.matchAll(/href="#([^"]*)"/g)].map((m) => m[1]).filter((
 const quebradas = ancoras.filter((a) => !ids.has(a));
 verifica("toda âncora interna aponta para um id", quebradas.length === 0, "quebradas: " + quebradas.join(", "));
 const fors = [...html.matchAll(/<label for="([^"]+)"/g)].map((m) => m[1]);
-verifica("todo label aponta para um campo", fors.length === 4 && fors.every((f) => ids.has(f)), fors.join(","));
+verifica("todo label aponta para um campo", fors.length === 5 && fors.every((f) => ids.has(f)), fors.join(","));
 verifica("lang pt-BR", /<html lang="pt-BR">/.test(html));
 
 // ---------- ação única ----------
@@ -122,7 +133,6 @@ const fatos = [
   ["6,4 kWp", /6,4 kWp/],
   ["março de 2025", /março de 2025/],
   ["investimento R$ 14 mil a R$ 19 mil", /R\$ 14 mil a R\$ 19 mil/],
-  ["ticket médio R$ 16.300", /R\$ 16\.300/],
   ["5 a 8 kWp", /5 a 8 kWp/],
   ["12 a 20 painéis", /12 a 20 painéis/],
   ["retorno de 3 a 4 anos", /3 a 4 anos/],
@@ -142,12 +152,38 @@ const fatos = [
 for (const [nome, re] of fatos) verifica("fato do brief presente: " + nome, re.test(visivel));
 
 const numerosDoHtml = [...visivel.matchAll(/R\$\s?\d+(?:\.\d{3})*(?:\s?mil)?/g)].map((m) => m[0].replace(/\s+/g, " "));
-const permitidos = new Set(["R$ 780", "R$ 118", "R$ 14 mil", "R$ 19 mil", "R$ 16.300", "R$ 450"]);
+// R$ 1.500 é só o topo da escala do controle deslizante, não um dado do cliente.
+const permitidos = new Set(["R$ 780", "R$ 118", "R$ 14 mil", "R$ 19 mil", "R$ 450", "R$ 1.500"]);
 const estranhos = numerosDoHtml.filter((n) => !permitidos.has(n));
 verifica("nenhum valor em reais fora do brief", estranhos.length === 0, "fora do brief: " + estranhos.join(", "));
 
 const caso = (780 - 118) / 780;
 verifica("o caso (780 para 118) cai " + (caso * 100).toFixed(1) + "%, dentro da faixa de 75% a 90%", caso >= 0.75 && caso <= 0.9);
+
+// ---------- interação: faixa da conta ----------
+const faixaHtml = html.match(/<input id="faixa-conta" type="range" min="(\d+)" max="(\d+)"/);
+verifica("controle da conta começa no mínimo da empresa (R$ 450)", !!faixaHtml && +faixaHtml[1] === app.CONTA_MINIMA);
+const f780 = app.faixaDaConta(780);
+verifica("faixa de R$ 780: " + f780.min + " a " + f780.max + " (75% a 90% de queda)", f780.min === 78 && f780.max === 195);
+verifica("o caso real (R$ 118) cai dentro da faixa de R$ 780", 118 >= f780.min && 118 <= f780.max);
+const nunca0 = [450, 780, 1500].every((c) => app.faixaDaConta(c).min > 0);
+verifica("a faixa nunca chega a zero (a conta não zera)", nunca0);
+verifica("a ressalva (não é promessa, a conta não zera) está junto do resultado", /id="faixa-ressalva">[^<]*Não é promessa[^<]*A conta não zera/.test(html));
+
+// ---------- interação: etapas ----------
+const abas = [...html.matchAll(/role="tab" id="(aba-\d)" aria-controls="(passo-\d)"/g)];
+verifica("seis abas de etapa", abas.length === 6);
+verifica("cada aba aponta para um painel existente", abas.every((a) => ids.has(a[2])));
+verifica("só a primeira aba começa selecionada", (html.match(/aria-selected="true"/g) || []).length === 1);
+
+// ---------- ilustrações ----------
+const ilus = [...html.matchAll(/<div class="ilustra[^"]*" role="img" aria-label="([^"]+)">/g)];
+verifica("cinco ilustrações, todas com role=img e descrição", ilus.length === 5, String(ilus.length));
+verifica("svgs decorativos escondidos do leitor de tela", (html.match(/<svg [^>]*aria-hidden="true"/g) || []).length === 5);
+const hexSvg = [...new Set((html.match(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g) || []).map((m) => m.slice(-8, -1).toUpperCase()))];
+const paleta = new Set([marinho, ambar, laranja, sol, papel, branco, suave]);
+const forasDaPaleta = hexSvg.filter((h) => !paleta.has(h));
+verifica("ilustrações só usam a paleta do DESIGN.md", forasDaPaleta.length === 0, "fora: " + forasDaPaleta.join(", "));
 
 // ---------- formulário ----------
 const ok = { nome: "Marta Souza", whatsapp: "15 99876-5432", cidade: "Itu", conta: "620" };

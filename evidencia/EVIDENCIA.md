@@ -1,45 +1,50 @@
 # Evidência de verificação
 
-Data: 2026-10-21. Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 2 (21/10/2026). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **65 de 65**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **79 de 79**, código de saída 0 (saída completa em `check.txt`).
 
-O check foi provado em duas direções:
-- Na primeira execução, **1 falha**: o próprio check capturava o ponto final da frase junto do valor ("R$ 118."). A falha era do check; corrigi o regex, não a página nem o critério.
-- Em uma cópia quebrada de propósito (cor do âmbar trocada em um dígito e a palavra "grátis" no texto), o check falhou em 3 pontos: cor fora do logo, DESIGN.md divergente e expressão proibida. Cópia descartada.
+Falhas que o check pegou durante esta revisão, e o que foi corrigido:
+- **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
+- **Rótulos do formulário:** o check esperava 4 `label`; o controle da conta virou o quinto. Falha do check, corrigido para 5.
+- Na versão anterior, o check também falhou uma vez por bug dele (ponto final entrando no valor) e foi provado contra uma cópia quebrada de propósito (3 falhas pegas).
 
-## 2. Medidas no navegador (computed style e geometria, não screenshot)
+Novos checks desta revisão: ilustrações só com a paleta do DESIGN.md, cinco ilustrações com `role=img`, faixa da conta (R$ 780 dá R$ 78 a R$ 195, o caso real de R$ 118 cai dentro, nunca chega a zero), seis abas com painel, gradiente só no hero, `prefers-reduced-motion` presente.
+
+## 2. Medidas no navegador (computed style, não screenshot)
 
 | Medida | 390 px | 1280 px |
 |---|---|---|
-| Rolagem horizontal (`scrollWidth > clientWidth`) | não (390 = 390) | não |
-| Elementos além da borda direita | nenhum | não medido |
-| h1 | 34 px | 52 px |
-| h2 | 28 px | 36 px |
-| Tamanhos de fonte em uso | 16, 34, 28, 14 px | n/a |
-| Botão: fundo / texto / altura | rgb(242,160,61) / rgb(18,58,85) / 48 px | n/a |
-| Campo de formulário: altura | 48 px | n/a |
-| Padding vertical de seção | n/a | 96 px |
-| Grade de 3 colunas | n/a | 336 + 336 + 336 px |
+| Rolagem horizontal | não | não |
+| Elementos além da borda (fora de abas rolável e SVG) | nenhum | n/a |
+| h1 / h2 | 40 px / 32 px | 72 px / 48 px (conferido no CSS, tela vista) |
+| Tamanhos de fonte em uso | 14, 16, 20, 32, 40 px | n/a |
+| Botão da navbar | 48 px de altura, uma linha (antes quebrava em duas e foi corrigido) | n/a |
 
-Os valores batem com `DESIGN.md`.
-
-## 3. Formulário, testado no navegador
-
-`window.open` foi substituído por um espião para não abrir o WhatsApp no teste.
+## 3. Interações, testadas no navegador
 
 | Caso | Resultado observado |
 |---|---|
-| Conta de R$ 200 | Bloqueou, mostrou o erro "Abaixo de R$ 450…", levou o foco ao campo da conta, não abriu WhatsApp |
-| Cidade "Outra cidade", conta R$ 620 | Bloqueou, mostrou o erro do raio de 80 km, não abriu WhatsApp |
-| Marta Souza, 15 99876-5432, Itu, R$ 620 | Sem erros, mostrou o passo seguinte, abriu `wa.me` com a mensagem pronta com os quatro dados |
+| Controle em R$ 1.200 | "R$ 120 e R$ 300" |
+| Controle em R$ 450 (mínimo) | "R$ 45 e R$ 113" |
+| Botão sob o controle com R$ 900 | Levou 900 ao campo de conta do formulário |
+| Aba 4 clicada | Só ela selecionada, painel "Projeto e homologação na CPFL", barra em 66,7% |
+| Seta direita na aba 4 | Foi para a aba 5 |
+| Números da prova | 412, 4,8, 6, 11 (valores finais) |
+| Console | Sem erros |
+| Formulário (revisão 1, mesmo código) | R$ 200 bloqueia, cidade fora do raio bloqueia, dados válidos montam o link do WhatsApp |
 
-## 4. O que NÃO foi verificado
+## 4. Visto por tela
 
-- Não abri a página em aparelho físico; o celular é emulação de 390 px no navegador.
-- Não medi desempenho (Lighthouse).
-- Não testei o envio de verdade no WhatsApp: o número é fictício (pendente, ver SPEC).
-- Não abri os dois navegadores (Safari e Firefox); só um.
-- A URL de produção ainda não existe; as verificações acima são locais.
+Hero, faixa da conta, quatro blocos com ilustração, investimento, etapas, garantias, perguntas, formulário e rodapé foram vistos a 1280 px; hero, faixa da conta, bloco do telhado, garantias e perguntas a 390 px. Um erro foi achado e corrigido olhando: a ilustração do financiamento tinha "Entrada zero" escrito dentro da barra da parcela, o que sugeria parcela zero.
+
+## 5. O que NÃO foi verificado
+
+- Não abri em aparelho físico; o celular é emulação de 390 px.
+- Não vi a seção de investimento e a faixa de etapas a 390 px, nem o formulário a 390 px nesta revisão.
+- Não medi o desempenho nem testei em Safari e Firefox.
+- A animação de contagem e de revelar ao rolar foi conferida só pelo estado final; o movimento em si não foi gravado.
+- O envio de verdade no WhatsApp não foi testado: o número é fictício (pendente, ver SPEC).
+- A URL de produção ainda não existe.
