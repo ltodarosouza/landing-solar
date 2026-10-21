@@ -1,0 +1,4 @@
+celular 390x11906 pixels com diferença acima de 3/255: 0 (ignorados por serem ≤3/255: 1637; ruído que já varia entre dois "antes": 0; diferença real: 0) DOM igual: true
+tablet 768x11793 pixels com diferença acima de 3/255: 0 (ignorados por serem ≤3/255: 11454; ruído que já varia entre dois "antes": 0; diferença real: 0) DOM igual: true
+desktop 1280x8889 pixels com diferença acima de 3/255: 0 (ignorados por serem ≤3/255: 15610; ruído que já varia entre dois "antes": 0; diferença real: 0) DOM igual: true
+IDÊNTICO

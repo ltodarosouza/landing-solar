@@ -1,0 +1,25 @@
+== https://landing-solar-sigma.vercel.app ==
+-- conta R$ 200 (direto ao servidor)
+{"ok":false,"erros":{"conta":"Seu gasto com luz está abaixo do mínimo de R$ 450 por mês. Abaixo disso o sistema não se paga em tempo razoável, e nós mesmos desaconselhamos a compra. Sentimos muito, mas não vamos seguir com o pedido."}}
+HTTP 422
+-- cidade Campinas
+{"ok":false,"erros":{"cidade":"Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender: instalamos só em Sorocaba, Votorantim, Itu e Salto, num raio de 80 km."}}
+HTTP 422
+-- cidade outra
+{"ok":false,"erros":{"cidade":"Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender: instalamos só em Sorocaba, Votorantim, Itu e Salto, num raio de 80 km."}}
+HTTP 422
+-- pedido válido
+{"ok":true}
+HTTP 200
+-- nome como objeto e conta como lista
+{"ok":false,"erros":{"nome":"Digite seu nome.","conta":"Digite o valor médio da conta, só números."}}
+HTTP 422
+-- corpo que não é JSON
+{"erro":"Corpo inválido."}
+HTTP 400
+-- GET
+HTTP/2 405 
+allow: POST
+cache-control: no-store
+{"erro":"Use POST."}
+HTTP 405
