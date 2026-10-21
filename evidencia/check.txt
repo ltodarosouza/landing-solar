@@ -95,6 +95,7 @@ ok    o selo de queda no hero é 85% (780 para 118)
 ok    o efeito do título volta toda vez que o hero reaparece (hero é .replay e o marca-texto só anima em .hero.visivel)
 ok    blocos animados só começam bem dentro da tela e recomeçam ao voltar (margem de 12%, 30% visível, classe tirada ao sair)
 ok    números da prova: contam só quando o bloco chega ao meio da tela (margem de 25% em cima e embaixo), de novo a cada volta, em 1,6 s; a conta do hero desce em 2,2 s
+ok    os números da prova observam o bloco pai, que não se desloca (observar o bloco que sobe 24 px ao aparecer fazia os valores subirem e descerem em laço)
 ok    conta antes e depois e linha de 25 anos têm uma linha do tempo só: a barra e o número saem da mesma variável, sem transições soltas no CSS
 ok    a barra de hoje tem 15.1% da barra de antes (118/780 = 15.1%)
 ok    a faixa média desenhada nas barras (10% a 25%) é a que o modelo calcula (10% a 25%)
@@ -130,5 +131,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-131 de 131 verificações passaram.
+132 de 132 verificações passaram.
 exit=0

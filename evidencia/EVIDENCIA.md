@@ -4,7 +4,7 @@ Revisão 9 (21/10/2026). Acumula as revisões anteriores; as seções 7 a 12 aba
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **131 de 131**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **132 de 132**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -201,6 +201,16 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 **Medido no navegador a 1280 px (com o painel visível):** ao carregar, só a primeira aberta (203 px de altura, as outras em 0); abrir a quinta fecha a primeira (alturas 0, 0, 0, 0, 75, 0); reabrir a primeira fecha a quinta; clicar de novo fecha tudo. Um primeiro teste foi descartado porque o painel estava oculto e a animação não corria; repeti com o painel visível.
 
 **Não verificado:** o FAQ a 390 px (só o CSS, que é o mesmo) e em aparelho físico, Safari e Firefox.
+
+## 15. Números da prova subindo e descendo sem parar
+
+**Relato do aluno (com print):** "tem um pixel que está bugando os valores, eles ficam subindo e descendo toda hora". **Causa:** o observador dos números (zona de ativação com 25% de margem em cima e embaixo) observava o próprio bloco, que ao aparecer sobe 24 px (`translateY(24px)` para nenhum). Com o bloco parado numa faixa de 24 px na borda de cima da zona: aparecer o move para fora da zona, ele "some" e os números zeram, voltar ao lugar o põe de novo dentro da zona, e o laço não acaba. No print, a base do bloco está a cerca de 250 px com a zona começando em 220 px, ou seja, dentro dessa faixa.
+
+**Como confirmei:** não consegui reproduzir no navegador, porque a sessão estava sem janela e o navegador não entregou as notificações de visibilidade (a varredura que tentei devolveu zero trocas e `visivel` falso em todas as posições, o que não prova nada). Simulei a geometria em Node (viewport de 880 px, zona de 220 a 660, bloco de 170 px, deslocamento de 24 px): observando o bloco que se desloca, 24 posições de rolagem oscilam; observando o pai estável, 0.
+
+**Correção:** o observador agora observa o bloco pai (`.prova`), que não se desloca. O check (132) exige isso e foi provado contra uma cópia com o defeito reintroduzido (falha). A mesma checagem de padrão: os outros blocos animados (`.replay`) não têm transformação neles mesmos, e os revelados uma vez (`.revela`) deixam de ser observados depois de aparecer, então não entram em laço.
+
+**Não verificado:** não vi a correção funcionando numa janela de verdade; a confirmação é a simulação, o raciocínio e o check. Peço para você rolar devagar até os números parar na altura do print e me dizer se ainda oscilam.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

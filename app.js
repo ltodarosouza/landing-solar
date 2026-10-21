@@ -211,7 +211,9 @@ if (typeof document !== "undefined") {
               zera();
             }
           });
-        }, { rootMargin: "-25% 0px -25% 0px", threshold: 0 }).observe(meio);
+        // Observa o bloco pai, que não se mexe. Observar o próprio bloco fazia um laço: ao aparecer ele
+        // sobe 24 px, sai da zona, some, desce, volta à zona, e os números ficavam subindo e descendo.
+        }, { rootMargin: "-25% 0px -25% 0px", threshold: 0 }).observe(meio.closest(".prova") || meio);
       }
     }
 
