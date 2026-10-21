@@ -1,6 +1,6 @@
 # DESIGN — Ravena Solar
 
-Revisão 6. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
+Revisão 7. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
 
 Direção: editorial e claro. Uma ideia por tela, tipografia grande, muito respiro, números como protagonistas, o produto mostrado em ação, movimento só onde explica algo. Texto nunca fica por cima de imagem. Cada tela diz pouco: o que a pessoa precisa entender, e o resto vira imagem ou animação.
 
@@ -90,7 +90,7 @@ Seção de 700 vh com palco fixo (`position: sticky`) de 100 vh, em **duas colun
 - **Conta antes e depois:** uma linha do tempo só, guiada por variáveis. A barra de antes cresce, a de hoje cresce a seguir e o número desce junto com ela, até 118. O número acompanha a ponta da barra. Por fim aparece a faixa tracejada da média dos clientes.
 - **Linha do tempo de 25 anos:** as quatro barras crescem em sequência, cada uma com seu atraso, e o rótulo de cada uma só aparece quando a barra está quase completa.
 - **Mapa:** pinos brotam um a um, o raio de 80 km se abre e três ondas saem de Sorocaba sem parar enquanto o bloco está na tela.
-- **Telhado protegido: uma animação só, em quatro passos** (chuva cai; a água procura a fresta onde o painel é fixado; a vedação segura a água; a água escorre e o teto fica seco). É um corte do telhado: painel, trilho, gancho de fixação, chapa de vedação, massa âmbar da vedação, telhas, estrutura e forro, com as partes nomeadas. Cada passo dura 4,2 s e se repete enquanto o bloco está na tela; os quatro botões embaixo pulam para um passo. Passo 2: gotas descem pelo gancho. Passo 3: o ✕ de bloqueio aparece, um anel pulsa na vedação, a pílula "vedação" fica âmbar e a água rebate para os lados. Passo 4: a água corre pelo painel e pela telha, aparece o selo de "teto seco" e a lâmpada acende. No celular a cena se aproxima da fixação e as pílulas somem (os passos explicam).
+- **Telhado protegido: uma animação só, simples, em três passos.** Poucas peças de propósito (60, contra 163 na versão que foi considerada confusa): um telhado reto, um painel sobre três apoios, a fixação com uma **vedação grande em âmbar**, seis gotas de chuva e um quarto embaixo. Só dois rótulos, em 22 px: "vedação" e "teto seco". Passo 1: a chuva cai. Passo 2: quatro filetes de água correm pelas telhas até a fixação, e um anel marca o ponto. Passo 3: a água bate na vedação e volta, o anel pulsa, a pílula "vedação" fica âmbar, a lâmpada acende e o selo "teto seco" salta. Cada passo dura 4,2 s e o ciclo se repete enquanto o bloco está na tela; os três botões embaixo pulam para um passo. O módulo tem no máximo 900 px de largura para a cena e os passos caberem juntos numa tela de 800 px de altura.
 - **Etapas, em trilha vertical:** uma bolinha desce acompanhando o scroll (fica a 55% da altura da tela) e acende cada ponto que alcança; cada etapa toca uma mini-animação própria (conversa, medição do telhado, três tamanhos, homologação, painéis encaixando, curva de produção com sino). Ao subir de volta, os pontos apagam e tocam de novo ao descer.
 - **Cena do telhado:** descrita acima.
 - **Perguntas:** o painel abre e fecha por altura, o ícone gira, uma aberta fecha as outras.

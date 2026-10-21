@@ -487,12 +487,11 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
 .mapa svg { width: 100%; height: auto; }
 
 /* Telhado protegido: uma animação só, em quatro passos */
-.infiltra { display: grid; gap: var(--e3); }
+.infiltra { display: grid; gap: var(--e3); max-width: 900px; margin: 0 auto; }
 .inf-cena { overflow: hidden; background: var(--sol); border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra); }
 .inf-cena svg { width: 100%; height: auto; }
-@media (max-width: 639px) { .inf-cena .pilula { display: none; } }
 .inf-passos { list-style: none; display: grid; gap: var(--e1); }
-@media (min-width: 900px) { .inf-passos { grid-template-columns: repeat(4, 1fr); gap: var(--e2); } }
+@media (min-width: 900px) { .inf-passos { grid-template-columns: repeat(3, 1fr); gap: var(--e2); } }
 .inf-passos button {
   width: 100%;
   min-height: 48px;
@@ -511,8 +510,8 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
   transition: background-color 300ms, color 300ms, border-color 300ms, transform 300ms var(--curva);
 }
 .inf-n { flex: none; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--branco); border: 2px solid var(--borda); font-size: var(--t-rotulo); font-weight: 700; color: var(--tinta-suave); transition: background-color 300ms, border-color 300ms, color 300ms; }
-.infiltra[data-etapa="1"] [data-e="1"], .infiltra[data-etapa="2"] [data-e="2"], .infiltra[data-etapa="3"] [data-e="3"], .infiltra[data-etapa="4"] [data-e="4"] { color: var(--marinho); background: var(--branco); border-color: var(--ambar); transform: translateY(-4px); }
-.infiltra[data-etapa="1"] [data-e="1"] .inf-n, .infiltra[data-etapa="2"] [data-e="2"] .inf-n, .infiltra[data-etapa="3"] [data-e="3"] .inf-n, .infiltra[data-etapa="4"] [data-e="4"] .inf-n { background: var(--ambar); border-color: var(--ambar); color: var(--marinho); }
+.infiltra[data-etapa="1"] [data-e="1"], .infiltra[data-etapa="2"] [data-e="2"], .infiltra[data-etapa="3"] [data-e="3"] { color: var(--marinho); background: var(--branco); border-color: var(--ambar); transform: translateY(-4px); }
+.infiltra[data-etapa="1"] [data-e="1"] .inf-n, .infiltra[data-etapa="2"] [data-e="2"] .inf-n, .infiltra[data-etapa="3"] [data-e="3"] .inf-n { background: var(--ambar); border-color: var(--ambar); color: var(--marinho); }
 
 /* Etapas: trilha vertical com uma bolinha que desce com o scroll */
 .trilha-v { --pad: 56px; --lx: 14px; position: relative; padding-left: var(--pad); }
@@ -571,34 +570,27 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
 .visivel .respingo { animation: respingo 1.9s ease-out infinite; animation-delay: var(--d); }
 @keyframes respingo { 0%, 86% { transform: scale(0.3); opacity: 0; } 88% { opacity: 0.9; } 100% { transform: scale(1.6); opacity: 0; } }
 
-/* Infiltração: a água tenta entrar e a vedação segura. Tudo só roda enquanto o bloco está na tela. */
-.chuva, .respingo, .seep, .rebate { opacity: 0; }
-.escorre-painel, .escorre-telha { opacity: 0; transition: opacity 600ms; }
-.anel-vedacao, .bloqueio, .selo-teto, .massa { transform-box: fill-box; transform-origin: center; }
-.anel-vedacao { opacity: 0; }
-.js .bloqueio, .js .selo-teto { transform: scale(0); }
+/* Infiltração: a água corre até a fixação e a vedação segura. Só roda enquanto o bloco está na tela. */
+.chuva, .agua { opacity: 0; }
+.anel-vedacao, .selo-teto, .massa { transform-box: fill-box; transform-origin: center; }
+.anel-vedacao, .seta-vedacao { opacity: 0; }
+.js .selo-teto { transform: scale(0); }
 .pilula { transition: opacity 400ms; }
-.pilula.p-vedacao rect { transition: fill 400ms; }
+.pilula rect { transition: fill 400ms; }
 .p-seco { opacity: 0; }
-.lampada { opacity: 0.35; transition: opacity 600ms; }
+.lampada { opacity: 0.3; transition: opacity 600ms; }
 .visivel .chuva { animation: chuva 1.9s linear infinite; animation-delay: var(--d); }
-.visivel .seep, .visivel .rebate, .visivel .escorre-painel, .visivel .escorre-telha { opacity: 0; }
-.visivel[data-etapa="1"] .escorre-painel, .visivel[data-etapa="2"] .escorre-painel, .visivel[data-etapa="3"] .escorre-painel, .visivel[data-etapa="4"] .escorre-painel { opacity: 0.9; animation: fio 1.4s linear infinite; }
-.visivel[data-etapa="4"] .escorre-telha { opacity: 0.95; animation: fio 1.1s linear infinite; }
-.visivel[data-etapa="2"] .seep, .visivel[data-etapa="3"] .seep, .visivel[data-etapa="4"] .seep { animation: seep 1.5s ease-in infinite; animation-delay: var(--d); }
-.visivel[data-etapa="3"] .rebate, .visivel[data-etapa="4"] .rebate { animation: rebate 1.6s ease-out infinite; animation-delay: var(--d); }
-.visivel[data-etapa="3"] .anel-vedacao, .visivel[data-etapa="4"] .anel-vedacao { animation: pulso-vedacao 1.6s ease-out infinite; }
-.visivel[data-etapa="3"] .bloqueio, .visivel[data-etapa="4"] .bloqueio { animation: pop 500ms cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
-.visivel[data-etapa="4"] .selo-teto { animation: pop 600ms cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
-.visivel[data-etapa="4"] .p-seco { opacity: 1; }
-.visivel[data-etapa="4"] .lampada { opacity: 1; }
-.visivel[data-etapa="3"] .p-vedacao rect, .visivel[data-etapa="4"] .p-vedacao rect { fill: #F2A03D; }
-.caminho { opacity: 0; transition: opacity 500ms; }
-.visivel[data-etapa="2"] .caminho, .visivel[data-etapa="3"] .caminho, .visivel[data-etapa="4"] .caminho { opacity: 0.8; }
-@keyframes fio { to { stroke-dashoffset: -44; } }
-@keyframes seep { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(32px); opacity: 0; } }
-@keyframes rebate { 0% { transform: translate(0, 0); opacity: 0; } 12% { opacity: 1; } 100% { transform: translate(var(--lado), -6px); opacity: 0; } }
-@keyframes pulso-vedacao { 0% { transform: scale(0.7); opacity: 0.9; } 100% { transform: scale(1.25); opacity: 0; } }
+.visivel[data-etapa="2"] .agua { animation: aproxima 1.9s ease-in infinite; animation-delay: var(--d); }
+.visivel[data-etapa="3"] .agua { animation: rebate 1.7s ease-out infinite; animation-delay: var(--d); }
+.visivel[data-etapa="2"] .anel-vedacao, .visivel[data-etapa="2"] .seta-vedacao { opacity: 0.9; }
+.visivel[data-etapa="3"] .anel-vedacao { animation: pulso-vedacao 1.6s ease-out infinite; }
+.visivel[data-etapa="3"] .seta-vedacao { opacity: 0.9; }
+.visivel[data-etapa="3"] .selo-teto { animation: pop 600ms cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
+.visivel[data-etapa="3"] .p-seco, .visivel[data-etapa="3"] .lampada { opacity: 1; }
+.visivel[data-etapa="3"] .p-vedacao rect { fill: #F2A03D; }
+@keyframes aproxima { 0% { transform: translateX(calc(var(--s) * 230px)); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateX(calc(var(--s) * 52px)); opacity: 1; } }
+@keyframes rebate { 0% { transform: translateX(calc(var(--s) * 52px)); opacity: 1; } 100% { transform: translateX(calc(var(--s) * 130px)); opacity: 0; } }
+@keyframes pulso-vedacao { 0% { transform: scale(0.75); opacity: 0.95; } 100% { transform: scale(1.2); opacity: 0; } }
 
 /* Ícones das etapas: tocam quando a bolinha chega */
 @keyframes pulo { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
@@ -648,15 +640,16 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
   .raios-cena, .raios-hero, .nuvem, .brilho-painel, .fluxo, .anel.ativo { animation: none; }
   .js .pin, .js .pop, .js .resp, .js .barra, .js .carimbo { transform: none; animation: none; }
   .js .raio-80 { transform: none; opacity: 1; transition: none; }
-  .onda, .chuva, .respingo, .seep, .rebate, .escorre-painel, .escorre-telha { display: none; }
+  .onda, .chuva, .agua { display: none; }
   .js .traco { stroke-dashoffset: 0; animation: none; }
   .js .plac { transform: none; opacity: 1; animation: none; }
   .ponto-d, .sino { animation: none; }
   .js .tv-conteudo, .js .tv-icone { opacity: 1; transform: none; transition: none; }
   .tv-bola, .tv-feito { display: none; }
   .js .faq-corpo, .js .faq-corpo p { transition: none; }
-  .js .bloqueio, .js .selo-teto { transform: none; }
+  .js .selo-teto { transform: none; }
   .p-seco, .lampada { opacity: 1; }
   .anel-vedacao { display: none; }
+  .seta-vedacao { opacity: 0.9; }
   .hero-luz { display: none; }
 }

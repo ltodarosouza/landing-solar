@@ -102,12 +102,13 @@ ok    o caso real (6,4 kWp, março de 2025) vem com a média de doze meses junto
 ok    a linha do tempo de 25 anos é proporcional: garantias de 5, 10 e 25 anos e retorno de 3 a 4 anos
 ok    o eixo da linha do tempo vai de 0 a 25 anos
 ok    mapa: Sorocaba no centro e três pinos, com o raio de 80 km e ondas
-ok    telhado protegido: uma animação só (nada de dois painéis), com quatro passos clicáveis
-ok    a cena da infiltração tem 15 gotas, gancho de fixação, massa de vedação, chapa, caminho bloqueado, selo de teto seco e lâmpada
-ok    as partes aparecem nomeadas na imagem: painel, telha, vedação, estrutura, forro, teto seco
-ok    os passos contam a história na ordem: chuva, a água procura a fresta, a vedação segura, a água escorre e o teto fica seco
-ok    cada passo dura 4200 ms (mínimo 3500), recomeça no passo 1 ao voltar à tela e fica no passo 4 com movimento reduzido
-ok    cada passo tem sua animação: a água entra no gancho (2), rebate e o anel pulsa (3), escorre e aparece o teto seco (4)
+ok    telhado protegido: uma animação só (nada de dois painéis), com três passos clicáveis
+ok    cena simples: 60 peças (a anterior tinha 163; máximo 80), 2 rótulos (eram 6) e 6 gotas (eram 15)
+ok    a cena tem só o essencial: painel, fixação, vedação grande em âmbar, água que corre, anel, selo de teto seco e lâmpada
+ok    os dois únicos rótulos são vedação e teto seco, em tamanho legível (22 px no desenho)
+ok    os três passos contam a história: a chuva cai, a água corre até a fixação, a vedação segura e o teto fica seco
+ok    cada passo dura 4200 ms (mínimo 3500), recomeça no passo 1 ao voltar à tela e fica no passo 3 com movimento reduzido
+ok    cada passo tem a sua animação: a água corre até a fixação (2), rebate na vedação com o anel pulsando (3) e o selo de teto seco aparece (3)
 ok    a chuva e a água só animam enquanto o bloco está na tela (nenhuma animação fora de .visivel)
 ok    a garantia de 5 anos contra infiltração está dita junto da animação
 ok    a navbar é reta no topo e vira pílula ao rolar
@@ -127,5 +128,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-128 de 128 verificações passaram.
+129 de 129 verificações passaram.
 exit=0

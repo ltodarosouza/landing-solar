@@ -34,6 +34,10 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 7 (21/10/2026): infiltração mais simples
+
+Pedido do aluno: "muita informação nessa animação, não dá para perceber o que é". A versão da revisão 6 tinha 163 peças, 6 rótulos e 15 gotas (corte com caibro, ripas, trilho, chapa, escoamento em linhas). Agora: 60 peças, 2 rótulos e 6 gotas, três passos. O que a pessoa precisa entender cabe em uma frase: a água corre até onde o painel é fixado, a vedação segura e o teto fica seco. Saíram o caibro, as ripas, a chapa, o caminho pontilhado, o ✕, as linhas de escoamento e os rótulos de painel, telha, estrutura e forro.
+
 ## Revisão 6 (21/10/2026): infiltração em uma animação só, números do início e fluidez
 
 Pedido do aluno, em resumo: os números do início demoram a aparecer e não dá para ver o efeito; melhorar a fluidez de "Quanto a conta cai" e de "Quanto custa"; as duas animações de infiltração não estão intuitivas, melhor deixar só uma que mostre como funciona, e fazê-la bem melhor.

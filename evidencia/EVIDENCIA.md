@@ -1,10 +1,10 @@
 # Evidência de verificação
 
-Revisão 6 (21/10/2026). Acumula as revisões anteriores; as seções 7, 8 e 9 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 7 (21/10/2026). Acumula as revisões anteriores; as seções 7, 8, 9 e 10 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **128 de 128**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **129 de 129**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -147,6 +147,14 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 - Gotas de "teto seco" e chuva em aparelho físico, Safari e Firefox.
 - Movimento reduzido ligado (o check confere CSS e JS; o passo 4 fixo e o ✕ sem animar não foram vistos).
 - Desempenho com todas as animações SVG ligadas ao mesmo tempo.
+
+## 10. Revisão 7: infiltração simplificada
+
+**Queixa:** "muita informação nessa animação, não dá para perceber o que é". **Medida contra a versão anterior (via git):** 163 peças, 6 rótulos e 15 gotas; agora 60 peças, 2 rótulos e 6 gotas, e três passos em vez de quatro. O check exige no máximo 80 peças, exatamente 2 rótulos (vedação e teto seco, a 22 px no desenho) e 6 gotas.
+
+**Visto no navegador:** a 1280 px, passo 2 (água chegando dos dois lados, anel e pílula "vedação") e passo 3 (vedação pulsando, água rebatendo, lâmpada acesa, selo "teto seco", cartão 3 destacado); o módulo inteiro, com os três passos, ocupa 700 px e cabe numa tela de 800 px (antes a cena sozinha tinha 651 px e os passos ficavam cortados). A 390 px: cena de 215 px de altura, rótulos legíveis, passos empilhados, sem rolagem horizontal.
+
+**Não verificado:** o movimento (a água correndo e voltando) foi visto em quadros parados de cada passo; o passo 1 e a transição automática entre passos só foram conferidos por estado (`data-etapa`) e pelo check; movimento reduzido, aparelho físico, Safari e Firefox.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

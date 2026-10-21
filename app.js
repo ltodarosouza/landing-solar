@@ -312,24 +312,19 @@ if (typeof document !== "undefined") {
     // ---- Infiltração: uma animação só, em quatro passos que se repetem
     var infiltra = document.querySelector(".infiltra");
     if (infiltra) {
-      // no celular a cena aproxima da fixação, onde a ação acontece
-      var svgInf = infiltra.querySelector("svg");
-      var enquadra = function () { svgInf.setAttribute("viewBox", window.innerWidth < 640 ? "150 60 480 330" : "0 0 820 440"); };
-      enquadra();
-      window.addEventListener("resize", enquadra);
       var botoes = Array.prototype.slice.call(infiltra.querySelectorAll("[data-e]"));
       var etapa = 1, relogio = null;
       var vai = function (n) { etapa = n; infiltra.setAttribute("data-etapa", String(n)); };
       var parar = function () { clearInterval(relogio); relogio = null; };
       var rodar = function () {
         parar();
-        relogio = setInterval(function () { vai(etapa % 4 + 1); }, 4200);
+        relogio = setInterval(function () { vai(etapa % 3 + 1); }, 4200);
       };
       botoes.forEach(function (b) {
         b.addEventListener("click", function () { vai(parseInt(b.getAttribute("data-e"), 10)); if (infiltra.classList.contains("visivel")) rodar(); });
       });
       if (semMovimento) {
-        vai(4);
+        vai(3);
       } else {
         infiltra.addEventListener("replay:on", function () { vai(1); rodar(); });
         infiltra.addEventListener("replay:off", function () { parar(); vai(1); });
