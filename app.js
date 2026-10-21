@@ -3,6 +3,8 @@
 var WHATSAPP = "5515999990000";
 
 var CONTA_MINIMA = 450;
+// Cidades atendidas (brief: raio de 80 km). Qualquer outro valor, inclusive "outra", é recusado.
+var CIDADES = ["Sorocaba", "Votorantim", "Itu", "Salto"];
 // Faixa média dos clientes da Ravena (brief): a conta cai de 75% a 90%.
 var QUEDA_MIN = 0.75;
 var QUEDA_MAX = 0.90;
@@ -42,7 +44,7 @@ function validar(campos) {
   }
   if (!campos.cidade) {
     erros.cidade = "Escolha a cidade.";
-  } else if (campos.cidade === "outra") {
+  } else if (CIDADES.indexOf(campos.cidade) === -1) {
     erros.cidade = "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km. Fora disso não conseguimos instalar.";
   }
   var conta = lerValor(campos.conta);
@@ -70,7 +72,7 @@ function linkWhatsApp(campos) {
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { validar: validar, montarMensagem: montarMensagem, linkWhatsApp: linkWhatsApp, lerValor: lerValor, faixaDaConta: faixaDaConta, CONTA_MINIMA: CONTA_MINIMA };
+  module.exports = { validar: validar, montarMensagem: montarMensagem, linkWhatsApp: linkWhatsApp, lerValor: lerValor, faixaDaConta: faixaDaConta, CONTA_MINIMA: CONTA_MINIMA, CIDADES: CIDADES };
 }
 
 if (typeof document !== "undefined") {
@@ -83,27 +85,47 @@ if (typeof document !== "undefined") {
     ev.preventDefault();
     var campos = {};
     nomes.forEach(function (n) { campos[n] = form.elements[n].value; });
-    var erros = validar(campos);
-
-    var primeiro = null;
-    nomes.forEach(function (n) {
-      var caixa = document.getElementById("erro-" + n);
-      caixa.textContent = erros[n] || "";
-      form.elements[n].setAttribute("aria-invalid", erros[n] ? "true" : "false");
-      if (erros[n] && !primeiro) primeiro = form.elements[n];
-    });
-    if (primeiro) {
-      depois.hidden = true;
-      primeiro.focus();
-      return;
+    function mostrarErros(erros) {
+      var primeiro = null;
+      nomes.forEach(function (n) {
+        var caixa = document.getElementById("erro-" + n);
+        caixa.textContent = erros[n] || "";
+        form.elements[n].setAttribute("aria-invalid", erros[n] ? "true" : "false");
+        if (erros[n] && !primeiro) primeiro = form.elements[n];
+      });
+      if (primeiro) {
+        depois.hidden = true;
+        primeiro.focus();
+      }
+      return !!primeiro;
     }
 
-    var url = linkWhatsApp(campos);
-    link.href = url;
-    link.target = "_blank";
-    depois.hidden = false;
-    depois.scrollIntoView({ block: "nearest" });
-    window.open(url, "_blank", "noopener");
+    function seguirParaWhatsApp() {
+      var url = linkWhatsApp(campos);
+      link.href = url;
+      link.target = "_blank";
+      depois.hidden = false;
+      depois.scrollIntoView({ block: "nearest" });
+      window.open(url, "_blank", "noopener");
+    }
+
+    if (mostrarErros(validar(campos))) return;
+
+    // O servidor repete a mesma validação (api/pedido.js). Só uma recusa explícita (422)
+    // bloqueia; se o servidor não responder, o pedido não se perde e segue para o WhatsApp.
+    fetch("/api/pedido", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(campos)
+    }).then(function (r) {
+      if (r.status !== 422) return null;
+      return r.json().then(function (j) { return j.erros || {}; });
+    }).catch(function () {
+      return null;
+    }).then(function (errosDoServidor) {
+      if (errosDoServidor && mostrarErros(errosDoServidor)) return;
+      seguirParaWhatsApp();
+    });
   });
 }
 

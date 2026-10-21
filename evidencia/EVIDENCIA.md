@@ -212,7 +212,16 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 
 **Não verificado:** não vi a correção funcionando numa janela de verdade; a confirmação é a simulação, o raciocínio e o check. Peço para você rolar devagar até os números parar na altura do print e me dizer se ainda oscilam.
 
-## 5. (revisão 2) O que NÃO foi verificado
+## 16. Validação no servidor (FALTA.md, item 2)
+
+**Resultado esperado, escrito antes de executar:** um pedido com conta de R$ 200, ou com cidade fora das quatro atendidas, mandado direto ao servidor sem passar pela página, é recusado com 422 e uma explicação; um pedido válido é aceito com 200.
+
+**Feito:** `api/pedido.js` (função da Vercel) recebe o pedido e chama o mesmo `validar` de `app.js`, sem copiar regra. `validar` agora recusa qualquer cidade fora da lista (antes só recusava "outra"; mandar "Campinas" direto passava). A página consulta o servidor antes de abrir o WhatsApp e só bloqueia com 422; se o servidor não responder, o pedido não se perde e segue.
+
+**Evidência:** `evidencia/servidor.txt` guarda as requisições feitas com `curl` contra a função rodando num servidor local que imita o contrato da Vercel: conta R$ 200 → 422 com o motivo da conta; "Campinas" e "outra" → 422 com o motivo da cidade; pedido válido → 200; nome como objeto e conta como lista → 422 sem quebrar; corpo que não é JSON → 400; GET → 405. O check subiu de 132 para 141. Provei o check contra uma cópia com a validação do servidor desligada: três checks falham (138 de 141); restaurada, 141 de 141.
+
+**Não verificado:** a função **ainda não foi publicada** na Vercel (o deploy não foi pedido nesta etapa); o teste foi num servidor local que imita a Vercel, não na Vercel. Também não abri o formulário no navegador com a função ligada, e a validação no servidor hoje não protege nada de fato, porque o servidor ainda não guarda o pedido (item 1 do FALTA.md): ela só passa a valer de verdade quando o pedido passar a ser gravado nele.
+
 
 - Não abri em aparelho físico; o celular é emulação de 390 px.
 - Não vi a seção de investimento e a faixa de etapas a 390 px, nem o formulário a 390 px nesta revisão.

@@ -1,0 +1,21 @@
+== 1. conta de R$ 200 (direto ao servidor)
+{"ok":false,"erros":{"conta":"Abaixo de R$ 450 por mês o sistema não se paga em tempo razoável, e nós mesmos desaconselhamos. Não vamos pedir seu contato."}}
+HTTP 422
+== 2. cidade fora do raio
+{"ok":false,"erros":{"cidade":"Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km. Fora disso não conseguimos instalar."}}
+HTTP 422
+== 3. cidade 'outra'
+{"ok":false,"erros":{"cidade":"Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km. Fora disso não conseguimos instalar."}}
+HTTP 422
+== 4. pedido valido
+{"ok":true}
+HTTP 200
+== 5. tentando enganar: conta como lista e nome como objeto
+{"ok":false,"erros":{"nome":"Digite seu nome.","conta":"Digite o valor médio da conta, só números."}}
+HTTP 422
+== 6. corpo que nao e json
+{"erro":"Corpo inválido."}
+HTTP 400
+== 7. GET
+{"erro":"Use POST."}
+HTTP 405

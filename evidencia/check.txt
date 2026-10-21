@@ -127,9 +127,17 @@ ok    formulário: WhatsApp com +55 passa
 ok    formulário: nome vazio é bloqueado
 ok    formulário: aceita 1.200 e 1200,50
 ok    formulário: conta não numérica é bloqueada
+ok    formulário: cidade fora da lista (não só "outra") é bloqueada
+ok    servidor: pedido válido responde 200
+ok    servidor: conta de R$ 200 responde 422 com o motivo da conta
+ok    servidor: cidade fora do raio responde 422 com o motivo da cidade
+ok    servidor: corpo vazio, texto solto e lista respondem 400
+ok    servidor: campo que não é texto nem número cai na validação (422, sem quebrar)
+ok    servidor: GET responde 405
+ok    servidor: usa o validar da página, sem regra copiada
+ok    página consulta /api/pedido antes de abrir o WhatsApp e só bloqueia com 422
 ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-132 de 132 verificações passaram.
-exit=0
+141 de 141 verificações passaram.

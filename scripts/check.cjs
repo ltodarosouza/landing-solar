@@ -285,6 +285,26 @@ verifica("formulário: WhatsApp com +55 passa", !app.validar({ ...ok, whatsapp: 
 verifica("formulário: nome vazio é bloqueado", !!app.validar({ ...ok, nome: " " }).nome);
 verifica("formulário: aceita 1.200 e 1200,50", app.lerValor("1.200") === 1200 && app.lerValor("1200,50") === 1200.5);
 verifica("formulário: conta não numérica é bloqueada", !!app.validar({ ...ok, conta: "abc" }).conta);
+verifica("formulário: cidade fora da lista (não só \"outra\") é bloqueada", !!app.validar({ ...ok, cidade: "Campinas" }).cidade);
+
+// servidor: api/pedido.js repete as regras da página
+const pedido = require("../api/pedido.js");
+function chama(metodo, corpo) {
+  const r = { cab: {}, status: 0, json: null };
+  const res = { setHeader: (k, v) => { r.cab[k] = v; }, status: (s) => { r.status = s; return res; }, json: (j) => { r.json = j; return res; } };
+  pedido({ method: metodo, body: corpo }, res);
+  return r;
+}
+verifica("servidor: pedido válido responde 200", chama("POST", ok).status === 200);
+const r200 = chama("POST", { ...ok, conta: "200" });
+verifica("servidor: conta de R$ 200 responde 422 com o motivo da conta", r200.status === 422 && !!r200.json.erros.conta);
+const rFora = chama("POST", { ...ok, cidade: "Campinas" });
+verifica("servidor: cidade fora do raio responde 422 com o motivo da cidade", rFora.status === 422 && !!rFora.json.erros.cidade);
+verifica("servidor: corpo vazio, texto solto e lista respondem 400", chama("POST", undefined).status === 400 && chama("POST", "isto não é json").status === 400 && chama("POST", []).status === 400);
+verifica("servidor: campo que não é texto nem número cai na validação (422, sem quebrar)", chama("POST", { ...ok, conta: { a: 1 }, nome: ["x"] }).status === 422);
+verifica("servidor: GET responde 405", chama("GET").status === 405);
+verifica("servidor: usa o validar da página, sem regra copiada", /require\("\.\.\/app\.js"\)/.test(ler("api/pedido.js")) && !/450/.test(ler("api/pedido.js")));
+verifica("página consulta /api/pedido antes de abrir o WhatsApp e só bloqueia com 422", /fetch\("\/api\/pedido"/.test(ler("app.js")) && /r\.status !== 422/.test(ler("app.js")));
 const msg = app.montarMensagem(ok);
 verifica("mensagem de WhatsApp leva os quatro dados", ["Marta Souza", "15 99876-5432", "Itu", "620"].every((s) => msg.includes(s)));
 const url = app.linkWhatsApp(ok);

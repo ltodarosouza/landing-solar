@@ -39,9 +39,10 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 |---|---|---|
 | Ação única | "Pedir simulação", com a mesma frase no menu, no hero, depois das barras e no formulário | Uma coisa só para clicar |
 | Filtro de conta baixa | No campo, valor abaixo de R$ 450 bloqueia o envio e explica | O vendedor perde o dia com conta de R$ 200; o cliente mesmo desaconselha |
+| Validação no servidor | `api/pedido.js` repete as regras de conta e cidade (o `validar` de `app.js` é a única fonte) e devolve 422 com o motivo. A página só bloqueia com 422; se o servidor não responder, o pedido segue para o WhatsApp | O filtro só no navegador se contorna; mas perder um pedido bom por falha do servidor é pior |
 | Filtro de região | Cidade em lista com as quatro atendidas e "Outra cidade", que bloqueia e explica o raio de 80 km | Sem atendimento fora do raio |
 | Foto da conta | Não há campo de arquivo. Depois do envio, a página pede para mandar a foto ou o PDF na conversa de WhatsApp | A página é estática, sem servidor para receber arquivo; o WhatsApp recebe |
-| Envio | O formulário abre o WhatsApp da Ravena com a mensagem pronta | Resposta é por WhatsApp no mesmo dia útil; sem back-end e sem dado guardado por nós |
+| Envio | O formulário abre o WhatsApp da Ravena com a mensagem pronta | Resposta é por WhatsApp no mesmo dia útil; a única função do servidor é validar (`api/pedido.js`); nenhum dado é guardado por nós |
 | Ordem das seções | Primeiro entender o produto (hero e cena), depois o que muda na conta, o que custa, em quem confiar, o que acontece até ligar | Cada seção responde ao que a pessoa pergunta naquele ponto |
 | Site de 2021 | Recomeço do zero. Aproveitado: só a logo e as cores dela | O antigo é "quem somos" mais um formulário no rodapé, que é o problema |
 | Cor | Tokens tirados de `assets/logo.svg`, conferidos por script | O cliente pede que as cores venham do arquivo |
