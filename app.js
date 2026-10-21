@@ -166,13 +166,13 @@ if (typeof document !== "undefined") {
       var t0 = null;
       (function passo(t) {
         if (t0 === null) t0 = t;
-        var p = Math.min((t - t0) / 2200, 1);
+        var p = Math.min((t - t0) / 1600, 1);
         el.textContent = fmt(p < 1 ? alvo * (1 - Math.pow(1 - p, 3)) : alvo);
         if (p < 1) requestAnimationFrame(passo);
       })(performance.now());
     }
-    // Revela uma vez só, e só quando o bloco já está bem dentro da tela
-    var revela = document.querySelectorAll(".revela");
+    // Revela uma vez só, assim que o bloco entra na tela (os números começam a contar na hora)
+    var revela = document.querySelectorAll(".revela:not(.meio)");
     if (!("IntersectionObserver" in window) || semMovimento) {
       revela.forEach(function (el) { el.classList.add("visivel"); el.querySelectorAll("[data-conta]").forEach(conta); });
     } else {
@@ -183,8 +183,36 @@ if (typeof document !== "undefined") {
           e.target.querySelectorAll("[data-conta]").forEach(conta);
           obs.unobserve(e.target);
         });
-      }, { rootMargin: "0px 0px -18% 0px", threshold: 0.2 });
+      }, { rootMargin: "0px 0px -6% 0px", threshold: 0.08 });
       revela.forEach(function (el) { obs.observe(el); });
+    }
+
+    // ---- Números da prova: só contam quando o bloco chega ao meio da tela, e contam de novo ao voltar
+    var meio = document.querySelector(".meio");
+    if (meio) {
+      var zera = function () {
+        meio.querySelectorAll("[data-conta]").forEach(function (el) {
+          var casas = parseInt(el.getAttribute("data-casas") || "0", 10);
+          el.textContent = (0).toLocaleString("pt-BR", { minimumFractionDigits: casas, maximumFractionDigits: casas });
+        });
+      };
+      if (!("IntersectionObserver" in window) || semMovimento) {
+        meio.classList.add("visivel");
+        meio.querySelectorAll("[data-conta]").forEach(conta);
+      } else {
+        zera();
+        new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (e) {
+            if (e.isIntersecting && !meio.classList.contains("visivel")) {
+              meio.classList.add("visivel");
+              meio.querySelectorAll("[data-conta]").forEach(conta);
+            } else if (!e.isIntersecting && meio.classList.contains("visivel")) {
+              meio.classList.remove("visivel");
+              zera();
+            }
+          });
+        }, { rootMargin: "-25% 0px -25% 0px", threshold: 0 }).observe(meio);
+      }
     }
 
     // ---- Números que descem (conta antes e depois): recomeçam sempre que o bloco volta à tela
@@ -226,13 +254,86 @@ if (typeof document !== "undefined") {
           if (dentro && !e.target.classList.contains("visivel")) {
             e.target.classList.add("visivel");
             descidas.forEach(function (el) { if (e.target.contains(el)) desce(el, true); });
+            e.target.dispatchEvent(new Event("replay:on"));
           } else if (!e.isIntersecting && e.target.classList.contains("visivel")) {
             e.target.classList.remove("visivel");
             descidas.forEach(function (el) { if (e.target.contains(el)) desce(el, false); });
+            e.target.dispatchEvent(new Event("replay:off"));
           }
         });
       }, { rootMargin: "-12% 0px -12% 0px", threshold: [0, 0.3] });
       replay.forEach(function (el) { obs2.observe(el); });
+    }
+
+    // ---- Linhas do tempo únicas: a barra e o número andam juntos, quadro a quadro
+    var suave = function (x) { x = limita(x, 0, 1); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+    var degrau = function (x) { x = limita(x, 0, 1); return x * x * (3 - 2 * x); };
+    function linhaDoTempo(el, duracao, quadro) {
+      var id = 0;
+      el.addEventListener("replay:on", function () {
+        cancelAnimationFrame(id);
+        var t0 = null;
+        (function f(t) {
+          if (t0 === null) t0 = t;
+          var ms = Math.min(t - t0, duracao);
+          quadro(ms);
+          if (ms < duracao) id = requestAnimationFrame(f);
+        })(performance.now());
+      });
+      el.addEventListener("replay:off", function () { cancelAnimationFrame(id); quadro(0); });
+      quadro(0);
+    }
+    var contaViz = document.querySelector(".conta-viz");
+    if (contaViz && !semMovimento) {
+      var numero = contaViz.querySelector("[data-from]");
+      var de0 = parseFloat(numero.getAttribute("data-from"));
+      var ate0 = parseFloat(numero.getAttribute("data-to"));
+      linhaDoTempo(contaViz, 3600, function (t) {
+        var a = suave(t / 1400), h = suave((t - 600) / 2200);
+        contaViz.style.setProperty("--pa", a.toFixed(4));
+        contaViz.style.setProperty("--ph", h.toFixed(4));
+        contaViz.style.setProperty("--pl", degrau((t - 900) / 700).toFixed(3));
+        contaViz.style.setProperty("--pf", degrau((t - 2700) / 800).toFixed(3));
+        numero.textContent = String(Math.round(de0 + (ate0 - de0) * h));
+      });
+    }
+    var anosViz = document.querySelector(".anos");
+    if (anosViz && !semMovimento) {
+      var linhasAnos = Array.prototype.slice.call(anosViz.querySelectorAll(".anos-linha"));
+      linhaDoTempo(anosViz, 3600, function (t) {
+        linhasAnos.forEach(function (linha, i) {
+          var p = suave((t - i * 380) / 2100);
+          linha.style.setProperty("--p", p.toFixed(4));
+          linha.style.setProperty("--l", degrau((p - 0.82) / 0.18).toFixed(3));
+        });
+      });
+    }
+
+    // ---- Infiltração: uma animação só, em quatro passos que se repetem
+    var infiltra = document.querySelector(".infiltra");
+    if (infiltra) {
+      // no celular a cena aproxima da fixação, onde a ação acontece
+      var svgInf = infiltra.querySelector("svg");
+      var enquadra = function () { svgInf.setAttribute("viewBox", window.innerWidth < 640 ? "150 60 480 330" : "0 0 820 440"); };
+      enquadra();
+      window.addEventListener("resize", enquadra);
+      var botoes = Array.prototype.slice.call(infiltra.querySelectorAll("[data-e]"));
+      var etapa = 1, relogio = null;
+      var vai = function (n) { etapa = n; infiltra.setAttribute("data-etapa", String(n)); };
+      var parar = function () { clearInterval(relogio); relogio = null; };
+      var rodar = function () {
+        parar();
+        relogio = setInterval(function () { vai(etapa % 4 + 1); }, 4200);
+      };
+      botoes.forEach(function (b) {
+        b.addEventListener("click", function () { vai(parseInt(b.getAttribute("data-e"), 10)); if (infiltra.classList.contains("visivel")) rodar(); });
+      });
+      if (semMovimento) {
+        vai(4);
+      } else {
+        infiltra.addEventListener("replay:on", function () { vai(1); rodar(); });
+        infiltra.addEventListener("replay:off", function () { parar(); vai(1); });
+      }
     }
 
     // ---- Etapas: a bolinha desce com o scroll e acende cada ponto que alcança

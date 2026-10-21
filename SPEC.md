@@ -34,6 +34,15 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 6 (21/10/2026): infiltração em uma animação só, números do início e fluidez
+
+Pedido do aluno, em resumo: os números do início demoram a aparecer e não dá para ver o efeito; melhorar a fluidez de "Quanto a conta cai" e de "Quanto custa"; as duas animações de infiltração não estão intuitivas, melhor deixar só uma que mostre como funciona, e fazê-la bem melhor.
+
+Decisões:
+- **Infiltração:** saem os dois painéis lado a lado. Fica uma animação só, um corte do telhado com as partes nomeadas e quatro passos legendados que se repetem e podem ser escolhidos. A afirmação continua sendo só a do brief: garantia de 5 anos contra infiltração causada pela obra; a imagem não diz que outra empresa faz mal, mostra o caminho que a água tentaria e onde a vedação o fecha.
+- **Números do início:** contam quando o bloco chega ao meio da tela e de novo ao voltar. Antes contavam no carregamento, enquanto a pessoa ainda lia o hero.
+- **Conta e linha de 25 anos:** uma linha do tempo só por bloco, com a barra e o número na mesma variável, em vez de transições separadas.
+
 ## Revisão 5 (21/10/2026): menos informação por tela, animações que o visitante realmente vê
 
 Pedido do aluno, em resumo:

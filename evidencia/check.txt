@@ -94,16 +94,21 @@ ok    o cartão da economia fica abaixo da casa, nunca sobre ela (sem position: 
 ok    o selo de queda no hero é 85% (780 para 118)
 ok    o efeito do título volta toda vez que o hero reaparece (hero é .replay e o marca-texto só anima em .hero.visivel)
 ok    blocos animados só começam bem dentro da tela e recomeçam ao voltar (margem de 12%, 30% visível, classe tirada ao sair)
-ok    os números não passam rápido demais: contagem da prova com 2,2 s e descida da conta com 1,8 s ou mais
+ok    números da prova: contam só quando o bloco chega ao meio da tela (margem de 25% em cima e embaixo), de novo a cada volta, em 1,6 s; a conta do hero desce em 2,2 s
+ok    conta antes e depois e linha de 25 anos têm uma linha do tempo só: a barra e o número saem da mesma variável, sem transições soltas no CSS
 ok    a barra de hoje tem 15.1% da barra de antes (118/780 = 15.1%)
 ok    a faixa média desenhada nas barras (10% a 25%) é a que o modelo calcula (10% a 25%)
 ok    o caso real (6,4 kWp, março de 2025) vem com a média de doze meses junto das barras
 ok    a linha do tempo de 25 anos é proporcional: garantias de 5, 10 e 25 anos e retorno de 3 a 4 anos
 ok    o eixo da linha do tempo vai de 0 a 25 anos
 ok    mapa: Sorocaba no centro e três pinos, com o raio de 80 km e ondas
-ok    telhado protegido: dois painéis lado a lado, com sete gotas de chuva em cada
-ok    o painel do medo tem fresta, mancha, pingos e alerta; o da Ravena tem vedação, água escorrendo, selo e teto seco
-ok    a chuva só anima quando o bloco está visível (nenhuma animação fora de .visivel)
+ok    telhado protegido: uma animação só (nada de dois painéis), com quatro passos clicáveis
+ok    a cena da infiltração tem 15 gotas, gancho de fixação, massa de vedação, chapa, caminho bloqueado, selo de teto seco e lâmpada
+ok    as partes aparecem nomeadas na imagem: painel, telha, vedação, estrutura, forro, teto seco
+ok    os passos contam a história na ordem: chuva, a água procura a fresta, a vedação segura, a água escorre e o teto fica seco
+ok    cada passo dura 4200 ms (mínimo 3500), recomeça no passo 1 ao voltar à tela e fica no passo 4 com movimento reduzido
+ok    cada passo tem sua animação: a água entra no gancho (2), rebate e o anel pulsa (3), escorre e aparece o teto seco (4)
+ok    a chuva e a água só animam enquanto o bloco está na tela (nenhuma animação fora de .visivel)
 ok    a garantia de 5 anos contra infiltração está dita junto da animação
 ok    a navbar é reta no topo e vira pílula ao rolar
 ok    três perguntas animadas, fechadas ao carregar, com região ligada ao botão
@@ -122,5 +127,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-123 de 123 verificações passaram.
+128 de 128 verificações passaram.
 exit=0

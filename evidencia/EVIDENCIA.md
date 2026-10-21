@@ -1,10 +1,10 @@
 # Evidência de verificação
 
-Revisão 5 (21/10/2026). Acumula as revisões anteriores; as seções 7 e 8 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 6 (21/10/2026). Acumula as revisões anteriores; as seções 7, 8 e 9 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **123 de 123**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **128 de 128**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -118,6 +118,35 @@ Barra de progresso em scaleX(0,04) perto do topo; navbar marca "O sistema" ao es
 - Movimento reduzido ligado: não abri a página assim; o check confere CSS e JavaScript.
 - Aparelho físico, toque, Safari e Firefox; `backdrop-filter`, `position: sticky`, `transform-box` e `clip-path` variam.
 - Desempenho (Lighthouse) e peso da página, com muitas animações SVG ao mesmo tempo.
+
+## 9. Revisão 6: infiltração em uma animação, números do início, fluidez
+
+**Descoberta ao medir (causa real da queixa dos números):** a 1280×800 o bloco de números já aparece na base da primeira tela, e o contador rodava no carregamento, enquanto a pessoa lia o hero; ao descer, os números já estavam prontos. Corrigido para contar só quando o bloco chega ao meio da tela (margem de 25% em cima e embaixo) e de novo a cada volta; os números nascem em 0.
+- Medido depois de sair e voltar: a classe sai e os números zeram (`v=0`); ao voltar, começa em 29 ms, passa da metade em 379 ms e termina em 1479 ms.
+
+**Fluidez, amostrada a cada 350 ms durante a animação "Quanto a conta cai" (1280 px):**
+| t (ms) | barra de antes | barra de hoje | número |
+|---|---|---|---|
+| 358 | 0,06 | 0 | 780 |
+| 1058 | 0,93 | 0,005 | 759 |
+| 1758 | 1 | 0,083 | 416 |
+| 2108 | 1 | 0,130 | 208 |
+| 2825 | 1 | 0,151 | 118 (faixa começa a aparecer) |
+| 3525 | 1 | 0,151 | 118 (faixa completa) |
+O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminho) o número está em 416, que é 780 − 662 × 0,55.
+
+**Infiltração (uma animação, quatro passos), vista no navegador a 1280 px, passo por passo:** passo 1 só chuva e escoamento no painel; passo 2 gotas entrando pelo gancho; passo 3 pílula "vedação" âmbar, ✕ de bloqueio e anel pulsando no ponto; passo 4 água correndo pela telha, selo "teto seco" e lâmpada acesa. Os botões trocam de passo, e o ciclo automático dura 4,2 s por passo. Vista a 390 px com a cena aproximada na fixação e os quatro passos empilhados, sem rolagem horizontal.
+
+**Defeitos achados olhando e corrigidos:** gotas que entram pelo gancho pequenas demais (aumentadas); pílulas ilegíveis no celular (cena aproximada, pílulas escondidas); números piscando o valor final antes de contar (agora nascem em 0).
+
+**Novas verificações (128 no total):** animação única, quatro passos, 15 gotas, gancho, massa, chapa, caminho bloqueado, selo de teto seco e lâmpada; partes nomeadas na imagem; os passos contam a história na ordem; cada passo com mínimo de 3,5 s, recomeça no passo 1 ao voltar e fica no 4 com movimento reduzido; animação por passo (gancho no 2, rebate e anel no 3, escorrimento e selo no 4); nada anima fora de `.visivel`; barra e número com linha do tempo única, sem transições soltas no CSS; números da prova só no meio da tela e repetindo.
+
+**Não verificado:**
+- O movimento da chuva e da água no gancho foi visto em quadros parados de cada passo; não vi a animação correndo continuamente. O ritmo de 4,2 s por passo é escolha minha.
+- A linha do tempo de 25 anos teve só as medidas da conta antes e depois amostradas; a de 25 anos foi vista pronta e confere pelo check, mas não foi amostrada quadro a quadro.
+- Gotas de "teto seco" e chuva em aparelho físico, Safari e Firefox.
+- Movimento reduzido ligado (o check confere CSS e JS; o passo 4 fixo e o ✕ sem animar não foram vistos).
+- Desempenho com todas as animações SVG ligadas ao mesmo tempo.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

@@ -1,6 +1,6 @@
 # DESIGN — Ravena Solar
 
-Revisão 5. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
+Revisão 6. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
 
 Direção: editorial e claro. Uma ideia por tela, tipografia grande, muito respiro, números como protagonistas, o produto mostrado em ação, movimento só onde explica algo. Texto nunca fica por cima de imagem. Cada tela diz pouco: o que a pessoa precisa entender, e o resto vira imagem ou animação.
 
@@ -82,15 +82,15 @@ Seção de 700 vh com palco fixo (`position: sticky`) de 100 vh, em **duas colun
 
 ## Movimento
 
-**Quando uma animação toca.** Os blocos animados (`.replay`) só começam quando estão bem dentro da tela: as bordas de cima e de baixo (12% de cada lado) não contam, e pelo menos 30% do bloco precisa estar visível. Quando a pessoa sai e volta, a animação recomeça do zero. Textos comuns (`.revela`) entram uma vez só, também só quando já estão dentro da tela. Durações longas de propósito: a barra de antes cresce em 1,4 s, a de hoje em 1,8 s depois de uma pausa, a linha do tempo de 25 anos em 2,2 s, os números da prova contam em 2,2 s e a conta do hero desce em 2,2 s.
+**Quando uma animação toca.** Os blocos animados (`.replay`) só começam quando estão bem dentro da tela: as bordas de cima e de baixo (12% de cada lado) não contam, e pelo menos 30% do bloco precisa estar visível. Quando a pessoa sai e volta, a animação recomeça do zero. Textos comuns (`.revela`) entram uma vez só, assim que o bloco aparece na tela. Os **números da prova** (`.meio`) só contam quando o bloco chega ao **meio** da tela (25% de margem em cima e embaixo), nascem em zero, e zeram e contam de novo ao voltar; no desktop de 800 px de altura o bloco já aparece na base da primeira tela, e contar antes de a pessoa descer desperdiçava o efeito. Duração: a conta antes e depois leva 3,6 s numa linha do tempo só (a barra e o número saem da mesma variável, então andam juntos), a linha de 25 anos leva 3,6 s com as quatro barras em sequência, os números da prova contam em 1,6 s e a conta do hero desce em 2,2 s.
 
 - Barra de leitura de 4 px no topo.
 - **Hero:** o texto entra em sequência; o marca-texto âmbar desenha embaixo de "bem menor" e um brilho passa por ele, **toda vez que o hero volta à tela**; o cartão mostra a conta descendo de R$ 780 a R$ 118 (também recomeça); reflexo percorre os painéis; nuvens derivam; os raios giram.
 - **Única interação com o cursor, só no hero:** uma luz quente acompanha o cursor, o marca-texto brilha mais quando o cursor chega perto e o reflexo nos painéis segue o cursor sobre a casa. Sem cursor customizado, ímã ou inclinação. Desliga com toque ou movimento reduzido.
-- **Conta antes e depois:** a barra de antes cresce, a de hoje cresce depois e o número desce; por fim aparece a faixa tracejada da média dos clientes.
-- **Linha do tempo de 25 anos:** as quatro barras crescem em sequência (retorno, instalação, inversor, painel) e só depois aparecem os rótulos.
+- **Conta antes e depois:** uma linha do tempo só, guiada por variáveis. A barra de antes cresce, a de hoje cresce a seguir e o número desce junto com ela, até 118. O número acompanha a ponta da barra. Por fim aparece a faixa tracejada da média dos clientes.
+- **Linha do tempo de 25 anos:** as quatro barras crescem em sequência, cada uma com seu atraso, e o rótulo de cada uma só aparece quando a barra está quase completa.
 - **Mapa:** pinos brotam um a um, o raio de 80 km se abre e três ondas saem de Sorocaba sem parar enquanto o bloco está na tela.
-- **Telhado protegido:** duas animações de chuva lado a lado, que só rodam enquanto o bloco está na tela. À esquerda a água passa pela fresta, pinga e a mancha cresce no teto, com um alerta. À direita a fixação vedada em âmbar faz a água escorrer, o selo de 5 anos salta e o teto fica seco.
+- **Telhado protegido: uma animação só, em quatro passos** (chuva cai; a água procura a fresta onde o painel é fixado; a vedação segura a água; a água escorre e o teto fica seco). É um corte do telhado: painel, trilho, gancho de fixação, chapa de vedação, massa âmbar da vedação, telhas, estrutura e forro, com as partes nomeadas. Cada passo dura 4,2 s e se repete enquanto o bloco está na tela; os quatro botões embaixo pulam para um passo. Passo 2: gotas descem pelo gancho. Passo 3: o ✕ de bloqueio aparece, um anel pulsa na vedação, a pílula "vedação" fica âmbar e a água rebate para os lados. Passo 4: a água corre pelo painel e pela telha, aparece o selo de "teto seco" e a lâmpada acende. No celular a cena se aproxima da fixação e as pílulas somem (os passos explicam).
 - **Etapas, em trilha vertical:** uma bolinha desce acompanhando o scroll (fica a 55% da altura da tela) e acende cada ponto que alcança; cada etapa toca uma mini-animação própria (conversa, medição do telhado, três tamanhos, homologação, painéis encaixando, curva de produção com sino). Ao subir de volta, os pontos apagam e tocam de novo ao descer.
 - **Cena do telhado:** descrita acima.
 - **Perguntas:** o painel abre e fecha por altura, o ícone gira, uma aberta fecha as outras.
