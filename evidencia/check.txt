@@ -64,7 +64,7 @@ ok    todo svg é decorativo (aria-hidden), menos a cena, que tem role=img e des
 ok    cada imagem tem descrição própria de verdade (30 caracteres ou mais): 6 imagens
 ok    ilustrações só usam a paleta do DESIGN.md (inclui o vidro do painel)
 ok    DESIGN.md documenta as três cores do vidro do painel
-ok    a casa é desenhada uma vez e reaproveitada (hero e cena usam o mesmo símbolo)
+ok    a casa é desenhada uma vez e reaproveitada (hero, cena do sol e cena da chuva usam o mesmo símbolo)
 ok    oito painéis no telhado, em perspectiva (8 polígonos de vidro)
 ok    --noite #0B2638 existe no CSS, no DESIGN.md e na última parada do céu
 ok    a cena tem role=img e descrição
@@ -102,15 +102,22 @@ ok    o caso real (6,4 kWp, março de 2025) vem com a média de doze meses junto
 ok    a linha do tempo de 25 anos é proporcional: garantias de 5, 10 e 25 anos e retorno de 3 a 4 anos
 ok    o eixo da linha do tempo vai de 0 a 25 anos
 ok    mapa: Sorocaba no centro e três pinos, com o raio de 80 km e ondas
-ok    telhado protegido: uma animação só (nada de dois painéis), com três passos clicáveis
-ok    cena simples: 60 peças (a anterior tinha 163; máximo 80), 2 rótulos (eram 6) e 6 gotas (eram 15)
-ok    a cena tem só o essencial: painel, fixação, vedação grande em âmbar, água que corre, anel, selo de teto seco e lâmpada
-ok    os dois únicos rótulos são vedação e teto seco, em tamanho legível (22 px no desenho)
-ok    os três passos contam a história: a chuva cai, a água corre até a fixação, a vedação segura e o teto fica seco
-ok    cada passo dura 4200 ms (mínimo 3500), recomeça no passo 1 ao voltar à tela e fica no passo 3 com movimento reduzido
-ok    cada passo tem a sua animação: a água corre até a fixação (2), rebate na vedação com o anel pulsando (3) e o selo de teto seco aparece (3)
-ok    a chuva e a água só animam enquanto o bloco está na tela (nenhuma animação fora de .visivel)
-ok    a garantia de 5 anos contra infiltração está dita junto da animação
+ok    telhado protegido: uma cena só, com três capítulos que ficam fora da imagem (texto nunca sobre a imagem)
+ok    a cena não tem rótulos técnicos: o único texto do desenho é o selo "5 anos" (5 anos)
+ok    a página não descreve técnica de vedação, fixação ou manta, porque o brief só traz a garantia de 5 anos contra infiltração causada pela obra
+ok    a história em três capítulos: começa a chover, a chuva aperta, o telhado segue protegido com a garantia
+ok    tempestade: sem chuva no começo, chuva forte no meio e abranda um pouco no fim (nível 0.00, 1.00, 0.65)
+ok    a chuva entra em três camadas (leve, média, forte), cada uma mais tarde que a anterior
+ok    o relâmpago só acontece no meio da tempestade, nunca no começo nem no fim
+ok    as janelas acendem durante a tempestade e o selo de 5 anos só aparece no último capítulo
+ok    o céu escurece sem voltar atrás até o pico da chuva
+ok    capítulos em ordem: 0, 0,35 e 0,8 mapeiam para 0, 1 e 2
+ok    a chuva é recortada para cair só fora da cúpula e acima do chão: dentro da garantia fica seco (três camadas com clip-path)
+ok    a cúpula âmbar da garantia está desenhada em volta da casa e a casa é o mesmo símbolo do hero
+ok    a chuva só corre enquanto a cena está perto da tela (animação pausada fora de .ativa), e o JavaScript liga e desliga essa classe
+ok    a tempestade só prende o scroll com JavaScript e movimento permitido; com movimento reduzido mostra o fim, sem chuva
+ok    a cena cabe na tela enquanto prende o scroll: altura de até 560 px e menos de 100svh − 270 px
+ok    a pergunta do cliente e a garantia do brief estão ditas junto da cena: E se chover? e 5 anos contra infiltração causada pela obra
 ok    a navbar é reta no topo e vira pílula ao rolar
 ok    três perguntas animadas, fechadas ao carregar, com região ligada ao botão
 ok    sem JavaScript o conteúdo das perguntas continua visível (só colapsa com .js)
@@ -128,5 +135,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-129 de 129 verificações passaram.
+136 de 136 verificações passaram.
 exit=0

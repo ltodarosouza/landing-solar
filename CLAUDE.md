@@ -15,7 +15,7 @@ Página única de venda de energia solar residencial para a Ravena Solar (client
 
 ## Estrutura
 
-- `index.html`, `styles.css`, `app.js`, `cena.js`: sem build, sem dependência. Deploy estático na Vercel. `cena.js` guarda o modelo puro da cena do telhado (testado pelo check) e o driver do scroll.
+- `index.html`, `styles.css`, `app.js`, `cena.js`: sem build, sem dependência. Deploy estático na Vercel. `cena.js` guarda o modelo puro da cena do sol (testado pelo check) e o driver do scroll; `chuva.js` faz o mesmo para a cena da tempestade.
 - `assets/logo.svg`: fonte das cores da marca. Não copie hex de cabeça; os três tokens de marca estão no topo do CSS e o check os compara com o SVG.
 - `material/`: entrega do cliente (logo e site de 2021). Só leitura.
 - `evidencia/`: saídas do check e medidas feitas no navegador.
@@ -25,6 +25,7 @@ Página única de venda de energia solar residencial para a Ravena Solar (client
 - Texto nunca fica por cima de imagem. A cena do telhado tem texto numa coluna e imagem noutra.
 - Nada segue o mouse, exceto a luz do hero. Sem cursor customizado, ímã ou inclinação.
 - O hero não usa jargão (kWp, inversor, homologação, Lei) e é curto: menos de um terço do texto da revisão 4. O check confere.
+- A página não descreve técnica de obra (vedação, fixação, manta, ripa, caibro): o brief só traz a garantia de 5 anos contra infiltração causada pela obra. O check proíbe.
 - Animação só toca quando o bloco está bem dentro da tela e recomeça quando a pessoa volta (classe `.replay`). Nada de animação que acaba antes de alguém ver.
 - Toda animação desliga com `prefers-reduced-motion` e a página funciona sem JavaScript.
 

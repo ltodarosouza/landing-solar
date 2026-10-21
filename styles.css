@@ -486,32 +486,26 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
 .mapa { padding: var(--e2); background: var(--branco); border: 1px solid var(--borda); border-radius: var(--raio); }
 .mapa svg { width: 100%; height: auto; }
 
-/* Telhado protegido: uma animação só, em quatro passos */
-.infiltra { display: grid; gap: var(--e3); max-width: 900px; margin: 0 auto; }
-.inf-cena { overflow: hidden; background: var(--sol); border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra); }
-.inf-cena svg { width: 100%; height: auto; }
-.inf-passos { list-style: none; display: grid; gap: var(--e1); }
-@media (min-width: 900px) { .inf-passos { grid-template-columns: repeat(3, 1fr); gap: var(--e2); } }
-.inf-passos button {
-  width: 100%;
-  min-height: 48px;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--e2);
-  padding: var(--e2);
-  font: inherit;
-  font-weight: 600;
-  text-align: left;
-  color: var(--tinta-suave);
-  background: var(--papel);
-  border: 2px solid transparent;
-  border-radius: var(--raio);
-  cursor: pointer;
-  transition: background-color 300ms, color 300ms, border-color 300ms, transform 300ms var(--curva);
+/* Telhado protegido: a casa sob a tempestade, guiada pelo scroll */
+.chuva-sec { padding: var(--secao) 0 0; }
+.chuva-pista { margin-top: var(--e3); }
+.chuva-palco { max-width: 1120px; margin: 0 auto; padding: 0 var(--e3) var(--secao); }
+.chuva-cena { position: relative; overflow: hidden; aspect-ratio: 2 / 1; background: var(--marinho); border-radius: var(--raio); box-shadow: var(--sombra); }
+.chuva-cena svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ch-passos { list-style: none; display: grid; gap: var(--e1); margin-top: var(--e2); }
+@media (min-width: 900px) { .ch-passos { grid-template-columns: 1fr 1fr 1.6fr; gap: var(--e2); } }
+.ch-passos button { width: 100%; min-height: 48px; display: flex; align-items: flex-start; gap: var(--e2); padding: var(--e2); font: inherit; font-weight: 600; text-align: left; color: var(--tinta-suave); background: var(--papel); border: 2px solid transparent; border-radius: var(--raio); cursor: pointer; transition: background-color 300ms, color 300ms, border-color 300ms, transform 300ms var(--curva); }
+.ch-n { flex: none; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--branco); border: 2px solid var(--borda); font-size: var(--t-rotulo); font-weight: 700; transition: background-color 300ms, border-color 300ms; }
+.ch-passos li.ativo button { color: var(--marinho); background: var(--branco); border-color: var(--ambar); transform: translateY(-4px); }
+.ch-passos li.ativo .ch-n { background: var(--ambar); border-color: var(--ambar); color: var(--marinho); }
+html.scrub2 .chuva-pista { height: 280vh; }
+html.scrub2 .chuva-palco { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; align-content: center; padding-top: calc(var(--e5) - var(--e1)); padding-bottom: var(--e3); }
+html.scrub2 .chuva-cena { aspect-ratio: auto; height: min(560px, calc(100svh - 270px)); }
+@media (max-width: 699px) {
+  .chuva-cena { aspect-ratio: 4 / 3; }
+  html.scrub2 .chuva-cena { aspect-ratio: 4 / 3; height: auto; }
+  html.scrub2 .ch-passos li:not(.ativo) { display: none; }
 }
-.inf-n { flex: none; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--branco); border: 2px solid var(--borda); font-size: var(--t-rotulo); font-weight: 700; color: var(--tinta-suave); transition: background-color 300ms, border-color 300ms, color 300ms; }
-.infiltra[data-etapa="1"] [data-e="1"], .infiltra[data-etapa="2"] [data-e="2"], .infiltra[data-etapa="3"] [data-e="3"] { color: var(--marinho); background: var(--branco); border-color: var(--ambar); transform: translateY(-4px); }
-.infiltra[data-etapa="1"] [data-e="1"] .inf-n, .infiltra[data-etapa="2"] [data-e="2"] .inf-n, .infiltra[data-etapa="3"] [data-e="3"] .inf-n { background: var(--ambar); border-color: var(--ambar); color: var(--marinho); }
 
 /* Etapas: trilha vertical com uma bolinha que desce com o scroll */
 .trilha-v { --pad: 56px; --lx: 14px; position: relative; padding-left: var(--pad); }
@@ -564,33 +558,18 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
 .js .visivel .onda.o3 { animation-delay: 3.8s; }
 @keyframes onda { 0% { transform: scale(0.4); opacity: 0.9; } 100% { transform: scale(5.4); opacity: 0; } }
 
-.visivel .chuva { animation: chuva 1.9s linear infinite; animation-delay: var(--d); }
-@keyframes chuva { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateY(var(--cai)); opacity: 0; } }
-.respingo { transform-box: fill-box; transform-origin: center; }
-.visivel .respingo { animation: respingo 1.9s ease-out infinite; animation-delay: var(--d); }
-@keyframes respingo { 0%, 86% { transform: scale(0.3); opacity: 0; } 88% { opacity: 0.9; } 100% { transform: scale(1.6); opacity: 0; } }
-
-/* Infiltração: a água corre até a fixação e a vedação segura. Só roda enquanto o bloco está na tela. */
-.chuva, .agua { opacity: 0; }
-.anel-vedacao, .selo-teto, .massa { transform-box: fill-box; transform-origin: center; }
-.anel-vedacao, .seta-vedacao { opacity: 0; }
-.js .selo-teto { transform: scale(0); }
-.pilula { transition: opacity 400ms; }
-.pilula rect { transition: fill 400ms; }
-.p-seco { opacity: 0; }
-.lampada { opacity: 0.3; transition: opacity 600ms; }
-.visivel .chuva { animation: chuva 1.9s linear infinite; animation-delay: var(--d); }
-.visivel[data-etapa="2"] .agua { animation: aproxima 1.9s ease-in infinite; animation-delay: var(--d); }
-.visivel[data-etapa="3"] .agua { animation: rebate 1.7s ease-out infinite; animation-delay: var(--d); }
-.visivel[data-etapa="2"] .anel-vedacao, .visivel[data-etapa="2"] .seta-vedacao { opacity: 0.9; }
-.visivel[data-etapa="3"] .anel-vedacao { animation: pulso-vedacao 1.6s ease-out infinite; }
-.visivel[data-etapa="3"] .seta-vedacao { opacity: 0.9; }
-.visivel[data-etapa="3"] .selo-teto { animation: pop 600ms cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
-.visivel[data-etapa="3"] .p-seco, .visivel[data-etapa="3"] .lampada { opacity: 1; }
-.visivel[data-etapa="3"] .p-vedacao rect { fill: #F2A03D; }
-@keyframes aproxima { 0% { transform: translateX(calc(var(--s) * 230px)); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateX(calc(var(--s) * 52px)); opacity: 1; } }
-@keyframes rebate { 0% { transform: translateX(calc(var(--s) * 52px)); opacity: 1; } 100% { transform: translateX(calc(var(--s) * 130px)); opacity: 0; } }
-@keyframes pulso-vedacao { 0% { transform: scale(0.75); opacity: 0.95; } 100% { transform: scale(1.2); opacity: 0; } }
+/* Tempestade: as linhas de chuva só correm enquanto a cena está perto da tela */
+.ch-gota { animation: ch-cai var(--t) linear infinite; animation-delay: var(--d); animation-play-state: paused; }
+.ativa .ch-gota { animation-play-state: running; }
+@keyframes ch-cai { from { transform: translate(0, -70px); } to { transform: translate(-260px, 660px); } }
+.ch-impacto { transform-box: fill-box; transform-origin: center; animation: ch-onda 1.3s ease-out infinite; animation-delay: var(--d); animation-play-state: paused; }
+.ativa .ch-impacto { animation-play-state: running; }
+@keyframes ch-onda { 0% { transform: scale(0.4); opacity: 0.95; } 100% { transform: scale(2.6); opacity: 0; } }
+.ch-poca { transform-box: fill-box; transform-origin: center; animation: ch-poca 1.6s ease-out infinite; animation-delay: var(--d); animation-play-state: paused; }
+.ativa .ch-poca { animation-play-state: running; }
+@keyframes ch-poca { 0% { transform: scale(0.3); opacity: 0.7; } 100% { transform: scale(1.5); opacity: 0; } }
+#chuva-selo { transform-box: fill-box; transform-origin: center; }
+@keyframes pop { to { transform: scale(1); } }
 
 /* Ícones das etapas: tocam quando a bolinha chega */
 @keyframes pulo { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
@@ -640,16 +619,12 @@ footer p { font-size: var(--t-rotulo); color: var(--tinta-suave); }
   .raios-cena, .raios-hero, .nuvem, .brilho-painel, .fluxo, .anel.ativo { animation: none; }
   .js .pin, .js .pop, .js .resp, .js .barra, .js .carimbo { transform: none; animation: none; }
   .js .raio-80 { transform: none; opacity: 1; transition: none; }
-  .onda, .chuva, .agua { display: none; }
+  .onda, .ch-gota, .ch-impacto, .ch-poca, #chuva-l1, #chuva-l2, #chuva-l3 { display: none; }
   .js .traco { stroke-dashoffset: 0; animation: none; }
   .js .plac { transform: none; opacity: 1; animation: none; }
   .ponto-d, .sino { animation: none; }
   .js .tv-conteudo, .js .tv-icone { opacity: 1; transform: none; transition: none; }
   .tv-bola, .tv-feito { display: none; }
   .js .faq-corpo, .js .faq-corpo p { transition: none; }
-  .js .selo-teto { transform: none; }
-  .p-seco, .lampada { opacity: 1; }
-  .anel-vedacao { display: none; }
-  .seta-vedacao { opacity: 0.9; }
   .hero-luz { display: none; }
 }

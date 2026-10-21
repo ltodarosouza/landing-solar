@@ -1,10 +1,10 @@
 # Evidência de verificação
 
-Revisão 7 (21/10/2026). Acumula as revisões anteriores; as seções 7, 8, 9 e 10 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
+Revisão 8 (21/10/2026). Acumula as revisões anteriores; as seções 7 a 11 abaixo são as mais recentes e prevalecem sobre o que seções antigas dizem de cursor, abas, controle da conta e blocos de texto (todos removidos). Página servida localmente (`python3 -m http.server 4173`) e aberta no navegador embutido do Claude Code.
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **129 de 129**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **136 de 136**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -155,6 +155,25 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 **Visto no navegador:** a 1280 px, passo 2 (água chegando dos dois lados, anel e pílula "vedação") e passo 3 (vedação pulsando, água rebatendo, lâmpada acesa, selo "teto seco", cartão 3 destacado); o módulo inteiro, com os três passos, ocupa 700 px e cabe numa tela de 800 px (antes a cena sozinha tinha 651 px e os passos ficavam cortados). A 390 px: cena de 215 px de altura, rótulos legíveis, passos empilhados, sem rolagem horizontal.
 
 **Não verificado:** o movimento (a água correndo e voltando) foi visto em quadros parados de cada passo; o passo 1 e a transição automática entre passos só foram conferidos por estado (`data-etapa`) e pelo check; movimento reduzido, aparelho físico, Safari e Firefox.
+
+## 11. Revisão 8: "E se chover?" refeito (tempestade sobre a casa)
+
+**Queixa:** a animação da infiltração, mesmo simplificada, "continua feia, estética e intuito errados". **Decisão:** trocar o corte técnico por uma cena de sensação (tempestade, cúpula de garantia, janelas acesas, selo de 5 anos). Também removi uma afirmação que eu tinha inventado: a "vedação" do gancho não consta no brief. O check agora proíbe as palavras vedação, fixação, gancho, manta, ripa e caibro em todo o texto visível.
+
+**Defeito grave achado ao medir (e que o check não pegava):** as linhas de chuva estavam **sem animação** (`animationName: none`) porque sobrou um `.visivel ` solto antes do comentário no CSS, transformando a regra em `.visivel .ch-gota`. O que aparecia no topo eram as linhas paradas. O critério do check procurava só o texto da regra; agora exige que ela comece no início da linha e que não sobre seletor solto, e reintroduzi o defeito numa cópia para provar que ele falha (134 de 135). Depois da correção, amostrei 6 linhas: posições espalhadas de −56 a 620 e mudando em 250 ms.
+
+**Vi no navegador:** 1280 px nos capítulos 1 (chuva fraca, cúpula, nuvens), 2 (chuva forte fora da cúpula, ondas sobre a cúpula, janelas acesas, poças) e 3 (selo "5 anos", chuva ainda caindo lá fora); 390 px com a cena inteira, capítulo ativo visível, sem rolagem horizontal. Cena de 530 px de altura a 1280 px, com os capítulos terminando em 749 de 800.
+
+**Defeitos achados olhando e corrigidos:** chuva atravessando a cúpula e a casa (agora recortada com `clip-path` para existir só fora da cúpula e acima do chão); cena cortada no celular com a casa estourando as laterais e o selo fora de vista (agora a cena inteira em 4:3).
+
+**Novas verificações (136 no total):** cena única com três capítulos fora da imagem; o único texto do desenho é "5 anos"; nenhuma técnica de obra no texto; os três capítulos na ordem; modelo da tempestade (nível 0, > 0,95 no meio e entre 0,55 e 0,75 no fim; três camadas de chuva entrando em sequência; relâmpago só no meio e nunca acima de 1; janelas e selo; céu escurecendo sem voltar); capítulos 0, 1, 2; cúpula âmbar e a mesma casa do hero; chuva recortada fora da cúpula; chuva só corre perto da tela; scroll preso só com JavaScript e movimento permitido; altura da cena cabendo na tela.
+
+**Não verificado:**
+- O relâmpago (flash branco no meio da tempestade): conferi o modelo por teste e o estado, mas não o vi acontecer na tela.
+- O movimento contínuo (chuva, ondas, poças) foi visto em quadros parados.
+- Capítulo 1 e a transição suave entre capítulos no celular foram vistos só pelo estado.
+- Movimento reduzido ligado, aparelho físico, Safari e Firefox (`clip-path` evenodd e `transform-box` variam).
+- Desempenho com 86 linhas de chuva animadas ao mesmo tempo.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

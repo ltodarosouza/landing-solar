@@ -34,6 +34,14 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 8 (21/10/2026): "E se chover?" refeito por outro caminho
+
+Pedido do aluno: a animação da infiltração, mesmo simplificada, continuava feia, com estética e intuito errados; pensar em outra forma completamente diferente.
+
+Diagnóstico: o corte técnico do telhado (fixação, vedação, estrutura) era uma ideia de engenheiro e, pior, descrevia uma técnica de vedação que o brief não traz. O que o brief dá é só isto: o medo do cliente ("isso não vai estragar meu telhado?") e a garantia de 5 anos da instalação, que inclui qualquer infiltração causada pela obra.
+
+Decisão: mostrar a sensação, não o mecanismo. Cena da casa sob uma tempestade que piora com o scroll, com a garantia como uma cúpula âmbar que a chuva não atravessa e o selo "5 anos" no fim. A página não descreve técnica de vedação, fixação, manta ou estrutura em lugar nenhum (o check proíbe).
+
 ## Revisão 7 (21/10/2026): infiltração mais simples
 
 Pedido do aluno: "muita informação nessa animação, não dá para perceber o que é". A versão da revisão 6 tinha 163 peças, 6 rótulos e 15 gotas (corte com caibro, ripas, trilho, chapa, escoamento em linhas). Agora: 60 peças, 2 rótulos e 6 gotas, três passos. O que a pessoa precisa entender cabe em uma frase: a água corre até onde o painel é fixado, a vedação segura e o teto fica seco. Saíram o caibro, as ripas, a chapa, o caminho pontilhado, o ✕, as linhas de escoamento e os rótulos de painel, telha, estrutura e forro.
