@@ -194,9 +194,9 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 
 ## 14. FAQ com as seis perguntas do brief
 
-**Pedido:** responder no FAQ a pergunta número um do cliente ("Como sei que vocês não vão sumir daqui a dois anos?") e as outras que mais aparecem. **Feito:** o FAQ tinha 3 perguntas e agora tem as 6 do brief, na ordem em que o cliente as faz; a primeira abre ao carregar. A resposta ao medo número um usa só as provas do brief: seis anos, onze pessoas, 412 sistemas, equipe própria com carteira assinada, 5 anos de garantia da instalação, assistência técnica autorizada e acompanhamento no primeiro ano. A do telhado só diz a garantia de 5 anos contra infiltração causada pela obra e a visita técnica com medição. Nenhuma resposta promete que a empresa "nunca vai sumir".
+**Pedido:** responder no FAQ a pergunta número um do cliente ("Como sei que vocês não vão sumir daqui a dois anos?") e as outras que mais aparecem. **Feito:** o FAQ tinha 3 perguntas e agora tem as 6 do brief, na ordem em que o cliente as faz; todas começam fechadas (decisão do aluno: a primeira abria sozinha numa versão anterior). A resposta ao medo número um usa só as provas do brief: seis anos, onze pessoas, 412 sistemas, equipe própria com carteira assinada, 5 anos de garantia da instalação, assistência técnica autorizada e acompanhamento no primeiro ano. A do telhado só diz a garantia de 5 anos contra infiltração causada pela obra e a visita técnica com medição. Nenhuma resposta promete que a empresa "nunca vai sumir".
 
-**Check (131):** seis perguntas, só a primeira aberta, região ligada ao botão; as seis são as do brief na ordem; a resposta 1 contém as sete provas; a resposta 2 só diz o que o brief diz.
+**Check (131):** seis perguntas, todas fechadas ao carregar, região ligada ao botão; as seis são as do brief na ordem; a resposta 1 contém as sete provas; a resposta 2 só diz o que o brief diz.
 
 **Medido no navegador a 1280 px (com o painel visível):** ao carregar, só a primeira aberta (203 px de altura, as outras em 0); abrir a quinta fecha a primeira (alturas 0, 0, 0, 0, 75, 0); reabrir a primeira fecha a quinta; clicar de novo fecha tudo. Um primeiro teste foi descartado porque o painel estava oculto e a animação não corria; repeti com o painel visível.
 
