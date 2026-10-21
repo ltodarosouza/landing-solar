@@ -1,0 +1,5 @@
+{"caso":"mudo","aposSegundos":"2.3","texto":"A previsão demorou demais para responder, então não mostro o céu de agora. A resposta acima vale do mesmo jeito. Tentar de novo","temBotaoTentarDeNovo":true,"errosDePagina":[]}
+{"caso":"corta","aposSegundos":"0.9","texto":"Não consegui ver o céu de Sorocaba agora: o serviço de previsão não respondeu. A resposta acima vale do mesmo jeito. Tentar de novo","temBotaoTentarDeNovo":true,"errosDePagina":[]}
+{"caso":"limite","aposSegundos":"0.9","texto":"O serviço de previsão pediu para esperar um pouco antes de uma nova consulta. A resposta acima vale do mesmo jeito. Tentar de novo","temBotaoTentarDeNovo":true,"errosDePagina":[]}
+{"caso":"rota-cai","aposSegundos":"0.9","texto":"Não consegui ver o céu de Sorocaba agora: o serviço de previsão não respondeu. A resposta acima vale do mesmo jeito. Tentar de novo","temBotaoTentarDeNovo":true,"errosDePagina":[]}
+{"caso":"bom","aposSegundos":"0.9","texto":"Agora em Sorocaba: 22 °C, céu coberto (100% de nuvens). Dados: Open-Meteo","temBotaoTentarDeNovo":false,"errosDePagina":[]}

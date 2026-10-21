@@ -29,7 +29,7 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 7. **Quem instala é a nossa equipe:** mapa das quatro cidades num raio de 80 km, equipe própria e assistência autorizada da marca do inversor.
 8. **E se chover?:** a pergunta do cliente, a garantia de 5 anos contra infiltração causada pela obra, "5 anos" em destaque e uma animação pequena e sutil (a casa, chuva leve, um selo de certo).
 9. **Etapas:** trilha vertical com uma bolinha que desce com o scroll e acende seis etapas (simulação, visita, proposta, homologação na CPFL, instalação, acompanhamento). Prazo: de 45 a 60 dias entre a assinatura e o sistema ligado.
-10. **Perguntas:** as seis que o cliente mais faz, na ordem do brief: como sei que vocês não vão sumir (o medo número um, a primeira da lista), isso não vai estragar meu telhado, taxaram o sol, e se eu mudar de casa, nublado e à noite, preciso de bateria. Todas começam fechadas; as respostas usam só o que o brief diz.
+10. **Perguntas:** as seis que o cliente mais faz, na ordem do brief: como sei que vocês não vão sumir (o medo número um, a primeira da lista), isso não vai estragar meu telhado, taxaram o sol, e se eu mudar de casa, nublado e à noite, preciso de bateria. Todas começam fechadas; as respostas usam só o que o brief diz. Na do dia nublado, quando ela é aberta, aparece uma linha com o céu de Sorocaba agora (temperatura e nuvens, da Open-Meteo), ou o motivo de não aparecer, com "Tentar de novo"; a resposta do brief vale de qualquer jeito.
 11. **Formulário** em seção escura: nome, WhatsApp, cidade e valor médio da conta; antes dele, uma linha de quem a Ravena não atende. O botão repete a mesma ação.
 12. **Rodapé:** descrição da empresa, cidades e a CPFL como distribuidora.
 
@@ -48,6 +48,7 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 | Cor | Tokens tirados de `assets/logo.svg`, conferidos por script | O cliente pede que as cores venham do arquivo |
 | Stack | Next (App Router) com a página como era: o HTML, o CSS e os scripts continuam os mesmos, só a estrutura em volta mudou. JavaScript puro nos scripts, sem build deles. Deploy na Vercel | A página ganhou um servidor (`/api/pedido`) e vai ganhar banco e variáveis de ambiente; página e servidor passam a viver no mesmo projeto, com rotas e prévia por PR. Antes era estática com uma função ao lado |
 | Movimento | Cada bloco anima só quando está bem dentro da tela e recomeça quando a pessoa volta. Tudo desliga com `prefers-reduced-motion` e a página funciona sem JavaScript | Animação que acaba antes de alguém ver não serve |
+| Céu de Sorocaba agora | Rota `/api/ceu` consulta a Open-Meteo (API pública, sem chave) no servidor, com limite de 3 s, confere °C e %, guarda a leitura por 10 min e, se a fonte cair, usa a última de até 3 h dizendo que é antiga. A página só mostra a linha quando a pergunta do dia nublado é aberta, e diz o que houve se a fonte demorar, cortar ou cair | Mostra o clima que o visitante está vendo, sem número do brief e sem prometer produção; falha da fonte não pode quebrar a pergunta |
 | Interação com o cursor | Uma só, no hero: uma luz quente que acompanha o cursor | Cursor customizado, ímã e inclinação foram tirados a pedido do aluno |
 
 ## O que fica de fora, e por quê
@@ -82,6 +83,7 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 ## Pendências assumidas
 
 - O número de WhatsApp da Ravena não consta no brief. O código usa um **número fictício marcado como pendente** em um único lugar (`WHATSAPP` em `public/app.js`). Trocar antes de qualquer uso real.
+- A Open-Meteo gratuita é para uso **não comercial**; o site da Ravena é comercial. Antes de uso real, trocar para o plano pago da Open-Meteo (com chave, guardada no servidor) ou outra fonte, e manter a linha "Dados: Open-Meteo" (atribuição exigida).
 - Depoimentos em vídeo e fotos de obras: entram assim que o cliente enviar os arquivos.
 
 ## Como saberemos que está pronto

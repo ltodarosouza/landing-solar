@@ -141,8 +141,14 @@ ok    rota /api/pedido existe na Next e só repassa para lib/pedido.js (sem regr
 ok    uma só cópia do app.js (public/), usada pela página e pelo servidor; nada de app.js solto na raiz
 ok    os scripts da página ficam no fim do conteúdo, cena.js antes de app.js, como na página estática
 ok    Vercel entende o projeto como Next (vercel.json) e tem next, react e react-dom
+ok    céu: lê o formato da Open-Meteo (°C, %, dia) e arredonda
+ok    céu: recusa unidade trocada (°F), campo faltando, nuvem fora de 0 a 100 e corpo que não é objeto
+ok    céu: descreve a nuvem em palavras
+ok    céu: a fonte que não responde, corta, quebra, limita, recusa ou muda a unidade é tratada (14 falhas provocadas de verdade)
+ok    céu: o navegador só fala com /api/ceu, com limite de tempo, e nunca com a Open-Meteo
+ok    céu: a linha fica escondida sem JavaScript, dentro da resposta da pergunta do dia nublado, e traz a fonte
 ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-146 de 146 verificações passaram.
+152 de 152 verificações passaram.

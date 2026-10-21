@@ -306,6 +306,17 @@ verifica("rota /api/pedido existe na Next e só repassa para lib/pedido.js (sem 
 verifica("uma só cópia do app.js (public/), usada pela página e pelo servidor; nada de app.js solto na raiz", fs.existsSync(path.join(raiz, "public/app.js")) && !fs.existsSync(path.join(raiz, "app.js")) && !fs.existsSync(path.join(raiz, "api")));
 verifica("os scripts da página ficam no fim do conteúdo, cena.js antes de app.js, como na página estática", /<script src="cena\.js"><\/script>\s*<script src="app\.js"><\/script>\s*$/.test(html));
 verifica("Vercel entende o projeto como Next (vercel.json) e tem next, react e react-dom", /"framework":\s*"nextjs"/.test(ler("vercel.json")) && ["next", "react", "react-dom"].every((d) => JSON.parse(ler("package.json")).dependencies[d]));
+
+// ---------- céu de Sorocaba (rota /api/ceu, Open-Meteo) ----------
+const ceuLib = require("../lib/ceu.js");
+const bomCeu = { current_units: { temperature_2m: "°C", cloud_cover: "%" }, current: { time: "2026-10-21T17:15", temperature_2m: 22.4, cloud_cover: 100, is_day: 1 } };
+verifica("céu: lê o formato da Open-Meteo (°C, %, dia) e arredonda", JSON.stringify(ceuLib.normalizar(bomCeu)) === JSON.stringify({ temperatura: 22, nuvem: 100, dia: true, leitura: "2026-10-21T17:15" }));
+verifica("céu: recusa unidade trocada (°F), campo faltando, nuvem fora de 0 a 100 e corpo que não é objeto", ceuLib.normalizar({ ...bomCeu, current_units: { temperature_2m: "°F", cloud_cover: "%" } }) === null && ceuLib.normalizar({ ...bomCeu, current: { time: "x", temperature_2m: 20 } }) === null && ceuLib.normalizar({ ...bomCeu, current: { ...bomCeu.current, cloud_cover: 140 } }) === null && ceuLib.normalizar("texto") === null);
+verifica("céu: descreve a nuvem em palavras", ceuLib.descrever(0) === "céu aberto" && ceuLib.descrever(30) === "poucas nuvens" && ceuLib.descrever(70) === "bem nublado" && ceuLib.descrever(100) === "céu coberto");
+const falhasCeu = require("child_process").spawnSync(process.execPath, [path.join(raiz, "scripts/falhas-ceu.cjs")], { encoding: "utf8" });
+verifica("céu: a fonte que não responde, corta, quebra, limita, recusa ou muda a unidade é tratada (14 falhas provocadas de verdade)", falhasCeu.status === 0 && (falhasCeu.stdout.match(/^ok /gm) || []).length === 14, falhasCeu.stdout.slice(-400));
+verifica("céu: o navegador só fala com /api/ceu, com limite de tempo, e nunca com a Open-Meteo", /fetch\("\/api\/ceu"/.test(ler("public/app.js")) && /AbortController/.test(ler("public/app.js")) && !/api\.open-meteo/.test(ler("public/app.js")) && /api\.open-meteo\.com/.test(ler("lib/ceu.js")) && /AbortController/.test(ler("lib/ceu.js")) && /import ceu from "\.\.\/\.\.\/\.\.\/lib\/ceu\.js"/.test(ler("app/api/ceu/route.js")));
+verifica("céu: a linha fica escondida sem JavaScript, dentro da resposta da pergunta do dia nublado, e traz a fonte", /id="faq-5"[^>]*><div><p>[^<]*<\/p><p class="ceu-agora" id="ceu-agora" role="status" hidden><\/p><\/div>/.test(html) && /Dados: Open-Meteo/.test(ler("public/app.js")));
 const msg = app.montarMensagem(ok);
 verifica("mensagem de WhatsApp leva os quatro dados", ["Marta Souza", "15 99876-5432", "Itu", "620"].every((s) => msg.includes(s)));
 const url = app.linkWhatsApp(ok);

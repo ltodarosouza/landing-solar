@@ -179,6 +179,68 @@ if (typeof document !== "undefined") {
       });
     });
 
+    // ---- Céu de Sorocaba agora: aparece na pergunta do dia nublado, quando ela é aberta pela primeira vez.
+    // O navegador fala só com /api/ceu (o servidor é quem consulta a Open-Meteo). Se o servidor demorar,
+    // cortar ou cair, a pergunta continua respondida e a linha do céu diz o que houve, com "Tentar de novo".
+    var ceuLinha = document.getElementById("ceu-agora");
+    var ceuBotao = document.getElementById("faq-b5");
+    if (ceuLinha && ceuBotao && window.fetch) {
+      var ceuEmCurso = false, ceuFeito = false;
+      var FALHAS = {
+        demorou: "A previsão demorou demais para responder, então não mostro o céu de agora.",
+        caiu: "Não consegui ver o céu de Sorocaba agora: o serviço de previsão não respondeu.",
+        limite: "O serviço de previsão pediu para esperar um pouco antes de uma nova consulta.",
+        inesperado: "Não consegui ler a previsão de agora.",
+        recusou: "Não consegui ler a previsão de agora."
+      };
+      var ceuTexto = function (txt, comTentar) {
+        ceuLinha.textContent = txt;
+        if (comTentar) {
+          ceuLinha.appendChild(document.createTextNode(" A resposta acima vale do mesmo jeito. "));
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "ceu-de-novo"; b.textContent = "Tentar de novo";
+          b.addEventListener("click", buscarCeu);
+          ceuLinha.appendChild(b);
+        }
+      };
+      var ceuFonte = function () {
+        ceuLinha.appendChild(document.createTextNode(" "));
+        var a = document.createElement("a");
+        a.href = "https://open-meteo.com"; a.rel = "noopener"; a.target = "_blank"; a.className = "ceu-fonte"; a.textContent = "Dados: Open-Meteo";
+        ceuLinha.appendChild(a);
+      };
+      var buscarCeu = function () {
+        if (ceuEmCurso) return;
+        ceuEmCurso = true;
+        ceuLinha.hidden = false;
+        ceuTexto("Vendo o céu de Sorocaba agora…", false);
+        var ctl = new AbortController();
+        var relogio = setTimeout(function () { ctl.abort(); }, 5000);
+        fetch("/api/ceu", { signal: ctl.signal }).then(function (r) {
+          return r.json().then(function (j) { return { status: r.status, j: j }; });
+        }).then(function (res) {
+          if (res.j && res.j.ok) {
+            var j = res.j;
+            var quando = j.leitura ? j.leitura.slice(11, 16) : "";
+            var frase = (j.desatualizado ? "Última leitura, de " + quando + ": " : "Agora em Sorocaba: ") + j.temperatura + " °C, " + j.descricao + " (" + j.nuvem + "% de nuvens).";
+            if (!j.dia) frase += " É noite: o sistema não produz agora, e é o crédito do mês que paga.";
+            if (j.desatualizado) frase += " O serviço de previsão não respondeu agora.";
+            ceuTexto(frase, j.desatualizado);
+            ceuFonte();
+            ceuFeito = !j.desatualizado;
+          } else {
+            ceuTexto(FALHAS[res.j && res.j.motivo] || FALHAS.caiu, true);
+          }
+        }).catch(function (e) {
+          ceuTexto(e && e.name === "AbortError" ? FALHAS.demorou : FALHAS.caiu, true);
+        }).then(function () {
+          clearTimeout(relogio);
+          ceuEmCurso = false;
+        });
+      };
+      ceuBotao.addEventListener("click", function () { if (!ceuFeito && !ceuEmCurso && ceuBotao.closest(".faq-item").classList.contains("aberto")) buscarCeu(); });
+    }
+
     // ---- Números da prova: contam quando aparecem
     function conta(el) {
       var alvo = parseFloat(el.getAttribute("data-conta"));

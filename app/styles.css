@@ -402,6 +402,11 @@ html.scrub .historia-texto { align-self: center; }
 .faq-corpo { display: grid; grid-template-rows: 1fr; }
 .faq-corpo > div { overflow: hidden; }
 .faq-corpo p { padding-bottom: var(--e3); }
+.faq-corpo .ceu-agora { margin: 0 0 var(--e3); padding: 0 0 0 var(--e2); border-left: 3px solid var(--laranja); font-size: var(--t-rotulo); font-weight: 600; color: var(--tinta-suave); }
+.ceu-agora a, .ceu-de-novo { color: var(--marinho); text-decoration: underline; text-underline-offset: 3px; font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.ceu-fonte { font-weight: 400; }
+.faq-item .ceu-agora .ceu-de-novo { width: auto; min-height: 0; padding: 0; display: inline; font-size: var(--t-rotulo); font-weight: 600; letter-spacing: 0; transition: none; color: var(--marinho); }
+.faq-item .ceu-agora .ceu-de-novo:hover { color: var(--tinta-suave); }
 .js .faq-corpo { grid-template-rows: 0fr; transition: grid-template-rows 450ms var(--curva); }
 .js .faq-corpo p { opacity: 0; transform: translateY(-8px); transition: opacity 350ms, transform 450ms var(--curva); }
 .js .faq-item.aberto .faq-corpo { grid-template-rows: 1fr; }
