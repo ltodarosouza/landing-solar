@@ -127,6 +127,7 @@ ok    formulário: WhatsApp com +55 passa
 ok    formulário: nome vazio é bloqueado
 ok    formulário: aceita 1.200 e 1200,50
 ok    formulário: conta não numérica é bloqueada
+ok    formulário: cada recusa diz o motivo — conta abaixo do mínimo e cidade longe demais, com um pedido de desculpas
 ok    formulário: cidade fora da lista (não só "outra") é bloqueada
 ok    servidor: pedido válido responde 200
 ok    servidor: conta de R$ 200 responde 422 com o motivo da conta
@@ -140,4 +141,4 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-141 de 141 verificações passaram.
+142 de 142 verificações passaram.

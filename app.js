@@ -45,13 +45,13 @@ function validar(campos) {
   if (!campos.cidade) {
     erros.cidade = "Escolha a cidade.";
   } else if (CIDADES.indexOf(campos.cidade) === -1) {
-    erros.cidade = "Atendemos Sorocaba, Votorantim, Itu e Salto, num raio de 80 km. Fora disso não conseguimos instalar.";
+    erros.cidade = "Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender: instalamos só em Sorocaba, Votorantim, Itu e Salto, num raio de 80 km.";
   }
   var conta = lerValor(campos.conta);
   if (isNaN(conta)) {
     erros.conta = "Digite o valor médio da conta, só números.";
   } else if (conta < CONTA_MINIMA) {
-    erros.conta = "Abaixo de R$ " + CONTA_MINIMA + " por mês o sistema não se paga em tempo razoável, e nós mesmos desaconselhamos. Não vamos pedir seu contato.";
+    erros.conta = "Seu gasto com luz está abaixo do mínimo de R$ " + CONTA_MINIMA + " por mês. Abaixo disso o sistema não se paga em tempo razoável, e nós mesmos desaconselhamos a compra. Sentimos muito, mas não vamos seguir com o pedido.";
   }
   return erros;
 }

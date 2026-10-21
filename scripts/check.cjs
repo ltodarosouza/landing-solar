@@ -285,6 +285,7 @@ verifica("formulário: WhatsApp com +55 passa", !app.validar({ ...ok, whatsapp: 
 verifica("formulário: nome vazio é bloqueado", !!app.validar({ ...ok, nome: " " }).nome);
 verifica("formulário: aceita 1.200 e 1200,50", app.lerValor("1.200") === 1200 && app.lerValor("1200,50") === 1200.5);
 verifica("formulário: conta não numérica é bloqueada", !!app.validar({ ...ok, conta: "abc" }).conta);
+verifica("formulário: cada recusa diz o motivo — conta abaixo do mínimo e cidade longe demais, com um pedido de desculpas", /abaixo do mínimo de R\$ 450/.test(app.validar({ ...ok, conta: "200" }).conta) && /Sentimos muito/.test(app.validar({ ...ok, conta: "200" }).conta) && /longe demais/.test(app.validar({ ...ok, cidade: "outra" }).cidade) && /Sentimos muito, mas não podemos te atender/.test(app.validar({ ...ok, cidade: "Campinas" }).cidade));
 verifica("formulário: cidade fora da lista (não só \"outra\") é bloqueada", !!app.validar({ ...ok, cidade: "Campinas" }).cidade);
 
 // servidor: api/pedido.js repete as regras da página
