@@ -262,8 +262,14 @@ verifica("a chuva só anima enquanto o bloco está na tela e volta a tocar quand
 verifica("com movimento reduzido a chuva some e o selo e a casa aparecem prontos", /\.onda, \.mc-gota, \.mc-respingo \{ display: none; \}/.test(css) && /\.js \.mc-selo \{ transform: none; animation: none; \}|\.js \.mc-selo \{ transform: none/.test(css.replace(/\.js \.pin, \.js \.pop, \.js \.resp, \.js \.barra, \.js \.carimbo, \.js \.mc-selo \{ transform: none; animation: none; \}/, ".js .mc-selo { transform: none; animation: none; }")));
 verifica("a pergunta do cliente e a garantia do brief estão ditas junto da cena: E se chover? e 5 anos contra infiltração causada pela obra", /<h2 id="telhado-titulo">E se chover\?<\/h2>\s*<p class="lead[^"]*">[^<]*5 anos[^<]*infiltração[^<]*obra/.test(html));
 verifica("a navbar é reta no topo e vira pílula ao rolar", /\.nav \{[^}]*border-radius: 0;/.test(css) && /\.nav-area\.rolou \.nav \{[^}]*border-radius: 999px;/.test(css) && /classList\.toggle\("rolou", window\.scrollY > 24\)/.test(appJs));
-const faqBotoes = [...html.matchAll(/<button type="button" id="(faq-b\d)" aria-expanded="false" aria-controls="(faq-\d)"/g)];
-verifica("três perguntas animadas, fechadas ao carregar, com região ligada ao botão", faqBotoes.length === 3 && faqBotoes.every((m) => ids.has(m[2])) && !/<details/.test(html));
+const faqBotoes = [...html.matchAll(/<button type="button" id="(faq-b\d)" aria-expanded="(true|false)" aria-controls="(faq-\d)"/g)];
+verifica("seis perguntas animadas, só a primeira aberta ao carregar, com região ligada ao botão", faqBotoes.length === 6 && faqBotoes.every((m) => ids.has(m[3])) && faqBotoes.map((m) => m[2]).join(",") === "true,false,false,false,false,false" && /<div class="faq-item aberto">/.test(html) && !/<details/.test(html));
+const faqTextos = [...html.matchAll(/<button type="button" id="faq-b\d"[^>]*><span>([^<]*)<\/span>/g)].map((m) => m[1]);
+const doBrief = ["sumir daqui a dois anos", "estragar meu telhado", "Taxaram o sol", "mudar de casa", "nublado", "bateria"];
+verifica("as perguntas são as seis do brief, na ordem em que o cliente as faz (o medo de a empresa sumir vem primeiro)", faqTextos.length === 6 && doBrief.every((t, i) => faqTextos[i].includes(t)), JSON.stringify(faqTextos));
+const resp1 = (html.match(/id="faq-1"[^>]*><div><p>([^<]*)<\/p>/) || [, ""])[1];
+verifica("a resposta ao medo número um usa as provas do brief: seis anos, onze pessoas, 412 sistemas, equipe própria com carteira assinada, 5 anos de garantia, assistência autorizada e acompanhamento no primeiro ano", ["seis anos", "onze pessoas", "412 sistemas", "carteira assinada", "5 anos de garantia", "assistência técnica autorizada", "primeiro ano"].every((t) => resp1.includes(t)), resp1);
+verifica("a resposta sobre o telhado só diz o que o brief diz: garantia de 5 anos contra infiltração causada pela obra e visita técnica", /id="faq-2"[^>]*><div><p>[^<]*5 anos[^<]*infiltração causada pela obra[^<]*visita técnica/.test(html));
 verifica("sem JavaScript o conteúdo das perguntas continua visível (só colapsa com .js)", /\.faq-corpo \{ display: grid; grid-template-rows: 1fr; \}/.test(css) && /\.js \.faq-corpo \{ grid-template-rows: 0fr;/.test(css));
 
 // ---------- formulário ----------

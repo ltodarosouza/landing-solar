@@ -4,7 +4,7 @@ Revisão 9 (21/10/2026). Acumula as revisões anteriores; as seções 7 a 12 aba
 
 ## 1. Check executável
 
-`node scripts/check.cjs` → **128 de 128**, código de saída 0 (saída completa em `check.txt`).
+`node scripts/check.cjs` → **131 de 131**, código de saída 0 (saída completa em `check.txt`).
 
 Falhas que o check pegou durante esta revisão, e o que foi corrigido:
 - **Contraste do "+" das perguntas:** laranja sobre fundo claro dava 2,88:1, abaixo de 3:1. Corrigi a página (símbolo em marinho), não o critério. A regra agora é: laranja só em número grande sobre o painel branco.
@@ -191,6 +191,16 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 - **Página no ar:** https://landing-solar-sigma.vercel.app (deploy de produção da Vercel, projeto `landing-solar`). Conferido sem login: a página e os quatro arquivos (`styles.css`, `app.js`, `cena.js`, `assets/logo.svg`) respondem 200 com o tipo certo; o título e o `h1` são os esperados; o console não mostra erro; a conta do hero termina em 118.
 - **Defeito achado só depois de publicar:** a 864 px (tablet) a trilha das etapas estourava 3 px na horizontal, porque a palavra "Acompanhamento", a 48 px, é mais larga que a coluna de texto naquele tamanho. Eu tinha testado só 390 e 1280. Corrigido (coluna de texto com `minmax(0, 1fr)`, ícone com `clamp(220px, 28vw, 300px)` e quebra de palavra no título) e medido em **360, 390, 600, 768, 864, 899, 1024, 1280 e 1440 px**: nenhum tem rolagem horizontal.
 - **Não verificado na versão publicada:** aparelho físico, Safari e Firefox; desempenho; o número de WhatsApp continua fictício e as fotos reais das obras e os depoimentos em vídeo continuam pendentes (ver SPEC).
+
+## 14. FAQ com as seis perguntas do brief
+
+**Pedido:** responder no FAQ a pergunta número um do cliente ("Como sei que vocês não vão sumir daqui a dois anos?") e as outras que mais aparecem. **Feito:** o FAQ tinha 3 perguntas e agora tem as 6 do brief, na ordem em que o cliente as faz; a primeira abre ao carregar. A resposta ao medo número um usa só as provas do brief: seis anos, onze pessoas, 412 sistemas, equipe própria com carteira assinada, 5 anos de garantia da instalação, assistência técnica autorizada e acompanhamento no primeiro ano. A do telhado só diz a garantia de 5 anos contra infiltração causada pela obra e a visita técnica com medição. Nenhuma resposta promete que a empresa "nunca vai sumir".
+
+**Check (131):** seis perguntas, só a primeira aberta, região ligada ao botão; as seis são as do brief na ordem; a resposta 1 contém as sete provas; a resposta 2 só diz o que o brief diz.
+
+**Medido no navegador a 1280 px (com o painel visível):** ao carregar, só a primeira aberta (203 px de altura, as outras em 0); abrir a quinta fecha a primeira (alturas 0, 0, 0, 0, 75, 0); reabrir a primeira fecha a quinta; clicar de novo fecha tudo. Um primeiro teste foi descartado porque o painel estava oculto e a animação não corria; repeti com o painel visível.
+
+**Não verificado:** o FAQ a 390 px (só o CSS, que é o mesmo) e em aparelho físico, Safari e Firefox.
 
 ## 5. (revisão 2) O que NÃO foi verificado
 

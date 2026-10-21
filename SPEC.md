@@ -29,7 +29,7 @@ O hero fala como quem explica para um vizinho: sem kWp, inversor, homologação 
 7. **Quem instala é a nossa equipe:** mapa das quatro cidades num raio de 80 km, equipe própria e assistência autorizada da marca do inversor.
 8. **E se chover?:** a pergunta do cliente, a garantia de 5 anos contra infiltração causada pela obra, "5 anos" em destaque e uma animação pequena e sutil (a casa, chuva leve, um selo de certo).
 9. **Etapas:** trilha vertical com uma bolinha que desce com o scroll e acende seis etapas (simulação, visita, proposta, homologação na CPFL, instalação, acompanhamento). Prazo: de 45 a 60 dias entre a assinatura e o sistema ligado.
-10. **Perguntas:** Lei 14.300, mudar de casa, bateria.
+10. **Perguntas:** as seis que o cliente mais faz, na ordem do brief: como sei que vocês não vão sumir (o medo número um, aberta ao carregar), isso não vai estragar meu telhado, taxaram o sol, e se eu mudar de casa, nublado e à noite, preciso de bateria. As respostas usam só o que o brief diz.
 11. **Formulário** em seção escura: nome, WhatsApp, cidade e valor médio da conta; antes dele, uma linha de quem a Ravena não atende. O botão repete a mesma ação.
 12. **Rodapé:** descrição da empresa, cidades e a CPFL como distribuidora.
 

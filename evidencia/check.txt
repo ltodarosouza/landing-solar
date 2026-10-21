@@ -111,7 +111,10 @@ ok    a chuva só anima enquanto o bloco está na tela e volta a tocar quando a 
 ok    com movimento reduzido a chuva some e o selo e a casa aparecem prontos
 ok    a pergunta do cliente e a garantia do brief estão ditas junto da cena: E se chover? e 5 anos contra infiltração causada pela obra
 ok    a navbar é reta no topo e vira pílula ao rolar
-ok    três perguntas animadas, fechadas ao carregar, com região ligada ao botão
+ok    seis perguntas animadas, só a primeira aberta ao carregar, com região ligada ao botão
+ok    as perguntas são as seis do brief, na ordem em que o cliente as faz (o medo de a empresa sumir vem primeiro)
+ok    a resposta ao medo número um usa as provas do brief: seis anos, onze pessoas, 412 sistemas, equipe própria com carteira assinada, 5 anos de garantia, assistência autorizada e acompanhamento no primeiro ano
+ok    a resposta sobre o telhado só diz o que o brief diz: garantia de 5 anos contra infiltração causada pela obra e visita técnica
 ok    sem JavaScript o conteúdo das perguntas continua visível (só colapsa com .js)
 ok    formulário: dados válidos passam
 ok    formulário: conta de R$ 200 é bloqueada
@@ -127,5 +130,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-128 de 128 verificações passaram.
+131 de 131 verificações passaram.
 exit=0
