@@ -1,0 +1,3 @@
+{"caso":"bom","aposSegundos":"0.9","texto":"Agora em Sorocaba: 23 °C, céu coberto (100% de nuvens). Dados: Open-Meteo","temBotaoTentarDeNovo":false,"errosDePagina":[]}
+{"caso":"rota-cai","aposSegundos":"0.9","texto":"Não consegui ver o céu de Sorocaba agora: o serviço de previsão não respondeu. A resposta acima vale do mesmo jeito. Tentar de novo","temBotaoTentarDeNovo":true,"errosDePagina":[]}
+{"caso":"rota-demora","aposSegundos":"5.8","texto":"A previsão demorou demais para responder, então não mostro o céu de agora. A resposta acima vale do mesmo jeito. Tentar de novo","temBotaoTentarDeNovo":true,"errosDePagina":[]}

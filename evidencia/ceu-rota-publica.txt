@@ -1,0 +1,5 @@
+{"ok":true,"fonte":"Open-Meteo","desatualizado":false,"temperatura":23,"nuvem":100,"dia":true,"leitura":"2026-10-21T17:15","descricao":"céu coberto"}
+HTTP 200
+HTTP/2 200 
+cache-control: public
+x-vercel-cache: HIT
