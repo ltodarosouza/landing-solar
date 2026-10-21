@@ -220,7 +220,9 @@ O número e a barra saem da mesma variável: com a barra em 0,083 (55% do caminh
 
 **Evidência:** `evidencia/servidor.txt` guarda as requisições feitas com `curl` contra a função rodando num servidor local que imita o contrato da Vercel: conta R$ 200 → 422 com o motivo da conta; "Campinas" e "outra" → 422 com o motivo da cidade; pedido válido → 200; nome como objeto e conta como lista → 422 sem quebrar; corpo que não é JSON → 400; GET → 405. O check subiu de 132 para 141. Provei o check contra uma cópia com a validação do servidor desligada: três checks falham (138 de 141); restaurada, 141 de 141.
 
-**Não verificado:** a função **ainda não foi publicada** na Vercel (o deploy não foi pedido nesta etapa); o teste foi num servidor local que imita a Vercel, não na Vercel. Também não abri o formulário no navegador com a função ligada, e a validação no servidor hoje não protege nada de fato, porque o servidor ainda não guarda o pedido (item 1 do FALTA.md): ela só passa a valer de verdade quando o pedido passar a ser gravado nele.
+**Mensagens que dizem o motivo:** a recusa de conta diz "Seu gasto com luz está abaixo do mínimo de R$ 450 por mês… Sentimos muito" e a de cidade diz "Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender…" (check, 142). **Publicado:** push e deploy feitos; `evidencia/servidor-publico.txt` repete na URL pública conta R$ 200 → 422, Campinas → 422, válido → 200 e GET → 405, com as mensagens novas.
+
+**Não verificado:** não abri o formulário no navegador com a função ligada (na versão publicada), nem em aparelho físico; e a validação no servidor hoje não protege nada de fato, porque o servidor ainda não guarda o pedido (item 1 do FALTA.md): ela só passa a valer de verdade quando o pedido passar a ser gravado nele.
 
 
 - Não abri em aparelho físico; o celular é emulação de 390 px.

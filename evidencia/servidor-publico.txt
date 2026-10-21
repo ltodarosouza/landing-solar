@@ -1,0 +1,13 @@
+== PÚBLICO (Vercel) ==
+-- conta R$ 200
+{"ok":false,"erros":{"conta":"Seu gasto com luz está abaixo do mínimo de R$ 450 por mês. Abaixo disso o sistema não se paga em tempo razoável, e nós mesmos desaconselhamos a compra. Sentimos muito, mas não vamos seguir com o pedido."}}
+HTTP 422
+-- cidade Campinas
+{"ok":false,"erros":{"cidade":"Sua cidade fica longe demais. Sentimos muito, mas não podemos te atender: instalamos só em Sorocaba, Votorantim, Itu e Salto, num raio de 80 km."}}
+HTTP 422
+-- válido
+{"ok":true}
+HTTP 200
+-- GET
+{"erro":"Use POST."}
+HTTP 405
