@@ -34,11 +34,20 @@ Por quê: é o único caso com número conferido que o cliente tem, e responde a
 
 Pedido do aluno: seguir a estrutura do guia de landing pages do Julian Shapiro (navbar, hero com título, subtítulo e imagem, prova social, CTA, 3 a 6 blocos de funcionalidade e objeção com imagem, CTA repetido, rodapé) e o estilo das referências Entoa, Aparo, ReadingStone e Vale do Silício: uma ideia por tela, tipografia grande, respiro, interação, hierarquia clara. Pouca informação por tela.
 
+## Revisão 3 (21/10/2026): o produto em ação
+
+Pedido do aluno: mostrar o uso das placas ao rolar, no espírito do Vale do Silício (cena que muda com o scroll), com mais interações e uma prova social legível (no print dele, o número ficou minúsculo ao lado de rótulos grandes: bug de CSS, corrigido).
+
+- **Nova seção "Do sol à conta de luz"**, logo depois da prova social: cena de casa com painéis guiada pelo scroll, seis capítulos. Os textos só descrevem o mecanismo (sol, painel, inversor, uso, crédito, noite) e reaproveitam o que o brief diz: 10 anos de garantia do inversor, crédito acumulado ao longo do mês, a conta não zera. Nenhum número novo.
+- **Interações:** cursor com rótulos, barra de leitura, navbar que marca a seção, hero que segue o mouse, botões com ímã, cartões que inclinam.
+- **Acessibilidade:** tudo isso desliga com `prefers-reduced-motion`; a cena vira lista de textos com imagem parada; o cursor só existe com mouse.
+
 ## O que entra, na ordem
 
 1. **Navbar** em pílula flutuante: logo, âncoras "Como funciona" e "Perguntas", botão "Pedir simulação".
 2. **Hero:** título com o caso R$ 780 para R$ 118, subtítulo de uma frase, botão, ilustração de casa com painéis. Para quem é, numa linha.
-3. **Prova social:** 412 sistemas, 4,8 no Google (137 avaliações), 6 anos, equipe própria. Números que contam ao rolar.
+3. **Prova social:** 412 sistemas, 4,8 no Google (137 avaliações), 6 anos, 11 pessoas de equipe própria. Números grandes que contam ao rolar.
+3b. **Cena do telhado guiada pelo scroll (revisão 3):** o sistema funcionando, do sol à conta, em seis capítulos.
 4. **Interação "Veja a faixa da sua conta":** o visitante move um controle de R$ 450 a R$ 1.500 e vê a faixa em que a conta tende a ficar (queda de 75% a 90%, a média dos clientes). Diz que não é promessa e que a conta não zera. Leva o valor para o formulário. É a demonstração do produto e também o filtro de conta baixa.
 5. **Quatro blocos de objeção, cada um com título curto, duas frases e ilustração:** quem instala (mapa das quatro cidades, equipe própria, seis anos), telhado (garantia de infiltração), nublado e noite (crédito do mês), financiamento (entrada zero, parcela perto da conta).
 6. **Números do investimento numa faixa só:** R$ 14 mil a R$ 19 mil, 5 a 8 kWp, retorno de 3 a 4 anos.

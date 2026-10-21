@@ -1,6 +1,6 @@
 # DESIGN — Ravena Solar
 
-Revisão 2. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
+Revisão 3. Regras com valor; cada uma é conferida por `scripts/check.cjs` ou pelas medidas em `evidencia/`.
 
 Direção: editorial e técnico. Uma ideia por tela, tipografia grande, muito respiro, números como protagonistas, ilustração vetorial nas cores da logo, movimento só quando explica algo.
 
@@ -14,6 +14,7 @@ Os três tokens de marca vêm de `assets/logo.svg`; o check compara.
 | `--ambar` | `#F2A03D` | sol no logo | **Botão de ação** e o sol das ilustrações |
 | `--laranja` | `#E8721C` | SOLAR no logo | Decoração: filetes, seta, destaques em número grande. Nunca texto pequeno |
 | `--sol` | `#FFF1DB` | âmbar a 15% sobre branco | Fundo quente do hero e das ilustrações |
+| `--noite` | `#0B2638` | marinho escurecido | Céu e chão da cena à noite. Só na cena animada |
 | `--papel` | `#F6F8FA` | neutro | Fundo de seção alternada |
 | `--branco` | `#FFFFFF` | neutro | Fundo base |
 | `--tinta-suave` | `#4A5B68` | neutro derivado do marinho | Texto de apoio |
@@ -60,8 +61,25 @@ Raio 16 px em cartões e ilustrações, 8 px em botões e campos, pílula na nav
 
 SVG inline, sem arquivo externo, na paleta acima. Motivo repetido: o trapézio de painel da logo (marinho com linhas brancas). Cada ilustração mostra o mecanismo do bloco (mapa de atendimento, corte do telhado, dia e noite, conta e parcela), nunca decoração abstrata. Todas têm `role="img"` e `aria-label`.
 
+## Cena do telhado (guiada pelo scroll)
+
+Seção de 700 vh com palco fixo (`position: sticky`) de 100 vh. O progresso do scroll (0 a 1) é suavizado e alimenta um modelo puro (`cena.js: estadoCena`), testado pelo check. Seis capítulos, um por faixa de progresso: sol, geração, inversor, uso na casa, crédito na rede, noite.
+
+- O sol cruza o céu da esquerda para a direita; o céu passa de `--sol` a âmbar e a `--noite`.
+- Painéis, inversor e janelas acendem só quando o capítulo pede. O fluxo de energia é um traço tracejado âmbar que corre pelo fio; à noite inverte o sentido.
+- Texto num cartão branco translúcido; só o capítulo ativo aparece, os outros ficam empilhados e invisíveis.
+- Pontos laterais de 48 px mostram e levam ao capítulo.
+- Em celular o quadro da cena fecha em torno da casa e do poste.
+- Sem JavaScript ou com movimento reduzido: a cena fica parada no meio do dia e os seis textos aparecem em lista, abaixo.
+
 ## Movimento
 
+- Barra de leitura de 4 px no topo, laranja, acompanha a rolagem da página.
+- Navbar sublinha a seção que está na tela.
+- Cursor (só mouse e sem movimento reduzido): anel de 40 px que segue com atraso e vira disco âmbar de 72 px com um rótulo ("Role", "Pedir", "Abrir", "Ver", "Arraste") sobre o que reage.
+- Hero: título entra palavra por palavra; sol e casa seguem o mouse em profundidades diferentes.
+- Botões têm ímã leve; cartões de garantia inclinam até 8 graus; ilustrações dos blocos deslocam 6% da distância ao centro da tela.
+- Prova social: número em tamanho de h1, rótulo pequeno, filete lateral que fica laranja ao passar.
 - Revelar ao rolar: 20 px de deslocamento e opacidade, 600 ms, uma vez.
 - Números da prova contam de 0 ao valor, uma vez, 1,2 s.
 - Raios do sol giram devagar (60 s por volta).

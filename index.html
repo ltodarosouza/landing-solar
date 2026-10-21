@@ -11,15 +11,20 @@
 </head>
 <body>
 
+<div class="progresso" aria-hidden="true"><span id="progresso-barra"></span></div>
+<div class="cursor" aria-hidden="true"><span></span></div>
+<div class="cursor-ponto" aria-hidden="true"></div>
+
 <div class="nav-area">
   <div class="wrap">
     <nav class="nav" aria-label="Principal">
       <a href="#inicio" aria-label="Ravena Solar, início"><img src="assets/logo.svg" alt="Ravena Solar" width="135" height="36"></a>
       <ul>
-        <li><a href="#etapas">Como funciona</a></li>
+        <li><a href="#como-funciona">O sistema</a></li>
+        <li><a href="#etapas">Etapas</a></li>
         <li><a href="#perguntas">Perguntas</a></li>
       </ul>
-      <a class="btn" href="#simulacao">Pedir simulação</a>
+      <a class="btn" href="#simulacao" data-cursor="Pedir">Pedir simulação</a>
     </nav>
   </div>
 </div>
@@ -34,12 +39,13 @@
         <h1>A conta de luz era R$ 780. Hoje é R$ 118.</h1>
         <p class="lead">Casa em Sorocaba, sistema de 6,4 kWp instalado em março de 2025. O valor de hoje é a média dos últimos doze meses.</p>
         <div class="acao">
-          <a class="btn" href="#simulacao">Pedir simulação</a>
+          <a class="btn" href="#simulacao" data-cursor="Pedir">Pedir simulação</a>
           <p class="apoio">Para contas de luz a partir de R$ 450 por mês. A conta não zera: sempre resta a taxa mínima e o custo do fio.</p>
         </div>
       </div>
       <div class="ilustra" role="img" aria-label="Casa com painéis solares no telhado e o sol ao fundo">
         <svg viewBox="0 0 560 460" aria-hidden="true">
+          <g id="hero-sol">
           <circle cx="420" cy="120" r="54" fill="#F2A03D"/>
           <g class="raios" stroke="#F2A03D" stroke-width="8" stroke-linecap="round">
             <line x1="494" y1="120" x2="516" y2="120"/><line x1="484.1" y1="157" x2="503.1" y2="168"/>
@@ -49,7 +55,9 @@
             <line x1="383" y1="55.9" x2="372" y2="36.9"/><line x1="420" y1="46" x2="420" y2="24"/>
             <line x1="457" y1="55.9" x2="468" y2="36.9"/><line x1="484.1" y1="83" x2="503.1" y2="72"/>
           </g>
+          </g>
           <rect x="0" y="380" width="560" height="80" fill="#123A55" opacity="0.1"/>
+          <g id="hero-casa">
           <rect x="110" y="250" width="320" height="130" fill="#FFFFFF" stroke="#123A55" stroke-width="4"/>
           <polygon points="80,254 270,140 460,254" fill="#F6F8FA" stroke="#123A55" stroke-width="4" stroke-linejoin="round"/>
           <path d="M150 238 L222 176 L318 176 L390 238 Z" fill="#123A55"/>
@@ -60,6 +68,7 @@
           <rect x="250" y="300" width="44" height="80" fill="#123A55"/>
           <rect x="140" y="285" width="60" height="50" fill="#FFF1DB" stroke="#123A55" stroke-width="3"/>
           <rect x="340" y="285" width="60" height="50" fill="#FFF1DB" stroke="#123A55" stroke-width="3"/>
+          </g>
         </svg>
         <span class="legenda">6,4 kWp, Sorocaba</span>
       </div>
@@ -71,12 +80,104 @@
     <div class="wrap">
       <div class="numeros revela">
         <div class="numero"><strong><span data-conta="412">412</span></strong><span>sistemas residenciais instalados</span></div>
-        <div class="numero"><strong><span data-conta="4.8" data-casas="1">4,8</span> no Google</strong><span>137 avaliações</span></div>
-        <div class="numero"><strong><span data-conta="6">6</span> anos</strong><span>de Ravena, sede em Sorocaba</span></div>
-        <div class="numero"><strong><span data-conta="11">11</span> pessoas</strong><span>equipe própria, com carteira assinada</span></div>
+        <div class="numero"><strong><span data-conta="4.8" data-casas="1">4,8</span></strong><span>nota no Google, 137 avaliações</span></div>
+        <div class="numero"><strong><span data-conta="6">6</span></strong><span>anos de Ravena, sede em Sorocaba</span></div>
+        <div class="numero"><strong><span data-conta="11">11</span></strong><span>pessoas, equipe própria com carteira assinada</span></div>
       </div>
     </div>
   </div>
+
+  <!-- Cena guiada pelo scroll -->
+  <section class="historia" id="como-funciona" aria-labelledby="historia-titulo">
+    <div class="historia-palco" data-cursor="Role">
+      <svg id="cena" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Cena animada de uma casa com painéis solares: o sol cruza o céu, os painéis geram energia, o inversor a converte, a casa usa o que produz, o excedente vai para a rede como crédito e à noite a casa usa esse crédito">
+        <rect id="cena-ceu" x="-1000" y="-1000" width="3200" height="2700" fill="#FFF1DB"/>
+        <g id="cena-estrelas" fill="#FFFFFF" style="opacity:0">
+          <circle cx="100" cy="80" r="2.5"/><circle cx="220" cy="150" r="2.5"/><circle cx="330" cy="60" r="2.5"/><circle cx="420" cy="200" r="2.5"/>
+          <circle cx="520" cy="110" r="2.5"/><circle cx="700" cy="70" r="2.5"/><circle cx="760" cy="190" r="2.5"/><circle cx="980" cy="90" r="2.5"/>
+          <circle cx="1080" cy="180" r="2.5"/><circle cx="1140" cy="60" r="2.5"/><circle cx="80" cy="260" r="2.5"/><circle cx="250" cy="300" r="2.5"/>
+          <circle cx="1000" cy="280" r="2.5"/><circle cx="1120" cy="300" r="2.5"/>
+        </g>
+        <g id="cena-lua" style="opacity:0"><circle cx="880" cy="150" r="30" fill="#FFF1DB"/><circle cx="896" cy="140" r="28" fill="#0B2638"/></g>
+        <g id="cena-sol" transform="translate(600 120)">
+          <g class="raios-cena" stroke="#F2A03D" stroke-width="8" stroke-linecap="round">
+            <line x1="62" y1="0" x2="84" y2="0"/><line x1="53.7" y1="31" x2="72.7" y2="42"/><line x1="31" y1="53.7" x2="42" y2="72.7"/>
+            <line x1="0" y1="62" x2="0" y2="84"/><line x1="-31" y1="53.7" x2="-42" y2="72.7"/><line x1="-53.7" y1="31" x2="-72.7" y2="42"/>
+            <line x1="-62" y1="0" x2="-84" y2="0"/><line x1="-53.7" y1="-31" x2="-72.7" y2="-42"/><line x1="-31" y1="-53.7" x2="-42" y2="-72.7"/>
+            <line x1="0" y1="-62" x2="0" y2="-84"/><line x1="31" y1="-53.7" x2="42" y2="-72.7"/><line x1="53.7" y1="-31" x2="72.7" y2="-42"/>
+          </g>
+          <circle r="44" fill="#F2A03D"/>
+        </g>
+        <g id="cena-feixes" stroke="#F2A03D" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 16" style="opacity:0">
+          <line x1="600" y1="120" x2="640" y2="330"/><line x1="600" y1="120" x2="600" y2="330"/><line x1="600" y1="120" x2="560" y2="330"/>
+        </g>
+        <path d="M0 560 L0 500 C150 450 300 480 450 520 L450 560 Z" fill="#123A55" opacity="0.08"/>
+        <path d="M1200 560 L1200 490 C1050 440 900 470 760 520 L760 560 Z" fill="#123A55" opacity="0.08"/>
+        <rect id="cena-chao" x="-1000" y="560" width="3200" height="1500" fill="#123A55" style="opacity:0.12"/>
+        <!-- poste e medidor -->
+        <rect x="944" y="360" width="12" height="200" fill="#123A55" stroke="#FFFFFF" stroke-width="2"/>
+        <rect x="918" y="372" width="64" height="8" rx="4" fill="#123A55" stroke="#FFFFFF" stroke-width="2"/>
+        <rect x="922" y="334" width="56" height="24" rx="12" fill="#FFFFFF"/>
+        <text x="950" y="351" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#123A55">rede</text>
+        <rect x="972" y="440" width="70" height="110" rx="10" fill="#FFFFFF" stroke="#123A55" stroke-width="4"/>
+        <text x="1007" y="462" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#123A55">crédito</text>
+        <rect x="1000" y="474" width="14" height="60" rx="7" fill="#F6F8FA" stroke="#123A55" stroke-width="2"/>
+        <rect id="cena-credito" x="1000" y="534" width="14" height="0" fill="#F2A03D"/>
+        <!-- casa -->
+        <rect x="450" y="400" width="300" height="160" fill="#FFFFFF" stroke="#123A55" stroke-width="5"/>
+        <polygon points="420,404 600,290 780,404" fill="#F6F8FA" stroke="#123A55" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M470 392 L535 328 L665 328 L730 392 Z" fill="#123A55"/>
+        <path id="cena-painel" d="M470 392 L535 328 L665 328 L730 392 Z" fill="#F2A03D" style="opacity:0"/>
+        <g stroke="#FFFFFF" stroke-width="3" opacity="0.85">
+          <line x1="578.3" y1="328" x2="556.7" y2="392"/><line x1="621.7" y1="328" x2="643.3" y2="392"/><line x1="502.5" y1="360" x2="697.5" y2="360"/>
+        </g>
+        <rect x="575" y="470" width="50" height="90" fill="#123A55"/>
+        <rect x="480" y="440" width="70" height="60" fill="#FFF1DB" stroke="#123A55" stroke-width="4"/>
+        <rect x="650" y="440" width="70" height="60" fill="#FFF1DB" stroke="#123A55" stroke-width="4"/>
+        <g id="cena-janelas" fill="#F2A03D" style="opacity:0"><rect x="482" y="442" width="66" height="56"/><rect x="652" y="442" width="66" height="56"/></g>
+        <rect x="560" y="252" width="80" height="24" rx="12" fill="#FFFFFF"/>
+        <text x="600" y="269" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#123A55">painéis</text>
+        <!-- fios -->
+        <g fill="none" stroke="#123A55" stroke-width="4" stroke-linecap="round" opacity="0.28">
+          <path d="M716 376 C760 376 800 392 793 448"/><path d="M772 486 H690"/><path d="M814 486 C880 486 920 450 950 380"/>
+        </g>
+        <g fill="none" stroke="#F2A03D" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 14">
+          <g id="cena-cc" style="opacity:0"><path class="fluxo" d="M716 376 C760 376 800 392 793 448"/></g>
+          <g id="cena-ca" style="opacity:0"><path class="fluxo" d="M772 486 H690"/></g>
+          <g id="cena-rede" style="opacity:0"><path class="fluxo" d="M814 486 C880 486 920 450 950 380"/></g>
+        </g>
+        <!-- inversor -->
+        <rect x="772" y="450" width="42" height="60" rx="6" fill="#FFFFFF" stroke="#123A55" stroke-width="4"/>
+        <circle cx="793" cy="468" r="6" fill="#123A55"/>
+        <circle id="cena-led" cx="793" cy="468" r="6" fill="#F2A03D" style="opacity:0"/>
+        <rect x="758" y="526" width="70" height="24" rx="12" fill="#FFFFFF"/>
+        <text x="793" y="543" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#123A55">inversor</text>
+      </svg>
+
+      <div class="historia-texto">
+        <span class="sobretitulo">Como a placa trabalha</span>
+        <h2 id="historia-titulo">Do sol à conta de luz</h2>
+        <ol class="capitulos">
+          <li class="ativo"><span class="num">1 de 6</span><h3>O sol chega ao telhado</h3><p>Os painéis ficam voltados para o sol. Cada um é feito de células que reagem à luz.</p></li>
+          <li><span class="num">2 de 6</span><h3>Os painéis geram energia</h3><p>A luz vira corrente elétrica contínua. Em dia nublado chega menos luz, e a geração cai.</p></li>
+          <li><span class="num">3 de 6</span><h3>O inversor converte</h3><p>A corrente passa pelo inversor, que a transforma na corrente da tomada. É o equipamento com 10 anos de garantia.</p></li>
+          <li><span class="num">4 de 6</span><h3>A casa usa o que produz</h3><p>Geladeira, chuveiro e luz usam primeiro a energia do telhado. A conta cai porque você compra menos da distribuidora.</p></li>
+          <li><span class="num">5 de 6</span><h3>O que sobra vira crédito</h3><p>Se o telhado produz mais do que a casa usa, o excedente vai para a rede da CPFL e fica como crédito ao longo do mês.</p></li>
+          <li><span class="num">6 de 6</span><h3>À noite, você usa o crédito</h3><p>Sem sol, a casa puxa da rede e o crédito compensa. Por isso a conta não zera: sobram a taxa mínima e o custo do fio.</p></li>
+        </ol>
+      </div>
+
+      <ol class="pontos" aria-label="Capítulos da cena">
+        <li class="ativo"><button type="button" aria-label="Capítulo 1: o sol chega ao telhado"></button></li>
+        <li><button type="button" aria-label="Capítulo 2: os painéis geram energia"></button></li>
+        <li><button type="button" aria-label="Capítulo 3: o inversor converte"></button></li>
+        <li><button type="button" aria-label="Capítulo 4: a casa usa o que produz"></button></li>
+        <li><button type="button" aria-label="Capítulo 5: o que sobra vira crédito"></button></li>
+        <li><button type="button" aria-label="Capítulo 6: à noite, você usa o crédito"></button></li>
+      </ol>
+      <div class="dica" aria-hidden="true">Role para ver o sistema funcionar</div>
+    </div>
+  </section>
 
   <!-- Faixa da conta -->
   <section aria-labelledby="faixa-titulo">
@@ -89,14 +190,14 @@
       <div class="painel revela">
         <label for="faixa-conta">Quanto você paga de luz por mês</label>
         <output class="paga" id="faixa-paga" for="faixa-conta">R$ 780</output>
-        <input id="faixa-conta" type="range" min="450" max="1500" step="10" value="780" aria-describedby="faixa-ressalva">
+        <input id="faixa-conta" type="range" data-cursor="Arraste" min="450" max="1500" step="10" value="780" aria-describedby="faixa-ressalva">
         <div class="escala" aria-hidden="true"><span>R$ 450</span><span>R$ 1.500</span></div>
         <div class="resultado" aria-live="polite">
           <span class="apoio rotulo">Na média dos nossos clientes, a conta fica entre</span>
           <span class="faixa-valor" id="faixa-resultado">&nbsp;</span>
           <p class="ressalva" id="faixa-ressalva">Queda de 75% a 90%, a média dos clientes. Não é promessa: quem diz o seu número é a simulação, depois da visita ao telhado. A conta não zera.</p>
         </div>
-        <a class="btn" href="#simulacao" data-leva-conta>Pedir simulação</a>
+        <a class="btn" href="#simulacao" data-leva-conta data-cursor="Pedir">Pedir simulação</a>
       </div>
     </div>
   </section>
@@ -379,6 +480,7 @@
   </div>
 </footer>
 
+<script src="cena.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

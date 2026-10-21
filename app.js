@@ -193,3 +193,144 @@ if (typeof document !== "undefined") {
     revela.forEach(function (el) { obs.observe(el); });
   }
 }
+
+// Movimento e cursor. Tudo aqui é opcional: sem JS ou com movimento reduzido a página funciona igual.
+if (typeof document !== "undefined") {
+  (function () {
+    var semMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var comMouse = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+
+    // Barra de progresso de leitura
+    var barra = document.getElementById("progresso-barra");
+    function progresso() {
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      barra.style.transform = "scaleX(" + (total > 0 ? Math.min(1, window.scrollY / total) : 0) + ")";
+    }
+    window.addEventListener("scroll", progresso, { passive: true });
+    progresso();
+
+    // Navbar: destaca a seção que está na tela
+    var links = {};
+    document.querySelectorAll('.nav ul a').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    if ("IntersectionObserver" in window) {
+      var vistas = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          var a = links[e.target.id];
+          if (!a) return;
+          if (e.isIntersecting) {
+            Object.keys(links).forEach(function (k) { links[k].classList.remove("ativo"); });
+            a.classList.add("ativo");
+          } else {
+            a.classList.remove("ativo");
+          }
+        });
+      }, { rootMargin: "-45% 0px -45% 0px" });
+      Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) vistas.observe(s); });
+    }
+
+    if (semMovimento) return;
+
+    // Título do hero: palavra por palavra
+    var h1 = document.querySelector("h1");
+    var texto = h1.textContent.trim().split(/\s+/);
+    h1.setAttribute("aria-label", texto.join(" "));
+    h1.textContent = "";
+    texto.forEach(function (palavra, i) {
+      var s = document.createElement("span");
+      s.className = "pal";
+      s.setAttribute("aria-hidden", "true");
+      s.style.setProperty("--i", i);
+      s.textContent = palavra;
+      h1.appendChild(s);
+      if (i < texto.length - 1) h1.appendChild(document.createTextNode(" "));
+    });
+
+    // Ilustrações dos blocos: deslocamento leve ao rolar
+    var paralaxe = Array.prototype.slice.call(document.querySelectorAll(".bloco .ilustra svg"));
+    function aoRolar() {
+      var meio = window.innerHeight / 2;
+      paralaxe.forEach(function (svg) {
+        var r = svg.getBoundingClientRect();
+        var d = (r.top + r.height / 2 - meio) * -0.06;
+        svg.style.transform = "translateY(" + d.toFixed(1) + "px)";
+      });
+    }
+    window.addEventListener("scroll", aoRolar, { passive: true });
+    aoRolar();
+
+    if (!comMouse) return;
+
+    // Hero: o sol e a casa seguem o mouse em profundidades diferentes
+    var hero = document.querySelector(".hero");
+    var sol = document.getElementById("hero-sol");
+    var casa = document.getElementById("hero-casa");
+    hero.addEventListener("pointermove", function (ev) {
+      var r = hero.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width - 0.5;
+      var y = (ev.clientY - r.top) / r.height - 0.5;
+      sol.style.transform = "translate(" + (x * 28).toFixed(1) + "px," + (y * 18).toFixed(1) + "px)";
+      casa.style.transform = "translate(" + (x * -10).toFixed(1) + "px," + (y * -6).toFixed(1) + "px)";
+    });
+    hero.addEventListener("pointerleave", function () { sol.style.transform = ""; casa.style.transform = ""; });
+
+    // Botões com ímã
+    document.querySelectorAll(".btn").forEach(function (b) {
+      b.addEventListener("pointermove", function (ev) {
+        var r = b.getBoundingClientRect();
+        var x = (ev.clientX - (r.left + r.width / 2)) * 0.18;
+        var y = (ev.clientY - (r.top + r.height / 2)) * 0.28;
+        b.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
+      });
+      b.addEventListener("pointerleave", function () { b.style.transform = ""; });
+    });
+
+    // Cartões de garantia inclinam
+    document.querySelectorAll(".garantia").forEach(function (g) {
+      g.addEventListener("pointermove", function (ev) {
+        var r = g.getBoundingClientRect();
+        var x = (ev.clientX - r.left) / r.width - 0.5;
+        var y = (ev.clientY - r.top) / r.height - 0.5;
+        g.style.transform = "perspective(600px) rotateX(" + (y * -8).toFixed(1) + "deg) rotateY(" + (x * 8).toFixed(1) + "deg)";
+      });
+      g.addEventListener("pointerleave", function () { g.style.transform = ""; });
+    });
+
+    // Cursor
+    var anel = document.querySelector(".cursor");
+    var rotulo = anel.querySelector("span");
+    var ponto = document.querySelector(".cursor-ponto");
+    var mx = -100, my = -100, ax = -100, ay = -100;
+    var ROTULOS = [
+      ['.historia-palco', 'Role'],
+      ['.btn', 'Pedir'],
+      ['summary', 'Abrir'],
+      ['[role="tab"]', 'Ver'],
+      ['input[type="range"]', 'Arraste']
+    ];
+    function rotuloDe(alvo) {
+      if (!alvo || !alvo.closest) return null;
+      if (alvo.closest(".pontos")) return null;
+      for (var i = ROTULOS.length - 1; i >= 0; i--) {
+        if (alvo.closest(ROTULOS[i][0])) {
+          if (ROTULOS[i][0] === ".historia-palco" && document.getElementById("como-funciona").getAttribute("data-capitulo") !== "0") return null;
+          return ROTULOS[i][1];
+        }
+      }
+      return null;
+    }
+    document.addEventListener("pointermove", function (ev) {
+      mx = ev.clientX; my = ev.clientY;
+      ponto.style.transform = "translate(" + mx + "px," + my + "px)";
+      anel.classList.add("visivel");
+      var r = rotuloDe(ev.target);
+      if (r) { rotulo.textContent = r; anel.classList.add("rotulo-ativo"); } else { anel.classList.remove("rotulo-ativo"); }
+    });
+    document.documentElement.addEventListener("pointerleave", function () { anel.classList.remove("visivel"); });
+    (function segue() {
+      ax += (mx - ax) * 0.18;
+      ay += (my - ay) * 0.18;
+      anel.style.transform = "translate(" + ax.toFixed(1) + "px," + ay.toFixed(1) + "px)";
+      requestAnimationFrame(segue);
+    })();
+  })();
+}

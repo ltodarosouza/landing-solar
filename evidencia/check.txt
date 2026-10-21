@@ -64,6 +64,24 @@ ok    só a primeira aba começa selecionada
 ok    cinco ilustrações, todas com role=img e descrição
 ok    svgs decorativos escondidos do leitor de tela
 ok    ilustrações só usam a paleta do DESIGN.md
+ok    --noite #0B2638 existe no CSS, no DESIGN.md e na última parada do céu
+ok    a cena tem role=img e descrição
+ok    seis capítulos de texto e seis pontos de navegação
+ok    o modo de rolagem (.scrub) só é ligado pelo JavaScript, nunca vem no HTML
+ok    a cena respeita prefers-reduced-motion (fica parada, com todos os textos visíveis)
+ok    cursor só com mouse e sem redução de movimento
+ok    alvo de toque dos pontos laterais tem 48 px
+ok    sol: começa no horizonte (y 560), passa no alto (y 120) e se põe (y 560)
+ok    o sol cruza da esquerda para a direita, sem voltar
+ok    painéis só acendem com sol: apagados em 0 e em 1, acesos no meio
+ok    o sol some de vista à noite (não aparece através do chão)
+ok    à noite: estrelas e lua aparecem, o painel e o inversor apagam
+ok    a energia só vai para a rede durante o dia, e volta à noite
+ok    o crédito cresce de dia (p=0.78 > p=0.6) e nunca zera por completo à noite
+ok    capítulos em ordem: 0, 0.2, 0.35, 0.5, 0.7, 0.9 mapeiam para 0 a 5
+ok    capítulo 3 é o do inversor e o texto cita os 10 anos do brief
+ok    a cena não promete número que o brief não deu (nenhum R$ nem % nos capítulos)
+ok    céu de dia é o token --sol e à noite é --noite
 ok    formulário: dados válidos passam
 ok    formulário: conta de R$ 200 é bloqueada
 ok    formulário: R$ 449 é bloqueado e R$ 450 passa
@@ -78,5 +96,5 @@ ok    mensagem de WhatsApp leva os quatro dados
 ok    link do WhatsApp é wa.me com o texto codificado
 ok    número de WhatsApp definido em um só lugar e marcado como pendente
 
-79 de 79 verificações passaram.
+97 de 97 verificações passaram.
 exit=0

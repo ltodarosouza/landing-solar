@@ -13,6 +13,9 @@ const logo = ler("assets/logo.svg");
 const design = ler("DESIGN.md");
 const appPath = path.join(raiz, "app.js");
 const app = require(appPath);
+const cena = require(path.join(raiz, "cena.js"));
+const cenaJs = ler("cena.js");
+const appJs = ler("app.js");
 
 let falhas = 0;
 let total = 0;
@@ -47,6 +50,7 @@ const papel = token("papel");
 const branco = token("branco");
 const suave = token("tinta-suave");
 const sol = token("sol");
+const noite = token("noite");
 const logoHex = (logo.match(/#[0-9A-Fa-f]{6}/g) || []).map((h) => h.toUpperCase());
 
 verifica("tokens de marca existem no CSS", !!(marinho && ambar && laranja), [marinho, ambar, laranja].join(" "));
@@ -161,7 +165,7 @@ const caso = (780 - 118) / 780;
 verifica("o caso (780 para 118) cai " + (caso * 100).toFixed(1) + "%, dentro da faixa de 75% a 90%", caso >= 0.75 && caso <= 0.9);
 
 // ---------- interação: faixa da conta ----------
-const faixaHtml = html.match(/<input id="faixa-conta" type="range" min="(\d+)" max="(\d+)"/);
+const faixaHtml = html.match(/<input id="faixa-conta" type="range"[^>]*min="(\d+)" max="(\d+)"/);
 verifica("controle da conta começa no mínimo da empresa (R$ 450)", !!faixaHtml && +faixaHtml[1] === app.CONTA_MINIMA);
 const f780 = app.faixaDaConta(780);
 verifica("faixa de R$ 780: " + f780.min + " a " + f780.max + " (75% a 90% de queda)", f780.min === 78 && f780.max === 195);
@@ -181,9 +185,31 @@ const ilus = [...html.matchAll(/<div class="ilustra[^"]*" role="img" aria-label=
 verifica("cinco ilustrações, todas com role=img e descrição", ilus.length === 5, String(ilus.length));
 verifica("svgs decorativos escondidos do leitor de tela", (html.match(/<svg [^>]*aria-hidden="true"/g) || []).length === 5);
 const hexSvg = [...new Set((html.match(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g) || []).map((m) => m.slice(-8, -1).toUpperCase()))];
-const paleta = new Set([marinho, ambar, laranja, sol, papel, branco, suave]);
+const paleta = new Set([marinho, ambar, laranja, sol, papel, branco, suave, noite]);
 const forasDaPaleta = hexSvg.filter((h) => !paleta.has(h));
 verifica("ilustrações só usam a paleta do DESIGN.md", forasDaPaleta.length === 0, "fora: " + forasDaPaleta.join(", "));
+
+// ---------- cena guiada pelo scroll ----------
+verifica("--noite " + noite + " existe no CSS, no DESIGN.md e na última parada do céu", !!noite && design.toUpperCase().includes(noite) && cenaJs.toUpperCase().includes('[1.0, "' + noite + '"]'));
+verifica("a cena tem role=img e descrição", /<svg id="cena"[^>]*role="img" aria-label="[^"]{40,}"/.test(html));
+const ptsCena = (html.match(/<ol class="pontos"[\s\S]*?<\/ol>/) || [""])[0];
+verifica("seis capítulos de texto e seis pontos de navegação", (html.match(/<span class="num">\d de 6<\/span>/g) || []).length === 6 && (ptsCena.match(/<button type="button" aria-label="Capítulo \d/g) || []).length === 6);
+verifica("o modo de rolagem (.scrub) só é ligado pelo JavaScript, nunca vem no HTML", !/class="[^"]*\bscrub\b/.test(html) && /classList\.add\("scrub"\)/.test(cenaJs));
+verifica("a cena respeita prefers-reduced-motion (fica parada, com todos os textos visíveis)", /prefers-reduced-motion: reduce/.test(cenaJs) && /aplica\(0\.55\)/.test(cenaJs) && /html\.scrub \.capitulos li\s*{[^}]*opacity: 0/.test(css) && !/^\.capitulos li\s*{[^}]*opacity: 0/m.test(css));
+verifica("cursor só com mouse e sem redução de movimento", /@media \(pointer: fine\) and \(prefers-reduced-motion: no-preference\)/.test(css) && /\(pointer: fine\)/.test(appJs) && /\.cursor, \.cursor-ponto \{ display: none; \}/.test(css));
+verifica("alvo de toque dos pontos laterais tem 48 px", /\.pontos button \{ width: 48px; height: 48px;/.test(css));
+const c0 = cena.estadoCena(0), c40 = cena.estadoCena(0.4), c80 = cena.estadoCena(0.8), c100 = cena.estadoCena(1);
+verifica("sol: começa no horizonte (y " + c0.solY + "), passa no alto (y " + c40.solY.toFixed(0) + ") e se põe (y " + c80.solY.toFixed(0) + ")", c0.solY >= cena.HORIZONTE && c40.solY < 150 && c80.solY >= cena.HORIZONTE - 1);
+verifica("o sol cruza da esquerda para a direita, sem voltar", [0, 0.2, 0.4, 0.6, 0.8].map((p) => cena.estadoCena(p).solX).every((x, i, a) => i === 0 || x > a[i - 1]));
+verifica("painéis só acendem com sol: apagados em 0 e em 1, acesos no meio", c0.painel === 0 && c100.painel === 0 && cena.estadoCena(0.5).painel > 0.9);
+verifica("o sol some de vista à noite (não aparece através do chão)", c100.solVisivel === 0 && cena.estadoCena(0.5).solVisivel === 1);
+verifica("à noite: estrelas e lua aparecem, o painel e o inversor apagam", c100.estrelas > 0.95 && c100.lua > 0.95 && c100.led === 0 && cena.estadoCena(0.5).estrelas === 0);
+verifica("a energia só vai para a rede durante o dia, e volta à noite", cena.estadoCena(0.68).redeSai > 0.9 && c100.redeSai === 0 && c100.redeEntra > 0.95 && cena.estadoCena(0.68).redeEntra === 0);
+verifica("o crédito cresce de dia (p=0.78 > p=0.6) e nunca zera por completo à noite", cena.estadoCena(0.78).credito > cena.estadoCena(0.6).credito && c100.credito > 0 && cena.estadoCena(0.6).credito === 0);
+verifica("capítulos em ordem: 0, 0.2, 0.35, 0.5, 0.7, 0.9 mapeiam para 0 a 5", [0, 0.2, 0.35, 0.5, 0.7, 0.9].map(cena.capituloDe).join("") === "012345");
+verifica("capítulo 3 é o do inversor e o texto cita os 10 anos do brief", /<h3>O inversor converte<\/h3><p>[^<]*10 anos de garantia/.test(html));
+verifica("a cena não promete número que o brief não deu (nenhum R$ nem % nos capítulos)", !/<ol class="capitulos">[\s\S]*?<\/ol>/.exec(html)[0].match(/R\$|%/));
+verifica("céu de dia é o token --sol e à noite é --noite", cena.corDoCeu(0).toUpperCase() === sol && cena.corDoCeu(1).toUpperCase() === noite);
 
 // ---------- formulário ----------
 const ok = { nome: "Marta Souza", whatsapp: "15 99876-5432", cidade: "Itu", conta: "620" };
