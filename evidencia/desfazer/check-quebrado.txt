@@ -1,0 +1,6 @@
+node:internal/modules/cjs/loader:1573
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/ltodaro/dev/trabalhos-202/landing-solar/public/cena.js'
+Require stack:

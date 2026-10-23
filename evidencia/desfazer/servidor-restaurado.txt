@@ -1,0 +1,3 @@
+página: HTTP 200
+cena.js: HTTP 200
+rota /api/pedido (conta R$ 200): HTTP 422
