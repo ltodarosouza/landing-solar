@@ -1,0 +1,8 @@
+== na minha máquina, com as variáveis do .env.local (três chamadas seguidas, logo depois de ligar o servidor) ==
+{"ok":true,"conectado":true,"linhasVisiveis":0} HTTP 200 em 0.952083s
+{"ok":true,"conectado":true,"linhasVisiveis":0} HTTP 200 em 0.297085s
+{"ok":true,"conectado":true,"linhasVisiveis":0} HTTP 200 em 0.293851s
+
+== sem as variáveis (vazias no ambiente) ==
+{"ok":false,"motivo":"sem-configuracao","faltando":["SUPABASE_URL","SUPABASE_PUBLISHABLE_KEY"]}
+HTTP 503

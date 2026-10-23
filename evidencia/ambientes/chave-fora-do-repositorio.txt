@@ -1,0 +1,16 @@
+Prova de que a chave não está no repositório (o valor nunca é impresso aqui; só contagens e nomes de arquivo)
+
+1) Arquivos da pasta que contêm a chave (fora de node_modules, .next e .git):
+   ./.env.local
+2) O git ignora esse arquivo?
+   .gitignore:7:.env.*	.env.local
+3) Commits (todas as branches, incluindo o histórico) que contêm a chave: 0
+4) Arquivos rastreados pelo git com env no nome:
+   .env.example
+5) No que o navegador baixa:
+   arquivos do build do cliente (.next/static) que contêm a chave: 0
+   HTML da página: 0 ocorrências
+   resposta de /api/banco: 0 ocorrências
+6) Variáveis na Vercel (valores escondidos):
+   SUPABASE_PUBLISHABLE_KEY    Hidden    Secret    Preview         3m ago     
+   SUPABASE_URL                Hidden    Secret    Preview         3m ago     

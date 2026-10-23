@@ -317,6 +317,22 @@ const falhasCeu = require("child_process").spawnSync(process.execPath, [path.joi
 verifica("céu: a fonte que não responde, corta, quebra, limita, recusa ou muda a unidade é tratada (14 falhas provocadas de verdade)", falhasCeu.status === 0 && (falhasCeu.stdout.match(/^ok /gm) || []).length === 14, falhasCeu.stdout.slice(-400));
 verifica("céu: o navegador só fala com /api/ceu, com limite de tempo, e nunca com a Open-Meteo", /fetch\("\/api\/ceu"/.test(ler("public/app.js")) && /AbortController/.test(ler("public/app.js")) && !/api\.open-meteo/.test(ler("public/app.js")) && /api\.open-meteo\.com/.test(ler("lib/ceu.js")) && /AbortController/.test(ler("lib/ceu.js")) && /import ceu from "\.\.\/\.\.\/\.\.\/lib\/ceu\.js"/.test(ler("app/api/ceu/route.js")));
 verifica("céu: a linha fica escondida sem JavaScript, dentro da resposta da pergunta do dia nublado, e traz a fonte", /id="faq-5"[^>]*><div><p>[^<]*<\/p><p class="ceu-agora" id="ceu-agora" role="status" hidden><\/p><\/div>/.test(html) && /Dados: Open-Meteo/.test(ler("public/app.js")));
+
+// ---------- segredos e ambientes (aula 2.6) ----------
+const cp = require("child_process");
+const rastreados = cp.execFileSync("git", ["ls-files", "-z"], { cwd: raiz, encoding: "utf8" }).split("\0").filter(Boolean);
+const padraoSegredo = /sb_(publishable|secret)_[A-Za-z0-9_-]{20,}|eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{10,}/; // valor com cara de chave; a palavra service_role sozinha é só o nome de um papel (aparece nos comentários do config do Supabase)
+const comSegredo = rastreados.filter((f) => !/\.(png|jpg|svg|ico|webp|woff2?)$/.test(f) && f !== "scripts/check.cjs" && padraoSegredo.test(fs.readFileSync(path.join(raiz, f), "utf8")));
+verifica("nenhum arquivo rastreado pelo git tem cara de chave (sb_publishable_, sb_secret_ ou JWT)", comSegredo.length === 0, comSegredo.join(", "));
+const exemplo = ler(".env.example").split("\n").filter((l) => l && !l.startsWith("#"));
+verifica(".env.example só tem os nomes das variáveis, sem nenhum valor, e sem NEXT_PUBLIC_", exemplo.length >= 2 && exemplo.every((l) => /^[A-Z_]+=$/.test(l)) && !exemplo.some((l) => l.startsWith("NEXT_PUBLIC_")));
+const ignorado = (f) => cp.spawnSync("git", ["check-ignore", "-q", f], { cwd: raiz }).status === 0;
+verifica(".gitignore cobre .env, .env.local e .env.production, e deixa o .env.example rastreado", ignorado(".env") && ignorado(".env.local") && ignorado(".env.production") && !ignorado(".env.example") && rastreados.includes(".env.example") && !rastreados.some((f) => /(^|\/)\.env(\.[a-z]+)*$/.test(f) && f !== ".env.example"));
+const usaNext = rastreados.filter((f) => /^(app|lib|public)\//.test(f) && /NEXT_PUBLIC_/.test(fs.readFileSync(path.join(raiz, f), "utf8")));
+verifica("o código não usa variável NEXT_PUBLIC_ (nada de segredo indo para o navegador por engano)", usaNext.length === 0, usaNext.join(", "));
+verifica("a rota /api/banco lê a chave do ambiente do servidor e só repassa para lib/banco.js", /process\.env/.test(ler("lib/banco.js")) && /SUPABASE_PUBLISHABLE_KEY/.test(ler("lib/banco.js")) && /import banco from "\.\.\/\.\.\/\.\.\/lib\/banco\.js"/.test(ler("app/api/banco/route.js")));
+const bancoTeste = cp.spawnSync(process.execPath, [path.join(raiz, "scripts/teste-banco.cjs")], { encoding: "utf8" });
+verifica("banco: a rota responde em cada caso (ok, sem variáveis, chave recusada, quebra, demora) e a chave nunca aparece na resposta (8 verificações)", bancoTeste.status === 0 && (bancoTeste.stdout.match(/^ok /gm) || []).length === 8, bancoTeste.stdout.slice(-300));
 const msg = app.montarMensagem(ok);
 verifica("mensagem de WhatsApp leva os quatro dados", ["Marta Souza", "15 99876-5432", "Itu", "620"].every((s) => msg.includes(s)));
 const url = app.linkWhatsApp(ok);
