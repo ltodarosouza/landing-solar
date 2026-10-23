@@ -1,0 +1,14 @@
+== PRÉVIA do PR 3 (protegida pela Vercel; acessada com 'vercel curl', logado na minha conta) ==
+-- página
+
+HTTP 200
+-- /api/banco
+Vercel CLI 62.1.0 | curl is in beta — https://vercel.com/feedback
+{"ok":true,"conectado":true,"linhasVisiveis":0}
+HTTP 200
+-- /api/pedido (conta R$ 200, só para ver que o resto da rota segue igual)
+{"ok":false,"erros":{"conta":"Seu gasto com luz está abaixo do mínimo de R$ 450 por mês. Abaixo disso o sistema não se paga em tempo razoável, e 
+HTTP 422
+
+-- a chave aparece no HTML que a prévia entrega ao navegador? 0 ocorrências
+-- e a PRODUÇÃO (não foi tocada): /api/banco HTTP 404 (a rota só existe na prévia, e as variáveis só estão em Preview)
