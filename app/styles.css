@@ -224,7 +224,8 @@ section { padding: var(--secao) 0; }
 }
 .js .destaque::before { transform: scaleX(0); }
 .js .hero.visivel .destaque::before { animation: marca 1200ms var(--curva) 500ms forwards; }
-.js .hero.visivel .destaque::after { animation: brilho 4.5s ease-in-out 2s infinite; }
+/* o último valor é a contagem de repetições: passa uma vez (recomeça quando o hero volta à tela) */
+.js .hero.visivel .destaque::after { animation: brilho 4.5s ease-in-out 2s 1; }
 @keyframes marca { to { transform: scaleX(1); } }
 @keyframes brilho { 0% { background-position: 120% 0; } 45%, 100% { background-position: -40% 0; } }
 
