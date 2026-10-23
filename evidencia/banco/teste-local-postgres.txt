@@ -1,0 +1,23 @@
+ok    migration
+ok    exemplo.sql
+┌─────────┬────────────────┬────────────┬───────────┬──────────────────────────────────┐
+│ (index) │ nome           │ simulacoes │ soma      │ cidades                          │
+├─────────┼────────────────┼────────────┼───────────┼──────────────────────────────────┤
+│ 0       │ 'Carlos Lima'  │ 1          │ '780.00'  │ 'Sorocaba (proposta_enviada)'    │
+│ 1       │ 'Marta Souza'  │ 2          │ '1600.50' │ 'Itu (respondido), Salto (novo)' │
+│ 2       │ 'Renata Alves' │ 1          │ '450.00'  │ 'Votorantim (desistiu)'          │
+└─────────┴────────────────┴────────────┴───────────┴──────────────────────────────────┘
+recusas: [
+  {
+    motivo: 'cidade_fora_do_raio',
+    conta_mensal: '800.00',
+    cidade: null
+  },
+  {
+    motivo: 'conta_abaixo_do_minimo',
+    conta_mensal: '200.00',
+    cidade: 'Itu'
+  }
+]
+ok    testes-de-recusa.sql (o banco barra tudo)
+ok    sem a regra de R$ 450 o teste acusa: DEVERIA TER FALHADO: conta de R$ 200 numa simulação

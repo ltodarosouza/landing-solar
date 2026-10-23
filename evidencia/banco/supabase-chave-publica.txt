@@ -1,0 +1,19 @@
+== com a chave pública (visitante sem login) ==
+-- GET leads
+[]
+HTTP 200
+-- GET simulacoes
+[]
+HTTP 200
+-- GET recusas
+[]
+HTTP 200
+-- GET cidades
+[]
+HTTP 200
+-- POST leads (tentando inserir)
+{"code":"42501","details":null,"hint":null,"message":"new row violates row-level security policy for table \"leads\""}
+HTTP 401
+-- DELETE leads
+
+HTTP 204
