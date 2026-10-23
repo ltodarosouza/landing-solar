@@ -135,12 +135,9 @@ if (typeof document !== "undefined") {
     var comMouse = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
     var limita = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
 
-    // ---- Barra de leitura e navbar (reta no topo, pílula ao descer)
-    var barraProgresso = document.getElementById("progresso-barra");
+    // ---- Navbar (reta no topo, pílula ao descer)
     var navArea = document.getElementById("nav-area");
     function aoRolar() {
-      var total = document.documentElement.scrollHeight - window.innerHeight;
-      barraProgresso.style.transform = "scaleX(" + (total > 0 ? Math.min(1, window.scrollY / total) : 0) + ")";
       navArea.classList.toggle("rolou", window.scrollY > 24);
     }
     window.addEventListener("scroll", aoRolar, { passive: true });
