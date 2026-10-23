@@ -169,10 +169,6 @@ button:focus-visible,
 .nav .btn { padding: 0 var(--e2); border-radius: 999px; }
 @media (min-width: 768px) { .nav ul { display: flex; } }
 
-/* Progresso de leitura */
-.progresso { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 30; pointer-events: none; }
-.progresso span { display: block; height: 100%; width: 100%; background: var(--laranja); transform: scaleX(0); transform-origin: left; }
-
 /* Seções */
 section { padding: var(--secao) 0; }
 .alt { background: var(--papel); }
